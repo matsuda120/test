@@ -15,17 +15,19 @@
 <div class="users form large-9 medium-8 columns content">
     <?= $this->Form->create($user) ?>
     <fieldset>
-        <legend><?= __('Add User') ?></legend>
+        <legend><?= __('会員登録') ?></legend>
         <?php
-            echo $this->Form->control('userid');
-            echo $this->Form->control('name');
-            echo $this->Form->control('age');
-            echo $this->Form->control('fishing_history');
-            echo $this->Form->control('email');
-            echo $this->Form->control('password');
-            echo $this->Form->control('deleted');
+            echo $this->Form->control('ユーザーID');
+            echo $this->Form->control('氏名');
+            echo $this->Form->control('年齢');
+            echo $this->Form->control('釣り歴');
+            echo $this->Form->control('メールアドレス');
+            echo $this->Form->control('パスワード');
+
+            //未実装　表示させないようにする
+            //echo $this->Form->control('deleted');
         ?>
     </fieldset>
-    <?= $this->Form->button(__('Submit')) ?>
+    <?= $this->Form->button(__('登録')) ?>
     <?= $this->Form->end() ?>
 </div>

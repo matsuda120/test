@@ -36,9 +36,15 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
 <body>
     <nav class="top-bar expanded" data-topbar role="navigation">
         <ul class="title-area large-3 medium-4 columns">
+            
+            <!-- <li class="name">
+                <h2>?= $this->element('my_header') ?></h2>
+            </li> -->
+            
             <li class="name">
-                <h1><a href=""><?= $this->fetch('title') ?></a></h1>
+                <h1><?= $this->fetch('my_header') ?></h1>
             </li>
+            
         </ul>
         <div class="top-bar-section">
             <ul class="right">
@@ -50,12 +56,14 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
              <li><a href="/my-project/users/logout">ログアウト</a></li>
             <?php else:?>
              <li><a href="/my-project/users/login">ログイン</a></li>
-             <!-- 未実装 -->
-             <!-- <li><a href="/my-project/users/register">会員登録</a></li> -->
+             <li><a href="/my-project/users/add">会員登録</a></li>
             <?php endif;?>
 
-             <li><a target="_blank" href="https://book.cakephp.org/3.0/">Documentation</a></li>
-             <li><a target="_blank" href="https://api.cakephp.org/3.0/">API</a></li>
+             <!-- 不要？
+                <li><a target="_blank" href="https://book.cakephp.org/3.0/">Documentation</a></li>
+                <li><a target="_blank" href="https://api.cakephp.org/3.0/">API</a></li>
+            -->
+             
             </ul>
         </div>
     </nav>
