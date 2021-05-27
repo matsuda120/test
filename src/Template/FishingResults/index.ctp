@@ -4,51 +4,64 @@
  * @var \App\Model\Entity\FishingResult[]|\Cake\Collection\CollectionInterface $fishingResults
  */
 ?>
+
 <nav class="large-3 medium-4 columns" id="actions-sidebar">
     <ul class="side-nav">
         <li class="heading"><?= __('Actions') ?></li>
-        <li><?= $this->Html->link(__('New Fishing Result'), ['action' => 'add']) ?></li>
-        <li><?= $this->Html->link(__('List Weathers'), ['controller' => 'Weathers', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New Weather'), ['controller' => 'Weathers', 'action' => 'add']) ?></li>
-        <li><?= $this->Html->link(__('List Prefectures'), ['controller' => 'Prefectures', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New Prefecture'), ['controller' => 'Prefectures', 'action' => 'add']) ?></li>
-        <li><?= $this->Html->link(__('List Fishing Types'), ['controller' => 'FishingTypes', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New Fishing Type'), ['controller' => 'FishingTypes', 'action' => 'add']) ?></li>
-        <li><?= $this->Html->link(__('List Users'), ['controller' => 'Users', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New User'), ['controller' => 'Users', 'action' => 'add']) ?></li>
+        <li><?= $this->Html->link(__('検索'), ['controller' => 'FishingResults', 'action' => 'search']) ?></li>
+        <li><?= $this->Html->link(__('項目切替'), ['controller' => 'FishingResults', 'action' => 'columchange']) ?></li>
+        <li><?= $this->Html->link(__('釣果登録'), ['action' => 'add']) ?></li>
+        <li><?= $this->Html->link(__('釣果修正'), ['action' => 'edit']) ?></li>
+        <li><?= $this->Html->link(__('釣果削除'), ['action' => 'delete']) ?></li>
     </ul>
 </nav>
+
+<!-- <nav class="large-3 medium-4 columns" id="actions-sidebar">
+    <ul class="side-nav">
+        <li class="heading">?= __('Actions') ?></li>
+        <li>?= $this->Html->link(__('New Fishing Result'), ['action' => 'add']) ?></li>
+        <li>?= $this->Html->link(__('List Weathers'), ['controller' => 'Weathers', 'action' => 'index']) ?></li>
+        <li>?= $this->Html->link(__('New Weather'), ['controller' => 'Weathers', 'action' => 'add']) ?></li>
+        <li>?= $this->Html->link(__('List Prefectures'), ['controller' => 'Prefectures', 'action' => 'index']) ?></li>
+        <li>?= $this->Html->link(__('New Prefecture'), ['controller' => 'Prefectures', 'action' => 'add']) ?></li>
+        <li>?= $this->Html->link(__('List Fishing Types'), ['controller' => 'FishingTypes', 'action' => 'index']) ?></li>
+        <li>?= $this->Html->link(__('New Fishing Type'), ['controller' => 'FishingTypes', 'action' => 'add']) ?></li>
+        <li>?= $this->Html->link(__('List Users'), ['controller' => 'Users', 'action' => 'index']) ?></li>
+        <li>?= $this->Html->link(__('New User'), ['controller' => 'Users', 'action' => 'add']) ?></li>
+    </ul>
+</nav> -->
+
 <div class="fishingResults index large-9 medium-8 columns content">
     <h3><?= __('Fishing Results') ?></h3>
     <table cellpadding="0" cellspacing="0">
         <thead>
             <tr>
-                <th scope="col"><?= $this->Paginator->sort('id') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('fishing_date') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('time_from') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('time_to') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('weather_id') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('temperature') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('water_temperature') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('prefecture_id') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('city') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('spot') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('water_depth') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('water_depth_unit') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('fish_type') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('fish_caught_time') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('length') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('length_unit') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('weight') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('weight_unit') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('quantity') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('fishing_type_id') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('lure_feed_name') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('lure_feed') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('note') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('user_id') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('created') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('modified') ?></th>
+                <!-- <th scope="col">?= $this->Paginator->sort('id') ?></th> -->
+                <th scope="col"><?= $this->Paginator->sort('日付') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('釣り開始時間') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('釣り終了時間') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('天気') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('気温') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('水温') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('都道府県') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('市町村') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('スポット') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('水深') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('水深の単位') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('魚種') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('釣った時間') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('長さ') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('長さの単位') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('重さ') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('重さの単位') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('匹数') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('釣種') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('ルアー／えさ名称') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('ルアー／えさ') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('備考') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('ユーザーID') ?></th>
+                <!-- <th scope="col">?= $this->Paginator->sort('created') ?></th> -->
+                <!-- <th scope="col">?= $this->Paginator->sort('modified') ?></th> -->
                 <th scope="col" class="actions"><?= __('Actions') ?></th>
             </tr>
         </thead>
@@ -92,11 +105,11 @@
     </table>
     <div class="paginator">
         <ul class="pagination">
-            <?= $this->Paginator->first('<< ' . __('first')) ?>
-            <?= $this->Paginator->prev('< ' . __('previous')) ?>
+            <?= $this->Paginator->first('<< ' . __('≪')) ?>
+            <?= $this->Paginator->prev('< ' . __('前ページ')) ?>
             <?= $this->Paginator->numbers() ?>
-            <?= $this->Paginator->next(__('next') . ' >') ?>
-            <?= $this->Paginator->last(__('last') . ' >>') ?>
+            <?= $this->Paginator->next(__('次ページ') . ' >') ?>
+            <?= $this->Paginator->last(__('≫') . ' >>') ?>
         </ul>
         <p><?= $this->Paginator->counter(['format' => __('Page {{page}} of {{pages}}, showing {{current}} record(s) out of {{count}} total')]) ?></p>
     </div>

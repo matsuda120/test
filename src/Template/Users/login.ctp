@@ -4,14 +4,24 @@
      */
     ?>
 
+    <!-- 画面左側のメニュー項目 -->
     <nav class="large-3 medium-4 columns" id="actions-sidebar">
       <ul class="side-nav">
+          <li class="heading"><?= __('Actions') ?></li>
+          <li><?= $this->Html->link(__('List Users'), ['action' => 'index']) ?></li>
+          <li><?= $this->Html->link(__('List Fishing Result'), ['controller' => 'FishingResults', 'action' => 'index']) ?></li>
+          <li><?= $this->Html->link(__('New Fishing Result'), ['controller' => 'FishingResults', 'action' => 'add']) ?></li>
+      </ul>
+    </nav>
+
+    <!-- <nav class="large-3 medium-4 columns" id="actions-sidebar">
+      <ul class="side-nav">
           <li class="heading">?= __('Actions') ?></li>
-          <li>?= $this->Html->link(__('List Users'), ['action' => 'index']) ?></li>
+          <li><= $this->Html->link(__('List Users'), ['action' => 'index']) ?></li>
           <li>?= $this->Html->link(__('List Fishing Result'), ['controller' => 'FishingResults', 'action' => 'index']) ?></li>
           <li>?= $this->Html->link(__('New Fishing Result'), ['controller' => 'FishingResults', 'action' => 'add']) ?></li>
       </ul>
-    </nav>
+    </nav> -->
 
 
     <div class="users form large-9 medium-8 columns content">
