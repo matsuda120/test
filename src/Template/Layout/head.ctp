@@ -45,7 +45,7 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
                 <h1>?= $this->fetch('my_header') ?></h1>
             </li> -->
             
-            <h1>釣果管理</h1>
+            <h1>釣果管理システム</h1>
 
         </ul>
         <div class="top-bar-section">

@@ -54,25 +54,28 @@ class AppController extends Controller
          */
         //$this->loadComponent('Security');
 
+
+        // 【松浦 6/1】
         // ログイン機能
-        $this->loadComponent('Auth', [
-            'authenticate' => [
-                'Form' => [
-                    'fields' => [
-                        'username' => 'userid',
-                        'password' => 'password'
+
+            $this->loadComponent('Auth', [
+                'authenticate' => [
+                    'Form' => [
+                        'fields' => [
+                            'ユーザーネーム' => 'userid',
+                            'パスワード' => 'password'
+                        ]
                     ]
-                ]
-            ],
-            'loginAction' => [
-                'controller' => 'Users',
-                'action' => 'login'
-            ],
-            'authorize' => ['Controller'],
-            'unauthorizedRedirect' => $this->referer()
-        ]);
- 
-        $this->Auth->allow(['display', 'view', 'index']);
+                ],
+                'loginAction' => [
+                    'controller' => 'Users',
+                    'action' => 'login'
+                ],
+                'authorize' => ['Controller'],
+                'unauthorizedRedirect' => $this->referer()
+            ]);
+     
+            $this->Auth->allow(['display', 'view', 'index']);
 
     }
 }

@@ -7,6 +7,7 @@ use App\Controller\AppController;
  * Users Controller
  *
  * @property \App\Model\Table\UsersTable $Users
+ *
  * @method \App\Model\Entity\User[]|\Cake\Datasource\ResultSetInterface paginate($object = null, array $settings = [])
  */
 
@@ -67,7 +68,9 @@ class UsersController extends AppController
 
         $title = '釣果一覧画面';
         
-        $user = $this->Users->get($id);
+        $user = $this->Users->get($id, [
+            'contain' => ['FishingResults'],
+        ]);
 
         $this->set('user', $user);
     }

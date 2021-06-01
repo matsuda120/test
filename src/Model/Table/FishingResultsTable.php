@@ -68,7 +68,7 @@ class FishingResultsTable extends Table
         $validator
             ->integer('id')
             ->allowEmptyString('id', null, 'create');
-
+            
         $validator
             ->date('fishing_date')
             ->requirePresence('fishing_date', 'create')
