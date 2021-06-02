@@ -15,7 +15,7 @@
         <li><?= $this->Html->link(__('釣果一覧'), ['action' => 'index']) ?> </li>
         <li><?= $this->Html->link(__('釣果登録'), ['action' => 'add']) ?> </li>
         <li><?= $this->Html->link(__('釣果修正'), ['action' => 'edit', $fishingResult->id]) ?> </li>
-        <li><?= $this->Form->postLink(__('釣果削除'), ['action' => 'delete', $fishingResult->id], ['confirm' => __('Are you sure you want to delete # {0}?', $fishingResult->id)]) ?> </li>
+        <li><?= $this->Form->postLink(__('釣果削除'), ['action' => 'delete', $fishingResult->id], ['confirm' => __('この釣果情報を削除してよろしいでしょうか？', $fishingResult->id)]) ?> </li>
         
 
         <!-- <li>?= $this->Html->link(__('List Weathers'), ['controller' => 'Weathers', 'action' => 'index']) ?> </li>
@@ -36,15 +36,15 @@
     <table class="vertical-table">
         <tr>
             <th scope="row"><?= __('日付') ?></th>
-            <td><?= h($fishingResult->fishing_date) ?></td>
+            <td><?= h($fishingResult->fishing_date->i18nFormat('yyyy年MM月dd日')) ?></td>
         </tr>
         <tr>
             <th scope="row"><?= __('釣り開始時間') ?></th>
-            <td><?= h($fishingResult->time_from) ?></td>
+            <td><?= h($fishingResult->time_from->i18nFormat('HH:mm')) ?></td>
         </tr>
         <tr>
             <th scope="row"><?= __('釣り終了時間') ?></th>
-            <td><?= h($fishingResult->time_to) ?></td>
+            <td><?= h($fishingResult->time_to->i18nFormat('HH:mm')) ?></td>
         </tr>
         <tr>
             <th scope="row"><?= __('天気') ?></th>
@@ -52,11 +52,11 @@
         </tr>
         <tr>
             <th scope="row"><?= __('気温') ?></th>
-            <td><?= $this->Number->format($fishingResult->temperature) ?></td>
+            <td><?= $this->Number->format($fishingResult->temperature) ?>℃</td>
         </tr>
         <tr>
             <th scope="row"><?= __('水温') ?></th>
-            <td><?= $this->Number->format($fishingResult->water_temperature) ?></td>
+            <td><?= $this->Number->format($fishingResult->water_temperature) ?>℃</td>
         </tr>
         <tr>
             <th scope="row"><?= __('都道府県') ?></th>
@@ -84,7 +84,7 @@
         </tr>
         <tr>
             <th scope="row"><?= __('釣った時間') ?></th>
-            <td><?= h($fishingResult->fish_caught_time) ?></td>
+            <td><?= h($fishingResult->fish_caught_time->i18nFormat('HH:mm')) ?></td>
         </tr>
         <tr>
             <th scope="row"><?= __('長さ') ?></th>
@@ -107,39 +107,39 @@
             <td><?= $this->Number->format($fishingResult->quantity) ?></td>
         </tr>
         <tr>
-            <th scope="row"><?= __('Fishing Type') ?></th>
+            <th scope="row"><?= __('釣種') ?></th>
+            <!-- <td>?= h($fishingResult->fishing_type_id) ?></td>  -->
             <td><?= $fishingResult->has('fishing_type') ? $this->Html->link($fishingResult->fishing_type->title, ['controller' => 'FishingTypes', 'action' => 'view', $fishingResult->fishing_type->id]) : '' ?></td>
         </tr>
         <tr>
-            <th scope="row"><?= __('Lure Feed Name') ?></th>
+            <th scope="row"><?= __('ルアー／えさ名称') ?></th>
             <td><?= h($fishingResult->lure_feed_name) ?></td>
         </tr>
         <tr>
-            <th scope="row"><?= __('Lure Feed') ?></th>
+            <th scope="row"><?= __('ルアー／えさ') ?></th>
             <td><?= h($fishingResult->lure_feed) ?></td>
         </tr>
         <tr>
-            <th scope="row"><?= __('Note') ?></th>
+            <th scope="row"><?= __('備考') ?></th>
             <td><?= h($fishingResult->note) ?></td>
         </tr>
         <tr>
-            <th scope="row"><?= __('User') ?></th>
+            <th scope="row"><?= __('ユーザーID') ?></th>
             <td><?= $fishingResult->has('user') ? $this->Html->link($fishingResult->user->name, ['controller' => 'Users', 'action' => 'view', $fishingResult->user->id]) : '' ?></td>
         </tr>
-        <tr>
-            <th scope="row"><?= __('Id') ?></th>
-            <td><?= $this->Number->format($fishingResult->id) ?></td>
-        </tr>
 
-
-
-        <tr>
-            <th scope="row"><?= __('Created') ?></th>
-            <td><?= h($fishingResult->created) ?></td>
+        <!-- <tr>
+            <th scope="row"?= __('Id') ?></th>
+            <td>?= $this->Number->format($fishingResult->id) ?></td>
         </tr>
         <tr>
-            <th scope="row"><?= __('Modified') ?></th>
-            <td><?= h($fishingResult->modified) ?></td>
+            <th scope="row">?= __('Created') ?></th>
+            <td>?= h($fishingResult->created) ?></td>
         </tr>
+        <tr>
+            <th scope="row">?= __('Modified') ?></th>
+            <td>?= h($fishingResult->modified) ?></td>
+        </tr> -->
+
     </table>
 </div>

@@ -41,7 +41,7 @@ class FishingTypesTable extends Table
         $this->addBehavior('Timestamp');
 
         $this->hasMany('FishingResults', [
-            'foreignKey' => 'fishing_type_id',
+            'foreignKey' => 'fishing_type_id'
         ]);
     }
 

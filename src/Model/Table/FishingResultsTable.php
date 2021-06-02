@@ -44,16 +44,16 @@ class FishingResultsTable extends Table
         $this->addBehavior('Timestamp');
 
         $this->belongsTo('Weathers', [
-            'foreignKey' => 'weather_id',
+            'foreignKey' => 'weather_id'
         ]);
         $this->belongsTo('Prefectures', [
-            'foreignKey' => 'prefecture_id',
+            'foreignKey' => 'prefecture_id'
         ]);
         $this->belongsTo('FishingTypes', [
-            'foreignKey' => 'fishing_type_id',
+            'foreignKey' => 'fishing_type_id'
         ]);
         $this->belongsTo('Users', [
-            'foreignKey' => 'user_id',
+            'foreignKey' => 'user_id'
         ]);
     }
 

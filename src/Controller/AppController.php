@@ -41,7 +41,7 @@ class AppController extends Controller
     {
         parent::initialize();
 
-        $this->viewBuilder()->layout('default');
+        //$this->viewBuilder()->layout('default');
 
         $this->loadComponent('RequestHandler', [
             'enableBeforeRedirect' => false,
@@ -67,6 +67,7 @@ class AppController extends Controller
                         ]
                     ]
                 ],
+                'loginRedirect'  => [ 'controller' => 'Users' , 'action' => 'index' ],
                 'loginAction' => [
                     'controller' => 'Users',
                     'action' => 'login'

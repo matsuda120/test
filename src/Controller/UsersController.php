@@ -67,7 +67,9 @@ class UsersController extends AppController
 
         $title = '釣果一覧画面';
         
-        $user = $this->Users->get($id);
+        $user = $this->Users->get($id, [
+            'contain' => ['FishingResults'],
+        ]);
 
         $this->set('user', $user);
     }

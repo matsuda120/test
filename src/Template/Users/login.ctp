@@ -20,6 +20,6 @@
         <?= $this->Form->control('ユーザーネーム') ?>
         <?= $this->Form->control('パスワード') ?>
       </fieldset>
-    <?= $this->Form->button('ログイン') ?>
+    <?= $this->Form->button(__('ログイン')); ?>
     <?= $this->Form->end() ?>
     </div>
