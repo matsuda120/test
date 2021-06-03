@@ -4,31 +4,30 @@
  * @var \App\Model\Entity\FishingResult $fishingResult
  */
 ?>
+
+<!-- メニューの記述 -->
 <nav class="large-3 medium-4 columns" id="actions-sidebar">
-    <ul class="side-nav">
-        <li class="heading"><?= __('Actions') ?></li>
+<ul class="side-nav">
+        <li class="heading"><?= __('メニュー') ?></li>
+        <li><?= $this->Html->link(__('検索'), ['action' => 'search']) ?></li>
+        <li><?= $this->Html->link(__('項目切替'), ['action' => 'columchange']) ?></li>
+        <li><?= $this->Html->link(__('釣果一覧'), ['action' => 'index']) ?> </li>
+        <li><?= $this->Html->link(__('釣果登録'), ['action' => 'add']) ?> </li>
+        <li><?= $this->Html->link(__('釣果修正'), ['action' => 'edit', $fishingResult->id]) ?> </li>
         <li><?= $this->Form->postLink(
-                __('Delete'),
-                ['action' => 'delete', $fishingResult->id],
-                ['confirm' => __('Are you sure you want to delete # {0}?', $fishingResult->id)]
-            )
-        ?></li>
-        <li><?= $this->Html->link(__('List Fishing Results'), ['action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('List Weathers'), ['controller' => 'Weathers', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New Weather'), ['controller' => 'Weathers', 'action' => 'add']) ?></li>
-        <li><?= $this->Html->link(__('List Prefectures'), ['controller' => 'Prefectures', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New Prefecture'), ['controller' => 'Prefectures', 'action' => 'add']) ?></li>
-        <li><?= $this->Html->link(__('List Fishing Types'), ['controller' => 'FishingTypes', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New Fishing Type'), ['controller' => 'FishingTypes', 'action' => 'add']) ?></li>
-        <li><?= $this->Html->link(__('List Users'), ['controller' => 'Users', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New User'), ['controller' => 'Users', 'action' => 'add']) ?></li>
+            __('釣果削除'),
+             ['action' => 'delete', $fishingResult->id], 
+             ['confirm' => __('釣果情報 No.{0} を削除してよろしいでしょうか？', $fishingResult->id)]) ?> </li>        
     </ul>
 </nav>
 <div class="fishingResults form large-9 medium-8 columns content">
+    <h3><?= __('釣果修正') ?></h3>
+    
     <?= $this->Form->create($fishingResult) ?>
     <fieldset>
-        <legend><?= __('Edit Fishing Result') ?></legend>
+        <legend><?= __('釣果修正') ?></legend>
         <?php
+            echo h($fishingResult->user_id);
             echo $this->Form->control('fishing_date');
             echo $this->Form->control('time_from', ['empty' => true]);
             echo $this->Form->control('time_to', ['empty' => true]);

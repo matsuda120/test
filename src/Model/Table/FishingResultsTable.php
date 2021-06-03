@@ -41,19 +41,23 @@ class FishingResultsTable extends Table
         $this->setDisplayField('id');
         $this->setPrimaryKey('id');
 
-        $this->addBehavior('Timestamp');
+        //$this->addBehavior('Timestamp');
 
         $this->belongsTo('Weathers', [
-            'foreignKey' => 'weather_id'
+            'foreignKey' => 'weather_id',
+            'joinType' => 'INNER'
         ]);
         $this->belongsTo('Prefectures', [
-            'foreignKey' => 'prefecture_id'
+            'foreignKey' => 'prefecture_id',
+            'joinType' => 'INNER'
         ]);
         $this->belongsTo('FishingTypes', [
-            'foreignKey' => 'fishing_type_id'
+            'foreignKey' => 'fishing_type_id',
+            'joinType' => 'INNER'
         ]);
         $this->belongsTo('Users', [
-            'foreignKey' => 'user_id'
+            'foreignKey' => 'user_id',
+            'joinType' => 'INNER'
         ]);
     }
 

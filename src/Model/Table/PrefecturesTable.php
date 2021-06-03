@@ -41,8 +41,11 @@ class PrefecturesTable extends Table
         $this->addBehavior('Timestamp');
 
         $this->hasMany('FishingResults', [
-            'foreignKey' => 'prefecture_id',
+            'foreignKey'=>'id',
+            'bindingKey' => 'prefecture_id',
         ]);
+
+
     }
 
     /**

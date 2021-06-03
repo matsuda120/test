@@ -5,35 +5,30 @@
  */
 ?>
 
-<!-- メニューの記述 -->
+<!-- メニュー -->
 <nav class="large-3 medium-4 columns" id="actions-sidebar">
     <ul class="side-nav">
         <li class="heading"><?= __('メニュー') ?></li>
         <li><?= $this->Html->link(__('検索'), ['action' => 'search']) ?></li>
-        <li><?= $this->Html->link(__('項目切替'), ['action' => 'columchange']) ?></li>
-      
+        <li><?= $this->Html->link(__('項目切替'), ['action' => 'columchange']) ?></li>  
         <li><?= $this->Html->link(__('釣果一覧'), ['action' => 'index']) ?> </li>
         <li><?= $this->Html->link(__('釣果登録'), ['action' => 'add']) ?> </li>
         <li><?= $this->Html->link(__('釣果修正'), ['action' => 'edit', $fishingResult->id]) ?> </li>
-        <li><?= $this->Form->postLink(__('釣果削除'), ['action' => 'delete', $fishingResult->id], ['confirm' => __('この釣果情報を削除してよろしいでしょうか？', $fishingResult->id)]) ?> </li>
-        
-
-        <!-- <li>?= $this->Html->link(__('List Weathers'), ['controller' => 'Weathers', 'action' => 'index']) ?> </li>
-        <li>?= $this->Html->link(__('New Weather'), ['controller' => 'Weathers', 'action' => 'add']) ?> </li>
-        <li>?= $this->Html->link(__('List Prefectures'), ['controller' => 'Prefectures', 'action' => 'index']) ?> </li>
-        <li>?= $this->Html->link(__('New Prefecture'), ['controller' => 'Prefectures', 'action' => 'add']) ?> </li>
-        <li>?= $this->Html->link(__('List Fishing Types'), ['controller' => 'FishingTypes', 'action' => 'index']) ?> </li>
-        <li>?= $this->Html->link(__('New Fishing Type'), ['controller' => 'FishingTypes', 'action' => 'add']) ?> </li>
-        <li>?= $this->Html->link(__('List Users'), ['controller' => 'Users', 'action' => 'index']) ?> </li>
-        <li>?= $this->Html->link(__('New User'), ['controller' => 'Users', 'action' => 'add']) ?> </li> -->
+        <li><?= $this->Form->postLink(__('釣果削除'), ['action' => 'delete', $fishingResult->id], ['confirm' => __('釣果情報(No.{0}) を削除してよろしいでしょうか？', $fishingResult->id)]) ?> </li>        
     </ul>
 </nav>
 
 <div class="fishingResults view large-9 medium-8 columns content">
+    
+    <!-- 画面タイトル -->
     <h3><?= __('釣果詳細') ?></h3>
-    <!-- <h3>?= h($fishingResult->id) ?></h3> -->
 
+    <!-- 釣果　詳細　テーブル -->
     <table class="vertical-table">
+        <tr>
+            <th scope="row"><?= __('管理番号') ?></th>
+            <td><?= $this->Number->format($fishingResult->id) ?></td>
+        </tr>
         <tr>
             <th scope="row"><?= __('日付') ?></th>
             <td><?= h($fishingResult->fishing_date->i18nFormat('yyyy年MM月dd日')) ?></td>
@@ -48,7 +43,7 @@
         </tr>
         <tr>
             <th scope="row"><?= __('天気') ?></th>
-            <td><?= $fishingResult->has('weather') ? $this->Html->link($fishingResult->weather->title, ['controller' => 'Weathers', 'action' => 'view', $fishingResult->weather->id]) : '' ?></td>
+            <td><?= h($fishingResult->weather->title) ?></td>
         </tr>
         <tr>
             <th scope="row"><?= __('気温') ?></th>
@@ -60,7 +55,7 @@
         </tr>
         <tr>
             <th scope="row"><?= __('都道府県') ?></th>
-            <td><?= $fishingResult->has('prefecture') ? $this->Html->link($fishingResult->prefecture->title, ['controller' => 'Prefectures', 'action' => 'view', $fishingResult->prefecture->id]) : '' ?></td>
+            <td><?= h($fishingResult->prefecture->title) ?></td>
         </tr>
         <tr>
             <th scope="row"><?= __('市町村') ?></th>
@@ -108,8 +103,7 @@
         </tr>
         <tr>
             <th scope="row"><?= __('釣種') ?></th>
-            <!-- <td>?= h($fishingResult->fishing_type_id) ?></td>  -->
-            <td><?= $fishingResult->has('fishing_type') ? $this->Html->link($fishingResult->fishing_type->title, ['controller' => 'FishingTypes', 'action' => 'view', $fishingResult->fishing_type->id]) : '' ?></td>
+            <td><?= h($fishingResult->fishing_type->title) ?></td>
         </tr>
         <tr>
             <th scope="row"><?= __('ルアー／えさ名称') ?></th>
@@ -125,21 +119,15 @@
         </tr>
         <tr>
             <th scope="row"><?= __('ユーザーID') ?></th>
-            <td><?= $fishingResult->has('user') ? $this->Html->link($fishingResult->user->name, ['controller' => 'Users', 'action' => 'view', $fishingResult->user->id]) : '' ?></td>
-        </tr>
-
-        <!-- <tr>
-            <th scope="row"?= __('Id') ?></th>
-            <td>?= $this->Number->format($fishingResult->id) ?></td>
+            <td><?= h($fishingResult->user->userid) ?></td>
         </tr>
         <tr>
-            <th scope="row">?= __('Created') ?></th>
-            <td>?= h($fishingResult->created) ?></td>
+            <th scope="row"><?= __('登録日時') ?></th>
+            <td><?= h($fishingResult->created->i18nFormat('yyyy年MM月dd日 HH:mm')) ?></td>
         </tr>
         <tr>
-            <th scope="row">?= __('Modified') ?></th>
-            <td>?= h($fishingResult->modified) ?></td>
-        </tr> -->
-
+            <th scope="row"><?= __('更新日時') ?></th>
+            <td><?= h($fishingResult->modified->i18nFormat('yyyy年MM月dd日 HH:mm')) ?></td>
+        </tr>
     </table>
 </div>

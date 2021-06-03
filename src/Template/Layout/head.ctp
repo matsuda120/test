@@ -15,6 +15,7 @@
 
 $cakeDescription = 'CakePHP: the rapid development php framework';
 ?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -22,10 +23,10 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>
         <?= $cakeDescription ?>:
+        <!-- 各ビューファイルからタイトルを持ってくる -->
         <?= $this->fetch('title') ?>
     </title>
     <?= $this->Html->meta('icon') ?>
-
     <?= $this->Html->css('base.css') ?>
     <?= $this->Html->css('style.css') ?>
 
@@ -60,18 +61,14 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
              <li><a href="/my-project/users/login">ログイン</a></li>
              <li><a href="/my-project/users/add">会員登録</a></li>
             <?php endif;?>
-
-             <!-- 不要？
-                <li><a target="_blank" href="https://book.cakephp.org/3.0/">Documentation</a></li>
-                <li><a target="_blank" href="https://api.cakephp.org/3.0/">API</a></li>
-            -->
-             
             </ul>
         </div>
     </nav>
+    
     <?= $this->Flash->render() ?>
     <div class="container clearfix">
         <!-- フェッチのコンテントに作成したVieｗファイルが表示される -->
+        <!-- 各ビューファイルの内容がここに代入される -->
         <?= $this->fetch('content') ?>　
     </div>
     <footer>
