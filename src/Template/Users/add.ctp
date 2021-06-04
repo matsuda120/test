@@ -30,12 +30,12 @@
     <fieldset>
         <legend><?= __('会員登録') ?></legend>
         <?php
-            echo $this->Form->control('ユーザーID');
-            echo $this->Form->control('氏名');
-            echo $this->Form->control('年齢');
-            echo $this->Form->control('釣り歴');
-            echo $this->Form->control('メールアドレス');
-            echo $this->Form->control('パスワード');
+            echo $this->Form->control('userid');
+            echo $this->Form->control('name');
+            echo $this->Form->control('age');
+            echo $this->Form->control('fishing_history');
+            echo $this->Form->control('email');
+            echo $this->Form->control('password');
 
             //未実装　表示させないようにする
             //echo $this->Form->control('deleted');

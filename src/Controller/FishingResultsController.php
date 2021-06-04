@@ -147,9 +147,11 @@ class FishingResultsController extends AppController
         $prefectures = $this->FishingResults->Prefectures->find('list', ['limit' => 200]);
         $fishingTypes = $this->FishingResults->FishingTypes->find('list', ['limit' => 200]);
         $users = $this->FishingResults->Users->find('list', ['limit' => 200]);
-        $this->set(compact('fishingResult', 'weathers', 'prefectures', 'fishingTypes', 'users'));
+        $lists = ['（えさ）', '（ルアー）'];
+        $mlists = ['ｍ', 'ｃｍ'];
+        $glists = ['ｋｇ', 'ｇ'];
+        $this->set(compact('fishingResult', 'weathers', 'prefectures', 'fishingTypes', 'users', 'lists', 'mlists', 'glists'));
     }
-
     /**
      * Edit method
      *
@@ -175,7 +177,10 @@ class FishingResultsController extends AppController
         $prefectures = $this->FishingResults->Prefectures->find('list', ['limit' => 200]);
         $fishingTypes = $this->FishingResults->FishingTypes->find('list', ['limit' => 200]);
         $users = $this->FishingResults->Users->find('list', ['limit' => 200]);
-        $this->set(compact('fishingResult', 'weathers', 'prefectures', 'fishingTypes', 'users'));
+        $lists = ['（えさ）', '（ルアー）'];
+        $mlists = ['ｍ', 'ｃｍ'];
+        $glists = ['ｋｇ', 'ｇ'];
+        $this->set(compact('fishingResult', 'weathers', 'prefectures', 'fishingTypes', 'users', 'lists', 'mlists', 'glists'));
     }
 
     /**

@@ -1,0 +1,5 @@
+{
+    "require": {
+        "rrd108/cakephp-datalist": "^1.1"
+    }
+}

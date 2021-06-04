@@ -43,6 +43,12 @@ class FishingResultsTable extends Table
 
         //$this->addBehavior('Timestamp');
 
+        $this->addBehavior(
+            'Datalist.Datalist', 
+            ['Prefectures' => 'title', 'Weathers' => 'title', 'FishingTypes' => 'title']
+        );
+
+
         $this->belongsTo('Weathers', [
             'foreignKey' => 'weather_id',
             'joinType' => 'INNER'

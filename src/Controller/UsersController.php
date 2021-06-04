@@ -20,7 +20,8 @@ class UsersController extends AppController
         // 【松浦 6/1】
         // ログアウトと新規登録画面にはユーザー認証なしでアクセス可能となる記述
         parent::initialize();
-        $this->Auth->allow(['logout', 'add']);
+        //$this->Auth->allow(['logout', 'add']);
+        $this->Auth->allow();
         
         //レイアウト指定
         $this->viewBuilder()->setLayout('head');
@@ -89,7 +90,7 @@ class UsersController extends AppController
 
                 return $this->redirect(['action' => 'index']);
             }
-            $this->Flash->error(__('The user could not be saved. Please, try again.'));
+           //$this->Flash->error(__('The user could not be saved. Please, try again.'));
         }
         $this->set(compact('user'));
     }

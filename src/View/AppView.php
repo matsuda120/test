@@ -34,7 +34,14 @@ class AppView extends View
      *
      * @return void
      */
-    public function initialize()
-    {
-    }
+    public function initialize() 
+    { 
+        parent::initialize(); 
+        $this->loadHelper('Form', [
+            'templates' => 'Datalist.form-templates',
+            'widgets' => [
+                'datalistJs' => ['Datalist\View\Widget\DatalistJsWidget']
+            ]
+        ]);
+    } 
 }

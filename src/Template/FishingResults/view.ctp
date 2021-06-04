@@ -6,7 +6,7 @@
 ?>
 
 <!-- メニュー -->
-<nav class="large-3 medium-4 columns" id="actions-sidebar">
+<nav class="large-1 medium-1 columns" id="actions-sidebar">
     <ul class="side-nav">
         <li class="heading"><?= __('メニュー') ?></li>
         <li><?= $this->Html->link(__('検索'), ['action' => 'search']) ?></li>
@@ -18,7 +18,7 @@
     </ul>
 </nav>
 
-<div class="fishingResults view large-9 medium-8 columns content">
+<div class="fishingResults view large-11 medium-8 columns content">
     
     <!-- 画面タイトル -->
     <h3><?= __('釣果詳細') ?></h3>

@@ -28,55 +28,40 @@
     <fieldset>
         <legend><?= '管理番号 ： '.h($fishingResult->id) ?></legend>
         <?php
-            echo $this->Form->control('fishing_date');
-            echo $this->Form->control('time_from', ['empty' => true]);
-            echo $this->Form->control('time_to', ['empty' => true]);
-            echo $this->Form->control('weather_id', ['options' => $weathers, 'empty' => true]);
-            echo $this->Form->control('temperature');
-            echo $this->Form->control('water_temperature');
-            echo $this->Form->control('prefecture_id', ['options' => $prefectures, 'empty' => true]);
-            echo $this->Form->control('city');
-            echo $this->Form->control('spot');
-            echo $this->Form->control('water_depth');
-            echo $this->Form->control('water_depth_unit');
-            echo $this->Form->control('fish_type');
-            echo $this->Form->control('fish_caught_time', ['empty' => true]);
-            echo $this->Form->control('length');
-            echo $this->Form->control('length_unit');
-            echo $this->Form->control('weight');
-            echo $this->Form->control('weight_unit');
-            echo $this->Form->control('quantity');
-            echo $this->Form->control('fishing_type_id', ['options' => $fishingTypes, 'empty' => true]);
-            echo $this->Form->control('lure_feed_name');
-            echo $this->Form->control('lure_feed');
-
-            echo $this->Form->control('lure_feed');
-            
-            echo $this->Form->select(
-                'lure_feed',
-                ['（えさ）', '（ルアー）'],
-                ['empty' => '選択してください'], ['default' => 'lure_feed']
-            );
-            
-
-
-            $list = [
-                [ 'text' => '（えさ）', 'value' => 1 ],
-                [ 'text' => '（ルアー）', 'value' => 2 ],
-            ];
-            // セレクトボックス
-            echo $this->Form->control('lure_feed', [
-                'default' => 'lure_feed',
-                'type' => 'select',
-                'label' => 'ルアー？えさ？',
-                'options' => $list,
-                'multiple' => false,
-                'empty' => '選択してください'
+            echo $this->Form->control('fishing_date', [
+                'label' => '日付',
+                'required' => true,
+                'monthNames' => false,
+                'minYear' => date('Y')-1,
+                'maxYear' => date('Y'),
             ]);
-
-            
-
-            echo $this->Form->control('note');
+            echo $this->Form->control('time_from',['label' => '釣り開始時間']);
+            echo $this->Form->control('time_to',['label' => '釣り終了時間']);
+            echo $this->Form->control('weather_id', ['options' => $weathers, 'empty' => true]);
+            echo $this->Form->control('temperature',['label' => '気温']);
+            echo $this->Form->control('water_temperature',['label' => '水温']);
+            echo $this->Form->control('prefecture_id', ['options' => $prefectures, 'empty' => true]);
+            echo $this->Form->control('city',['label' => '市町村']);
+            echo $this->Form->control('spot',['label' => 'スポット']);
+            echo $this->Form->control('water_depth',['label' => '水深']);
+            echo $this->Form->control('water_depth_unit',['label' => '水深の単位']);
+            //echo $this->Form->control('water_depth_unit', ['options' => ['ｍ', 'ｃｍ']]);
+            echo $this->Form->control('fish_type',['label' => '魚種']);
+            echo $this->Form->control('fish_caught_time',['label' => '釣った時間']);
+            echo $this->Form->control('length',['label' => '長さ']);
+            echo $this->Form->control('length_unit',['label' => '長さの単位']);
+            //echo $this->Form->control('length_unit', ['options' => ['ｍ', 'ｃｍ']]);
+            echo $this->Form->control('weight',['label' => '重さ']);
+            echo $this->Form->control('weight_unit',['label' => '重さの単位']);
+            //echo $this->Form->control('weight_unit', ['options' => ['ｇ', 'ｋｇ']]);
+            echo $this->Form->control('quantity',['label' => '匹数']);
+            echo $this->Form->control('fishing_type_id', ['options' => $fishingTypes, 'empty' => true]);
+            echo $this->Form->control('lure_feed_name',['label' => 'ルアー／えさ名称']);
+            echo $this->Form->control('lure_feed',['label' => 'ルアー／えさ']);
+            echo $this->Form->control('lure_feed', ['options' => $lists]);
+            echo $this->Form->control('lure_feed', ['label' => 'ルアー／えさ']);
+            //echo $this->Form->control('lure_feed', ['label' => 'ルアー／えさ', 'options' => $lists, 'empty' => true]);
+            echo $this->Form->control('note',['label' => '備考']);
 
         ?>
     </fieldset>
@@ -88,3 +73,10 @@
 
 <!-- echo $this->Form->control('user_id', ['options' => $users, 'empty' => true]); -->
 
+
+<!-- // $list = [
+            //     [ 'text' => '（えさ）', 'value' => 1 ],
+            //     [ 'text' => '（ルアー）', 'value' => 2 ],
+            // ];
+            // echo $this->Form->control('lure_feed', ['options' => $list, 'empty' => true]);
+             -->

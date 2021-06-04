@@ -17,8 +17,8 @@
     <?= $this->Form->create() ?>
       <fieldset>
         <legend><?= __('ログイン') ?></legend>
-        <?= $this->Form->control('ユーザーネーム') ?>
-        <?= $this->Form->control('パスワード') ?>
+        <?= $this->Form->control('userid', ['label' => 'ユーザーID']); ?>
+        <?= $this->Form->control('password', ['label' => 'パスワード']); ?>
       </fieldset>
     <?= $this->Form->button(__('ログイン')); ?>
     <?= $this->Form->end() ?>
