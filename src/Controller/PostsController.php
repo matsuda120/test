@@ -69,9 +69,31 @@ class PostsController extends AppController
         //↑に検索条件を追加する場合の記述
         $users = $this->Users->findByDeletedAndDate(false, '2021-05-15');
 
-        //コントローラーからビューに渡す記述
+       //コントローラーからビューに渡す記述
         $this->$this->set(compact('posts'));
     }
+
+    public function find() {
+        $persons = [];
+        if ($this->request->is('post')) {
+            $find = $this->request->data['find'];
+            $query = $this->Persons->find();
+            $exp = $query->newExpr();
+            $fnc = function($exp, $f) {
+                return $exp
+                    ->isNotNull('name')
+                    ->isNotNull('mail')
+                    ->gt('age',0)
+                    ->in('name', explode(',',$f));
+            };
+            $persons = $query->where($fnc($exp,$find));
+        }
+        $this->set('persons', $persons);
+        $this->set('msg', null);
+    }
+
+
+
 
     // /my-project/Posts/view/id
     public function view($id = null)

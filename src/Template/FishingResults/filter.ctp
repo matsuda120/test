@@ -8,8 +8,8 @@
 <nav class="large-3 medium-4 columns" id="actions-sidebar">
     <ul class="side-nav">
         <li class="heading"><?= __('メニュー') ?></li>
-        <li><?= $this->Html->link(__('検索'), ['action' => 'search']) ?></li>
-        <li><?= $this->Html->link(__('項目切替'), ['action' => 'columchange']) ?></li>  
+        <li><?= $this->Html->link(__('検索'), ['action' => 'find']) ?></li>
+        <li><?= $this->Html->link(__('項目切替'), ['action' => 'filter']) ?></li>  
         <li><?= $this->Html->link(__('釣果一覧'), ['action' => 'index']) ?> </li>
         <li><?= $this->Html->link(__('釣果登録'), ['action' => 'add']) ?> </li>
     </ul>

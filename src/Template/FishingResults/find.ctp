@@ -10,7 +10,7 @@
 <ul class="side-nav">
         <li class="heading"><?= __('メニュー') ?></li>
         <li><?= $this->Html->link(__('検索'), ['action' => 'find']) ?></li>
-        <li><?= $this->Html->link(__('項目切替'), ['action' => 'filter']) ?></li>
+        <li><?= $this->Html->link(__('項目切替'), ['action' => 'columchange']) ?></li>
         <li><?= $this->Html->link(__('釣果一覧'), ['action' => 'index']) ?> </li>
         <li><?= $this->Html->link(__('釣果登録'), ['action' => 'add']) ?> </li>
 </nav>
@@ -18,8 +18,43 @@
 <div class="fishingResults index large-11 medium-8 columns content">
     
     <!-- 画面タイトル -->
-    <h3><?= __('釣果一覧') ?></h3>
-    
+    <h3><?= __('釣果検索') ?></h3>
+    <?= $msg ?>
+    <?= $this->Form->create() ?>
+    <fieldset>
+        <!-- 範囲検索 -->
+        <?= $this->Form->label('fishing_date', '日付', ['class' => 'custom-control-label']); ?>
+        <?= $this->Form->text('fishing_date_from', ['type' => 'date', 'class' => 'custom-control-text']); ?>
+        <?= '～' ?>
+        <?= $this->Form->text('fishing_date_to', ['type' => 'date', 'class' => 'custom-control-text']); ?>
+
+        <?= $this->Form->control('temperature_from',['type' => 'number','label' => '気温']); ?>
+        <?= '～' ?>
+        <?= $this->Form->control('temperature_to',['type' => 'number','label' => false]); ?>
+
+        <?= $this->Form->control('water_temperature_from',['type' => 'number','label' => '水温']); ?>
+        <?= '～' ?>
+        <?= $this->Form->control('water_temperature_to',['type' => 'number','label' => false]); ?>
+
+        <?= $this->Form->control('fish_caught_time_from',['type' => 'time','label' => '釣った時間']); ?>
+        <?= '～' ?>
+        <?= $this->Form->control('fish_caught_time_to',['type' => 'time','label' => false]); ?>
+
+        <!-- 項目検索 -->
+        <?= $this->Form->control('weather_id', ['type' => 'datalistJs', 'label' => '天気', 'options' => $weathers, 'empty' => true]); ?>
+        <?= $this->Form->control('prefecture_id', ['type' => 'datalistJs', 'label' => '都道府県', 'options' => $prefectures, 'empty' => true]); ?>
+        <?= $this->Form->control('city',['type' => 'datalistJs', 'label' => '市町村', 'options' => $cityLists, 'empty' => true]); ?>
+        <?= $this->Form->control('spot', ['type' => 'datalistJs', 'type' => 'datalistJs','label' => '天気', 'options' => $weathers, 'empty' => true]); ?>
+        <?= $this->Form->control('fish_type',['type' => 'datalistJs', 'label' => '魚種', 'options' => $fishLists, 'empty' => true]); ?>
+        <?= $this->Form->control('lure_feed',['label' => 'ルアー／えさ', 'options' => $lureFeedLists, 'empty' => true]); ?>
+        <?= $this->Form->control('lure_feed_name',['type' => 'datalistJs', 'label' => 'ルアー／えさ名称', 'options' => $lureFeedNameLists, 'empty' => true]);?>
+        <?= $this->Form->control('fishing_type_id', ['label' => '釣種', 'options' => $fishingTypes, 'empty' => true]); ?>
+        <?= $this->Form->control('userid', ['label' => 'ユーザーID', 'options' => $users, 'empty' => true]); ?>
+
+        <?= $this->Form->button('Submit') ?>
+        <?= $this->Form->end() ?>
+    </fieldset>
+
     <!-- 釣果　一覧表示　テーブル -->
     <table cellpadding="0" cellspacing="0"> 
         
@@ -113,44 +148,3 @@
         <p><?= $this->Paginator->counter(['format' => __(' ※要修正※　ページ：「 {{page}} / {{pages}} ページを表示」　釣果記録：「 合計 {{count}} 件, 現在 {{current}} 件を表示」 ')]) ?></p>
     </div>
 </div>
-
-
-
-
-
-
-
-<!-- メモ -->
-<!-- HTMLヘルパー　リンク　使うときの記述 -->
-<!-- <td>?= $fishingResult->has('weather') ? $this->Html->lnk($fishingResult->weather->title, ['controller' => 'Weathers', 'action' => 'view', $fishingResult->weather->id]) : '' ?></td> -->
-<!-- <td>?= $fishingResult->has('prefecture') ? $this->Html->link($fishingResult->prefecture->title, ['controller' => 'Prefectures', 'action' => 'view', $fishingResult->prefecture->id]) : '' ?></td> -->
-<!-- <td>?= $fishingResult->has('fishing_type') ? $this->Html->link($fishingResult->fishing_type->title, ['controller' => 'FishingTypes', 'action' => 'view', $fishingResult->fishing_type->id]) : '' ?></td> -->
-<!-- <td>?= $fishingResult->has('user') ? $this->Html->link($fishingResult->user->name, ['controller' => 'Users', 'action' => 'view', $fishingResult->user->id]) : '' ?></td> -->
-
-<!-- OLD -->
-
-<!-- <nav class="large-3 medium-4 columns" id="actions-sidebar">
-    <ul class="side-nav">
-        <li class="heading">?= __('メニュー') ?></li>
-        <li>?= $this->Html->link(__('検索'), ['controller' => 'FishingResults', 'action' => 'search']) ?></li>
-        <li>?= $this->Html->link(__('項目切替'), ['controller' => 'FishingResults', 'action' => 'columchange']) ?></li>
-        <li>?= $this->Html->link(__('釣果登録'), ['action' => 'add']) ?></li>
-        <li>?= $this->Html->link(__('釣果修正'), ['action' => 'edit']) ?></li>
-        <li>?= $this->Html->link(__('釣果削除'), ['action' => 'delete']) ?></li>
-    </ul>
-</nav> -->
-
-<!-- <nav class="large-3 medium-4 columns" id="actions-sidebar">
-    <ul class="side-nav">
-        <li class="heading">?= __('Actions') ?></li>
-        <li>?= $this->Html->link(__('New Fishing Result'), ['action' => 'add']) ?></li>
-        <li>?= $this->Html->link(__('List Weathers'), ['controller' => 'Weathers', 'action' => 'index']) ?></li>
-        <li>?= $this->Html->link(__('New Weather'), ['controller' => 'Weathers', 'action' => 'add']) ?></li>
-        <li>?= $this->Html->link(__('List Prefectures'), ['controller' => 'Prefectures', 'action' => 'index']) ?></li>
-        <li>?= $this->Html->link(__('New Prefecture'), ['controller' => 'Prefectures', 'action' => 'add']) ?></li>
-        <li>?= $this->Html->link(__('List Fishing Types'), ['controller' => 'FishingTypes', 'action' => 'index']) ?></li>
-        <li>?= $this->Html->link(__('New Fishing Type'), ['controller' => 'FishingTypes', 'action' => 'add']) ?></li>
-        <li>?= $this->Html->link(__('List Users'), ['controller' => 'Users', 'action' => 'index']) ?></li>
-        <li>?= $this->Html->link(__('New User'), ['controller' => 'Users', 'action' => 'add']) ?></li>
-    </ul>
-</nav> -->

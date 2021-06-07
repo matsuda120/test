@@ -45,7 +45,9 @@ class FishingResultsTable extends Table
 
         $this->addBehavior(
             'Datalist.Datalist', 
-            ['Prefectures' => 'title', 'Weathers' => 'title', 'FishingTypes' => 'title']
+            ['Prefectures' => 'title', 'Weathers' => 'title', 'FishingTypes' => 'title', 
+            'FishingResults' => 'fish_type', 'FishingResults' => 
+            'city', 'FishingResults' => 'spot', 'FishingResults' => 'lure_feed_name']
         );
 
 

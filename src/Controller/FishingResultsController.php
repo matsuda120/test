@@ -22,7 +22,7 @@ class FishingResultsController extends AppController
         // $this->Auth->allow(['logout', 'add']);
         
         //レイアウト指定
-        $this->viewBuilder()->setLayout('head');
+        //$this->viewBuilder()->setLayout('head');
     }
 
     /**
@@ -147,11 +147,19 @@ class FishingResultsController extends AppController
         $prefectures = $this->FishingResults->Prefectures->find('list', ['limit' => 200]);
         $fishingTypes = $this->FishingResults->FishingTypes->find('list', ['limit' => 200]);
         $users = $this->FishingResults->Users->find('list', ['limit' => 200]);
-        $lists = ['（えさ）', '（ルアー）'];
-        $mlists = ['ｍ', 'ｃｍ'];
-        $glists = ['ｋｇ', 'ｇ'];
-        $this->set(compact('fishingResult', 'weathers', 'prefectures', 'fishingTypes', 'users', 'lists', 'mlists', 'glists'));
+        $lureFeedLists = [ 0 =>'（えさ）', 1 =>'（ルアー）'];
+        $unitMLists = [ 0 =>'ｃｍ', 1 =>'ｍ'];
+        $unitGLists = [ 0 =>'ｇ', 1 =>'ｋｇ'];
+        $fishLists = $this->FishingResults->find()->extract('fish_type');
+        $cityLists = $this->FishingResults->find()->extract('city');
+        $spotLists = $this->FishingResults->find()->extract('spot');
+        $lureFeedNameLists = $this->FishingResults->find()->extract('lure_feed_name');
+
+        $this->set(compact(
+            'fishingResult', 'weathers', 'prefectures', 'fishingTypes', 'users', 
+            'lureFeedLists', 'unitMLists', 'unitGLists', 'fishLists', 'cityLists', 'spotLists', 'lureFeedNameLists'));
     }
+
     /**
      * Edit method
      *
@@ -177,10 +185,17 @@ class FishingResultsController extends AppController
         $prefectures = $this->FishingResults->Prefectures->find('list', ['limit' => 200]);
         $fishingTypes = $this->FishingResults->FishingTypes->find('list', ['limit' => 200]);
         $users = $this->FishingResults->Users->find('list', ['limit' => 200]);
-        $lists = ['（えさ）', '（ルアー）'];
-        $mlists = ['ｍ', 'ｃｍ'];
-        $glists = ['ｋｇ', 'ｇ'];
-        $this->set(compact('fishingResult', 'weathers', 'prefectures', 'fishingTypes', 'users', 'lists', 'mlists', 'glists'));
+        $lureFeedLists = [ 0 =>'（えさ）', 1 =>'（ルアー）'];
+        $unitMLists = [ 0 =>'ｃｍ', 1 =>'ｍ'];
+        $unitGLists = [ 0 =>'ｇ', 1 =>'ｋｇ'];
+        $fishLists = $this->FishingResults->find()->extract('fish_type');
+        $cityLists = $this->FishingResults->find()->extract('city');
+        $spotLists = $this->FishingResults->find()->extract('spot');
+        $lureFeedNameLists = $this->FishingResults->find()->extract('lure_feed_name');
+
+        $this->set(compact(
+            'fishingResult', 'weathers', 'prefectures', 'fishingTypes', 'users', 
+            'lureFeedLists', 'unitMLists', 'unitGLists', 'fishLists', 'cityLists', 'spotLists', 'lureFeedNameLists'));
     }
 
     /**
@@ -206,17 +221,128 @@ class FishingResultsController extends AppController
     }
 
     /**
-     * search method  未実装
+     * find method
      */
-    public function search()
+    public function find()
     {
+        $fishingResults = [];
+
+        if ($this->request->is('post')) {
+            $find = $this->request->data['find'];
+
+            //日付の範囲
+            $fishingResults = $this->FishingResults->find()
+                ->where(function($exp) {
+                     return $exp->between('fishing_date', 'fishing_date_from', 'fishing_date_to');
+                });
+
+                $fishingResults = $this->FishingResults->find()
+                ->where(function($exp) {
+                     return $exp->between('temperature', 'temperature_from', 'temperature_to');
+                });
+                
+                $fishingResults = $this->FishingResults->find()
+                ->where(function($exp) {
+                     return $exp->between('water_temperature', 'water_temperature_from', 'water_temperature_to');
+                });
+
+                $fishingResults = $this->FishingResults->find()
+                ->where(function($exp) {
+                     return $exp->between('fish_caught_time', 'fish_caught_time_from', 'fish_caught_time_to');
+                });
+
+                
+            //
+            $fishingResults = $this->FishingResults->find()
+            ->where(['date' => '2021/05/27']);
+            //->where(["name like " => '%' . $find . '%']);
+
+            // //20以上の
+            // $fishingResults = $this->FishingResults->findByFishTypes($find);
+
+            // //ageの値が$find以上のものだけが$personsに返される
+            // $query = $this->Persons->find();
+            // $exp = $query->newExpr();
+            // $fnc = function($exp, $f) {
+            //     return $exp
+            //         ->gte('age', $find * 1); //フィールド >= 値 ↔　lte()
+            //         ->eq('name','taro');  //where 'name' = 'taro'
+            //         ->isNotNull('name'); //nameがnullでないものだけを検索
+            //         ->like('name','%ko'); 　//nameの値が'ko'で終わる
+            //         ->in('name',['taro','jiro','hanako']);　//配列の値のいずれかと等しいものを検索する
+
+            // };
+            // $persons = $query->where($fnc($exp,$find));
+
+        }
+        $this->set('fishingResults', $fishingResults);
+        $this->set('msg', null);
+        
+        // ページ送り
+        $this->paginate = [
+            'contain' => ['Weathers', 'Prefectures', 'FishingTypes', 'Users'],
+        ];
+        $fishingResults = $this->paginate($this->FishingResults);
+
+        $weathers = $this->FishingResults->Weathers->find('list', ['limit' => 200]);
+        $prefectures = $this->FishingResults->Prefectures->find('list', ['limit' => 200]);
+        $fishingTypes = $this->FishingResults->FishingTypes->find('list', ['limit' => 200]);
+        $users = $this->FishingResults->Users->find('list', ['limit' => 200]);
+        $lureFeedLists = [ 0 =>'（えさ）', 1 =>'（ルアー）'];
+        $fishLists = $this->FishingResults->find()->extract('fish_type');
+        $cityLists = $this->FishingResults->find()->extract('city');
+        $spotLists = $this->FishingResults->find()->extract('spot');
+        $lureFeedNameLists = $this->FishingResults->find()->extract('lure_feed_name');
+
+        $this->set(compact('fishingResults', 'weathers', 'prefectures', 'fishingTypes', 'users', 
+            'lureFeedLists', 'fishLists', 'cityLists', 'spotLists', 'lureFeedNameLists'));
     }
 
+
+
+    // {
+    //     $fishingResult = $this->FishingResults->newEntity();
+    //     if ($this->request->is('post')) {
+    //         $fishingResult = $this->FishingResults->patchEntity($fishingResult, $this->request->getData());
+
+    //         $query = $this->request->getData(); // POSTデータの取得
+    //         $query['user_id'] = $this->Auth->user('id'); // ユーザーidの追加
+
+    //         $fishingResult = $this->FishingResults->patchEntity($fishingResult, $query);
+
+    //         if ($this->FishingResults->save($fishingResult)) {
+    //             $this->Flash->success(__('釣果登録完了しました'));
+
+    //             return $this->redirect(['action' => 'index']);
+    //         }
+    //         $this->Flash->error(__('釣果登録エラー'));
+    //     }
+    //     $weathers = $this->FishingResults->Weathers->find('list', ['limit' => 200]);
+    //     $prefectures = $this->FishingResults->Prefectures->find('list', ['limit' => 200]);
+    //     $fishingTypes = $this->FishingResults->FishingTypes->find('list', ['limit' => 200]);
+    //     $users = $this->FishingResults->Users->find('list', ['limit' => 200]);
+    //     $lureFeedLists = [ 0 =>'（えさ）', 1 =>'（ルアー）'];
+    //     $unitMLists = [ 0 =>'ｃｍ', 1 =>'ｍ'];
+    //     $unitGLists = [ 0 =>'ｇ', 1 =>'ｋｇ'];
+    //     $fishLists = $this->FishingResults->find()->extract('fish_type');
+    //     $cityLists = $this->FishingResults->find()->extract('city');
+    //     $spotLists = $this->FishingResults->find()->extract('spot');
+    //     $lureFeedNameLists = $this->FishingResults->find()->extract('lure_feed_name');
+
+    //     $this->set(compact(
+    //         'fishingResult', 'weathers', 'prefectures', 'fishingTypes', 'users', 
+    //         'lureFeedLists', 'unitMLists', 'unitGLists', 'fishLists', 'cityLists', 'spotLists', 'lureFeedNameLists'));
+    // }
+
+
+
     /**
-     * columchange method　未実装
+     * filter method
      */
-    public function columchange()
+    public function filter()
     {
+
+
     }
 
 }

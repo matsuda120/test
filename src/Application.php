@@ -34,7 +34,6 @@ class Application extends BaseApplication
      */
     public function bootstrap()
     {
-        
         // Call parent to load bootstrap from files.
         parent::bootstrap();
 
@@ -52,6 +51,8 @@ class Application extends BaseApplication
 
         // Load more plugins here
         $this->addPlugin('Datalist');
+        //$this->addPlugin('Search');
+
     }
 
     /**
