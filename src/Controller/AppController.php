@@ -13,10 +13,10 @@
  * @license   https://opensource.org/licenses/mit-license.php MIT License
  */
 namespace App\Controller;
-
+ 
 use Cake\Controller\Controller;
 use Cake\Event\Event;
-
+ 
 /**
  * Application Controller
  *
@@ -27,7 +27,7 @@ use Cake\Event\Event;
  */
 class AppController extends Controller
 {
-
+ 
     /**
      * Initialization hook method.
      *
@@ -40,43 +40,39 @@ class AppController extends Controller
     public function initialize()
     {
         parent::initialize();
-
-        //$this->viewBuilder()->layout('default');
-
-        // $this->loadComponent('RequestHandler', [
-        //     'enableBeforeRedirect' => false,
+ 
+        $this->loadComponent('RequestHandler', [
+            'enableBeforeRedirect' => false,
+        ]);
+        $this->loadComponent('Flash');
+ 
+        // $this->loadComponent('Auth', [
+        //     'loginRedirect' => [
+        //         'controller' => 'Users',
+        //         'action' => 'index'
+        //     ],
+        //     'logoutRedirect' => [
+        //         'controller' => 'Users',
+        //         'action' => 'login'
+        //     ],
+        //     'authenticate' => [
+        //         'Form' => [
+        //           'userModel' => 'Users',
+        //           'fields' => [
+        //             'username' => 'email',
+        //             'password' => 'password'
+        //           ]
+        //         ]
+        //     ],
         // ]);
-        // $this->loadComponent('Flash');
-
+ 
+        // $this->Auth->allow(['login','add']);
+ 
+ 
         /*
          * Enable the following component for recommended CakePHP security settings.
          * see https://book.cakephp.org/3.0/en/controllers/components/security.html
          */
         //$this->loadComponent('Security');
-
-
-        // 【松浦 6/1】
-        // ログイン機能
-
-            $this->loadComponent('Auth', [
-                'authenticate' => [
-                    'Form' => [
-                        'fields' => [
-                            'userid' => 'userid',
-                            'password' => 'password'
-                        ]
-                    ]
-                ],
-                //'loginRedirect'  => [ 'controller' => 'Users' , 'action' => 'index' ],
-                'loginAction' => [
-                    'controller' => 'Users',
-                    'action' => 'login'
-                ],
-                'authorize' => ['Controller'],
-                'unauthorizedRedirect' => $this->referer()
-            ]);
-     
-            $this->Auth->allow(['display', 'view', 'index']);
-
     }
 }

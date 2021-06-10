@@ -121,13 +121,23 @@
             <th scope="row"><?= __('ユーザーID') ?></th>
             <td><?= h($fishingResult->user->userid) ?></td>
         </tr>
-        <tr>
-            <th scope="row"><?= __('登録日時') ?></th>
-            <td><?= h($fishingResult->created->i18nFormat('yyyy年MM月dd日 HH:mm')) ?></td>
-        </tr>
-        <tr>
-            <th scope="row"><?= __('更新日時') ?></th>
-            <td><?= h($fishingResult->modified->i18nFormat('yyyy年MM月dd日 HH:mm')) ?></td>
-        </tr>
+        
     </table>
+
+    <!-- 元のページに戻る -->
+
+    <!-- <div>
+    <h3>Delete Person</h3>
+    ?= $this->Form->create($person) ?>
+    <fieldset>
+        <p>ID: ?= h($person->id); ?></p>
+        <p>NAME: ?= h($person->name); ?></p>
+        <p>AGE: ?= h($person->age); ?></p>
+        <p>MAIL: ?= h($person->mail); ?></p>
+   </fieldset>
+    ?= $this->Form->button('Submit') ?>
+    ?= $this->Form->end() ?>
+</div> -->
+
+
 </div>

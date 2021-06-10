@@ -16,10 +16,10 @@
     <div class="users form large-9 medium-8 columns content">
     <?= $this->Form->create() ?>
       <fieldset>
-        <legend><?= __('ログイン') ?></legend>
-        <?= $this->Form->control('userid', ['label' => 'ユーザーID']); ?>
-        <?= $this->Form->control('password', ['label' => 'パスワード']); ?>
+        <legend><?= __('login') ?></legend>
+        <?= $this->Form->control('email'); ?>
+        <?= $this->Form->control('password'); ?>
       </fieldset>
-    <?= $this->Form->button(__('ログイン')); ?>
+    <?= $this->Form->button(__('submit')); ?>
     <?= $this->Form->end() ?>
     </div>

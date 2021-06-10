@@ -20,7 +20,7 @@ class UsersController extends AppController
         // 【松浦 6/1】
         // ログアウトと新規登録画面にはユーザー認証なしでアクセス可能となる記述
         parent::initialize();
-        //$this->Auth->allow(['logout', 'add']);
+        // //$this->Auth->allow(['logout', 'add']);
         $this->Auth->allow();
         
         //レイアウト指定
@@ -66,7 +66,7 @@ class UsersController extends AppController
     public function view($id = null)
     {
 
-        $title = '釣果一覧画面';
+       
         
         $user = $this->Users->get($id, [
             'contain' => ['FishingResults'],
@@ -150,17 +150,78 @@ class UsersController extends AppController
      * ログイン画面
      * 
      */
-    public function login()
-    {
-        if ($this->request->is('post')) {
-            $user = $this->Auth->identify();
-            if ($user) {
-                $this->Auth->setUser($user);
-                return $this->redirect($this->Auth->redirectUrl('/users'));
+    // public function login()
+    // {
+
+    //     $users = $this->Users->newEntity();
+	// 	if($this->request->is('post')) {
+    //         //dd($users);
+	// 		$users = $this->Users->patchEntity($users, $this->request->data);
+			
+    //         $users = $this->Auth->identify();
+           
+	// 		if($users) {
+	// 			$this->Auth->setUser($users);
+	// 			return $this->redirect($this->Auth->redirectUrl());
+	// 		} else {
+	// 			echo "ログインエラーだよ";
+	// 		}
+	// 	}
+        // if ($this->request->is('post')) {
+        //     // ユーザー認証
+        //     // usersテーブルのusernameとpasswordが一致したレコード取得
+        //     $user = $this->Auth->identify();
+        //     if ($user) {
+        //         // メソッドに渡されたデータを持つユーザーとしてログイン
+        //         $this->Auth->setUser($user);
+        //         // $this->Auth->redirectUrl(): ログイン後のリダイレクト先URLを返す(loginRedirect)
+        //         return $this->redirect($this->Auth->redirectUrl());
+        //     } else {
+        //         $this->Flash->error(__('emailまたはpasswordが間違っています。'));
+        //     }
+        // }
+    //}
+
+    // {
+    //     if ($this->request->is('post')) {
+
+    //         $user = $this->Auth->identify();  //←①
+
+    //         if ($user) {
+    //             $this->Auth->setUser($user);  //←②
+    //             return $this->redirect($this->Auth->redirectUrl());  //←③
+    //         } else {
+    //             echo 'あああ';
+    //         }
+    //     } 
+
+
+
+
+        // if ($this->request->is('post')) {
+        //     $user = $this->Auth->identify();
+            
+        //     if ($user) {
+        //         $this->Auth->setUser($user);
+                
+        //         return $this->redirect(['action' => 'index']);
+        //     }
+           
+        //     //$this->Flash->error('ユーザー名またはパスワードが不正です。');
+        // }
+    
+        public function login()
+        {
+            if ($this->request->is('post')) {
+                $user = $this->Auth->identify();
+                if ($user) {
+                    $this->Auth->setUser($user);
+                    return $this->redirect($this->Auth->redirectUrl());
+                }
+                dd($user);
+                echo "ログインエラーだよ";
             }
-            $this->Flash->error('ユーザー名またはパスワードが不正です。');
         }
-    }
 
     /**
      * logout method

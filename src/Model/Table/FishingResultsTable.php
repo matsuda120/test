@@ -41,15 +41,20 @@ class FishingResultsTable extends Table
         $this->setDisplayField('id');
         $this->setPrimaryKey('id');
 
-        //$this->addBehavior('Timestamp');
+        $this->addBehavior('Timestamp', [
+            'events' => [
+                'FishingResults.beforeSave' => [
+                    'created' => 'new',
+                    'modified' => 'always',
+                ]
+            ]
+        ]);
 
         $this->addBehavior(
             'Datalist.Datalist', 
             ['Prefectures' => 'title', 'Weathers' => 'title', 'FishingTypes' => 'title', 
-            'FishingResults' => 'fish_type', 'FishingResults' => 
-            'city', 'FishingResults' => 'spot', 'FishingResults' => 'lure_feed_name']
+            'FishingResults' => 'fish_type', 'FishingResults' => 'city', 'FishingResults' => 'spot', 'FishingResults' => 'lure_feed_name']
         );
-
 
         $this->belongsTo('Weathers', [
             'foreignKey' => 'weather_id',

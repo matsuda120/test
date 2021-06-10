@@ -16,20 +16,19 @@ class FishingResultsController extends AppController
      */
     public function initialize()
     {
+        // 【松浦 6/1】
         // ログアウトと新規登録画面にはユーザー認証なしでアクセス可能となる記述
         //parent::initialize();
         // $this->Auth->allow(['logout', 'add']);
         
-        //レイアウトの自動読み込みを無効にする記述↓
-        //$this->viewBuilder()->disableAutoLayout();
-
         //レイアウト指定
-        //$this->viewBuilder()->setLayout('ikenodesign');
+        $this->viewBuilder()->setLayout('ikenodesign');
     }
 
     /**
      * isAuthorized method
      * 
+     * 【松浦 6/1】
      * ユーザーのIDが一致した時のみ修正と削除ができるようにする
      * ログインしている自分以外のユーザーが情報の修正・削除ができない
      */
@@ -88,7 +87,6 @@ class FishingResultsController extends AppController
 
     /**
      * Index method
-     * 【松浦　6/9 修正】
      *
      * @return \Cake\Http\Response|null
      */
@@ -101,12 +99,12 @@ class FishingResultsController extends AppController
         ];
         $fishingResults = $this->paginate($this->FishingResults);
 
-        $this->set(compact('fishingResults')); //コントローラーからビューに渡す記述
+        //コントローラーからビューに渡す記述
+        $this->set(compact('fishingResults'));
     }
 
     /**
      * View method
-     * 【松浦　6/9 修正】
      *
      * @param string|null $id Fishing Result id.
      * @return \Cake\Http\Response|null
@@ -118,12 +116,12 @@ class FishingResultsController extends AppController
             'contain' => ['Weathers', 'Prefectures', 'FishingTypes', 'Users'],
         ]);
 
-        $this->set('fishingResult', $fishingResult); //コントローラーからビューに渡す記述
+        //コントローラーからビューに渡す記述
+        $this->set('fishingResult', $fishingResult);
     }
 
     /**
      * Add method
-     * 【松浦　6/9 修正】
      *
      * @return \Cake\Http\Response|null Redirects on successful add, renders view otherwise.
      */
@@ -144,6 +142,8 @@ class FishingResultsController extends AppController
 
             //dataの引数には、取り出したいフォームの名前を指定
             //$変数 = $this->request->data('hoge');
+
+
 
             // $str = $this->request->data('text1');
             // if ($str != null){
@@ -171,19 +171,21 @@ class FishingResultsController extends AppController
         $prefectures = $this->FishingResults->Prefectures->find('list', ['limit' => 200]);
         $fishingTypes = $this->FishingResults->FishingTypes->find('list', ['limit' => 200]);
         $users = $this->FishingResults->Users->find('list', ['limit' => 200]);
-        $fishLists = $this->FishingResults->find('list', ['keyField' => 'fish_type', 'valueField' => 'fish_type']);
-        $cityLists = $this->FishingResults->find('list', ['keyField' => 'city', 'valueField' => 'city']);
-        $spotLists = $this->FishingResults->find('list', ['keyField' => 'spot', 'valueField' => 'spot']);
-        $lureFeedNameLists = $this->FishingResults->find('list', ['keyField' => 'lure_feed_name', 'valueField' => 'lure_feed_name']);
+        $lureFeedLists = [ 0 =>'（えさ）', 1 =>'（ルアー）'];
+        $unitMLists = ['ｃｍ', 'ｍ'];
+        $unitGLists = ['ｇ', 'ｋｇ'];
+        $fishLists = $this->FishingResults->find()->extract('fish_type');
+        $cityLists = $this->FishingResults->find()->extract('city');
+        $spotLists = $this->FishingResults->find()->extract('spot');
+        $lureFeedNameLists = $this->FishingResults->find()->extract('lure_feed_name');
 
         $this->set(compact(
             'fishingResult', 'weathers', 'prefectures', 'fishingTypes', 'users', 
-            'fishLists', 'cityLists', 'spotLists', 'lureFeedNameLists'));
-    } //add end
+            'lureFeedLists', 'unitMLists', 'unitGLists', 'fishLists', 'cityLists', 'spotLists', 'lureFeedNameLists'));
+    }
 
     /**
      * Edit method
-     * 【松浦　6/9 修正】
      *
      * @param string|null $id Fishing Result id.
      * @return \Cake\Http\Response|null Redirects on successful edit, renders view otherwise.
@@ -191,19 +193,12 @@ class FishingResultsController extends AppController
      */
     public function edit($id = null)
     {
+
         $fishingResult = $this->FishingResults->get($id, [
-            //'contain' => [],
-            //'contain' => ['Users'],
-            'contain' => [],
+            'contain' => ['Users'],
         ]);
-        //if ($this->request->is(['patch', 'post', 'put'])) {
-        if ($this->request->is(['post', 'put'])) {    
+        if ($this->request->is(['patch', 'post', 'put'])) {
             $fishingResult = $this->FishingResults->patchEntity($fishingResult, $this->request->getData());
-
-            //$query = $this->request->getData(); // POSTデータの取得
-            //$query['user_id'] = $this->Auth->user('id'); // ユーザーidの追加
-            //$fishingResult = $this->FishingResults->patchEntity($fishingResult, $query);
-
             if ($this->FishingResults->save($fishingResult)) {
                 //$this->Flash->success(__('The fishing result has been saved.'));
 
@@ -215,19 +210,59 @@ class FishingResultsController extends AppController
         $prefectures = $this->FishingResults->Prefectures->find('list', ['limit' => 200]);
         $fishingTypes = $this->FishingResults->FishingTypes->find('list', ['limit' => 200]);
         $users = $this->FishingResults->Users->find('list', ['limit' => 200]);
-        $fishLists = $this->FishingResults->find('list', ['keyField' => 'fish_type', 'valueField' => 'fish_type']);
-        $cityLists = $this->FishingResults->find('list', ['keyField' => 'city', 'valueField' => 'city']);
-        $spotLists = $this->FishingResults->find('list', ['keyField' => 'spot', 'valueField' => 'spot']);
-        $lureFeedNameLists = $this->FishingResults->find('list', ['keyField' => 'lure_feed_name', 'valueField' => 'lure_feed_name']);
+
+        $lureFeedLists = [ 0 =>'（えさ）', 1 =>'（ルアー）'];
+        $unitMLists = ['ｃｍ', 'ｍ'];
+        $unitGLists = ['ｇ', 'ｋｇ'];
+
+        $fishLists = $this->FishingResults->find('list', ['keyField' => 'fish_type', 'valueField' => 'fish_type']); //->group('fish_type');
+    
+
+        //$this->set('persons', $this->Persons->find('list', ['limit'=>3]));
+        
+        //$lists = $this->FishingResults->find()->extract(['fish_type']);
+        //dd($data);
+        // $this->set('data', $data);
+
+
+
+//         // コントローラーやテーブルのメソッド内で
+
+// // すべての article を検索
+// // この時点ではクエリーは走らない。
+// $query = $this->FishingResults->find('all');
+
+// // イテレーションはクエリーを実行する
+// foreach ($query as $row) {
+// }
+
+// // all() の呼び出しはクエリーを実行し、結果セットを返す
+// $results = $query->all();
+
+// // 結果セットがあれば すべての行を取得できる
+// $data = $results->toList();
+
+// // クエリーからキーと値の配列への変換はクエリーを実行する
+// $data = $query->toArray();
+
+        //$fishLists = $this->FishingResults->compact(['fish_type'])->distinct(['fish_type']);
+
+
+
+        //$fishLists = $this->FishingResults->find()->distinct(['fish_type']);
+        // $cityLists = $this->FishingResults->find()->extract('city');
+        // $spotLists = $this->FishingResults->find()->extract('spot');
+        // $lureFeedNameLists = $this->FishingResults->find()->extract('lure_feed_name');
+
+        //dd($fishLists);
 
         $this->set(compact(
             'fishingResult', 'weathers', 'prefectures', 'fishingTypes', 'users', 
-            'fishLists', 'cityLists', 'spotLists', 'lureFeedNameLists'));
-    }  //edit end
+            'lureFeedLists', 'unitMLists', 'unitGLists', 'fishLists', 'cityLists', 'spotLists', 'lureFeedNameLists'));
+    }
 
     /**
      * Delete method
-     * 【松浦　6/7 修正】
      *
      * @param string|null $id Fishing Result id.
      * @return \Cake\Http\Response|null Redirects to index.
@@ -246,139 +281,12 @@ class FishingResultsController extends AppController
         }
 
         return $this->redirect(['action' => 'index']);
-
-    } //delete end
+    }
 
     /**
      * find method
-     * 【松浦　6/10 修正】
      */
-    public function find()
-    {
-        $results = [];
 
-        if ($this->request->is('post')) {
-            $requestData = $this->request->data();
-
-            $conditions = [];
-
-            if (!empty($requestData['city'])) {
-                $conditions['city like'] = '%'.$requestData['city'].'%';
-            }
-            if (!empty($requestData['spot'])) {
-                $conditions['spot like'] = '%'.$requestData['spot'].'%';
-            }
-            if (!empty($requestData['fish_type'])) {
-                $conditions['fish_type like'] = '%'.$requestData['fish_type'].'%';
-            }
-            if (!empty($requestData['lure_feed_name'])) {
-                $conditions['lure_feed_name like'] = '%'.$requestData['lure_feed_name'].'%';
-            }
-            if (!empty($requestData['lure_feed'])) {
-                $conditions['lure_feed like'] = '%'.$requestData['lure_feed'].'%';
-            }
-            if (!empty($requestData['weather'])) {
-                $conditions['Weathers.title like'] = '%'.$requestData['weather'].'%';
-            }
-            if (!empty($requestData['prefecture'])) {
-                $conditions['Prefectures.title like'] = '%'.$requestData['prefecture'].'%';
-            }
-            if (!empty($requestData['fishing_type'])) {
-                $conditions['fishing_type.title like'] = '%'.$requestData['fishing_type'].'%';
-            }
-            if (!empty($requestData['userid'])) {
-                $conditions['Users.userid like'] = '%'.$requestData['userid'].'%';
-            }
-            if (!empty($requestData['fishing_date'])) {
-                $conditions['fishing_date >'] = $requestData['fishing_date'];
-            }
-            if (!empty($requestData['time_from'])) {
-                $conditions['time_from >'] = $requestData['time_from'];
-            }
-
-            
-            $results = $this->FishingResults->find()
-               ->where($conditions)
-               ->contain(['Weathers', 'Prefectures', 'FishingTypes', 'Users']);     
-        }
-        $this->set(compact('results'));
-    } // find end
-
-} // END
-
-
-
-
-            //日付の範囲
-            // $fishingResults = $this->FishingResults->find()
-            //     ->where(function($exp) {
-            //          return $exp->between('fishing_date', 'fishing_date_from', 'fishing_date_to');
-            //     });
-
-            //     $fishingResults = $this->FishingResults->find()
-            //     ->where(function($exp) {
-            //          return $exp->between('temperature', 'temperature_from', 'temperature_to');
-            //     });
-                
-            //     $fishingResults = $this->FishingResults->find()
-            //     ->where(function($exp) {
-            //          return $exp->between('water_temperature', 'water_temperature_from', 'water_temperature_to');
-            //     });
-
-            //     $fishingResults = $this->FishingResults->find()
-            //     ->where(function($exp) {
-            //          return $exp->between('fish_caught_time', 'fish_caught_time_from', 'fish_caught_time_to');
-            //     });
-
-            // $this->paginate = [
-            //     'contain' => ['Weathers', 'Prefectures', 'FishingTypes', 'Users'],
-            // ];
-            // $fishingResults = $this->paginate($this->FishingResults);
-
-            // $weathers = $this->FishingResults->Weathers->find('list', ['limit' => 200]);
-            // $prefectures = $this->FishingResults->Prefectures->find('list', ['limit' => 200]);
-            // $fishingTypes = $this->FishingResults->FishingTypes->find('list', ['limit' => 200]);
-            // $users = $this->FishingResults->Users->find('list', ['limit' => 200]);
-            
-            //$this->set(compact('results', 'fishingResults'));
-
-        // $this->Session->write('post',$this->request->data);
-        // $this->Session->write('open_window',true);
-        //return $this->redirect(['controller' => 'FishingResult', 'action' => 'index']);
-
-
-        //$this->set('fishingResults', $fishingResults);
-
- 
-
-    //         // //20以上の
-
-    //         // $fishingResults = $this->FishingResults->findByFishTypes($find);
-
-    //         // //ageの値が$find以上のものだけが$personsに返される
-    //         // $query = $this->Persons->find();
-    //         // $exp = $query->newExpr();
-    //         // $fnc = function($exp, $f) {
-    //         //     return $exp
-    //         //         ->gte('age', $find * 1); //フィールド >= 値 ↔　lte()
-    //         //         ->eq('name','taro');  //where 'name' = 'taro'
-    //         //         ->isNotNull('name'); //nameがnullでないものだけを検索
-    //         //         ->like('name','%ko'); 　//nameの値が'ko'で終わる
-    //         //         ->in('name',['taro','jiro','hanako']);　//配列の値のいずれかと等しいものを検索する
-
-    //         // };
-    //         // $persons = $query->where($fnc($exp,$find));
-    //     }
-          
-    //     $this->paginate = [
-    //         'contain' => ['Weathers', 'Prefectures', 'FishingTypes', 'Users'],
-    //     ];
-    //     $fishingResults = $this->paginate($this->FishingResults);
-
-    //     //コントローラーからビューに渡す記述
-    //     $this->set(compact('fishingResults'));
-
-    
 
     // public function find() {
 
@@ -476,6 +384,62 @@ class FishingResultsController extends AppController
     //     $this->set('persons', $persons);
     // }
 
-    
-            //dataの引数には、取り出したいフォームの名前を指定
-            //$変数 = $this->request->data('hoge');
+
+    public function find()
+    {
+        $fishingResults = [];
+
+        if ($this->request->is('post')) {
+            $find = $this->request->data['find'];
+
+            //日付の範囲
+            $fishingResults = $this->FishingResults->find()
+                ->where(function($exp) {
+                     return $exp->between('fishing_date', 'fishing_date_from', 'fishing_date_to');
+                });
+
+                $fishingResults = $this->FishingResults->find()
+                ->where(function($exp) {
+                     return $exp->between('temperature', 'temperature_from', 'temperature_to');
+                });
+                
+                $fishingResults = $this->FishingResults->find()
+                ->where(function($exp) {
+                     return $exp->between('water_temperature', 'water_temperature_from', 'water_temperature_to');
+                });
+
+                $fishingResults = $this->FishingResults->find()
+                ->where(function($exp) {
+                     return $exp->between('fish_caught_time', 'fish_caught_time_from', 'fish_caught_time_to');
+                });
+        }
+    }
+ 
+
+    //         // //20以上の
+
+    //         // $fishingResults = $this->FishingResults->findByFishTypes($find);
+
+    //         // //ageの値が$find以上のものだけが$personsに返される
+    //         // $query = $this->Persons->find();
+    //         // $exp = $query->newExpr();
+    //         // $fnc = function($exp, $f) {
+    //         //     return $exp
+    //         //         ->gte('age', $find * 1); //フィールド >= 値 ↔　lte()
+    //         //         ->eq('name','taro');  //where 'name' = 'taro'
+    //         //         ->isNotNull('name'); //nameがnullでないものだけを検索
+    //         //         ->like('name','%ko'); 　//nameの値が'ko'で終わる
+    //         //         ->in('name',['taro','jiro','hanako']);　//配列の値のいずれかと等しいものを検索する
+
+    //         // };
+    //         // $persons = $query->where($fnc($exp,$find));
+    //     }
+          
+    //     $this->paginate = [
+    //         'contain' => ['Weathers', 'Prefectures', 'FishingTypes', 'Users'],
+    //     ];
+    //     $fishingResults = $this->paginate($this->FishingResults);
+
+    //     //コントローラーからビューに渡す記述
+    //     $this->set(compact('fishingResults'));
+}
