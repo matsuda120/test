@@ -3,19 +3,25 @@
  * @var \App\View\AppView $this
  * @var \App\Model\Entity\FishingResult $fishingResult
  */
+echo $this->Html->css('index');
+echo $this->Html->css('ikenodesign');
 ?>
 <!-- メニュー -->
-<nav class="large-3 medium-4 columns" id="actions-sidebar">
-    <ul class="side-nav">
-        <li class="heading"><?= __('メニュー') ?></li>
-        <li><?= $this->Html->link(__('検索'), ['action' => 'search']) ?></li>
-        <li><?= $this->Html->link(__('項目切替'), ['action' => 'columchange']) ?></li>  
-        <li><?= $this->Html->link(__('釣果一覧'), ['action' => 'index']) ?> </li>
-        <li><?= $this->Html->link(__('釣果登録'), ['action' => 'add']) ?> </li>
-    </ul>
-</nav>
+<div class="h-menu">
+     <input id="h-menu_checkbox" class="h-menuCheckbox" type="checkbox">
+      <label class="h-menu_icon" for="h-menu_checkbox"><span class="hamburger-icon"></span></label>
+      <label id="h-menu_black" class="h-menuCheckbox" for="h-menu_checkbox"></label>
+      <div id="h-menu_content">
+        <ul>
+        <li><?= $this->Html->link(__('検索'), ['action' => 'find']) ?></li>
+        <li><?= $this->Html->link(__('項目切替'), ['action' => 'filter']) ?></li>
+        <li><?= $this->Html->link(__('釣果一覧'), ['action' => 'index']) ?></li>
+        <li><?= $this->Html->link(__('釣果登録'), ['action' => 'add']) ?></li>
+        </ul>
+      </div>
+</div>
 
-<div class="fishingResults form large-9 medium-8 columns content">
+<div class="fishingResults form large-12 columns content">
 
     <!-- 画面タイトル -->
     <h3><?= __('釣果登録') ?></h3>
@@ -54,7 +60,7 @@
             echo $this->Form->control('quantity',['label' => '匹数', 'empty' => true]);
             echo $this->Form->control('fishing_type_id', ['label' => '釣種', 'options' => $fishingTypes, 'empty' => true]);
             echo $this->Form->control('lure_feed_name',['type' => 'datalistJs', 'label' => 'ルアー／えさ名称', 'options' => $lureFeedNameLists, 'empty' => true]);
-            echo $this->Form->control('lure_feed',['type' => 'select', 'label' => 'ルアー／えさ', 'options' => ["（えさ）" =>'（えさ）', "（ルアー）" =>'（ルアー）'], 'empty' => true]);
+            echo $this->Form->control('lure_feed',['type' => 'select', 'label' => 'ルアー／えさ', 'options' => ['（えさ）' =>'（えさ）', "（ルアー）" =>'（ルアー）'], 'empty' => true]);
             echo $this->Form->control('note', ['type' => 'textarea', 'label' => '備考', 'empty' => true]);
             echo $this->Form->control('user_id', ["type" => "hidden"] ); 
 

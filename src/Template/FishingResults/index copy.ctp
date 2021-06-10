@@ -10,7 +10,7 @@ echo $this->Html->css('ikenodesign');
 <!-- メニュー -->
 <!-- <nav class="large-1 medium-1 columns" id="actions-sidebar">
 <ul class="side-nav">
-        <li class="heading">?= __('メニュー') ?></li>
+        <li class="heading"><?= __('メニュー') ?></li>
         <li>?= $this->Html->link(__('検索'), ['action' => 'find']) ?></li>
         <li>?= $this->Html->link(__('項目切替'), ['action' => 'filter']) ?></li>
         <li>?= $this->Html->link(__('釣果一覧'), ['action' => 'index']) ?> </li>
@@ -19,15 +19,16 @@ echo $this->Html->css('ikenodesign');
 
 
 <div class="h-menu">
-     <input id="h-menu_checkbox" class="h-menuCheckbox" type="checkbox">
+     <!-- <input id="h-menu_checkbox" class="h-menuCheckbox" type="checkbox">-->
       <label class="h-menu_icon" for="h-menu_checkbox"><span class="hamburger-icon"></span></label>
       <label id="h-menu_black" class="h-menuCheckbox" for="h-menu_checkbox"></label>
       <div id="h-menu_content">
         <ul>
-        <li><?= $this->Html->link(__('検索'), ['action' => 'find']) ?></li>
-        <li><?= $this->Html->link(__('項目切替'), ['action' => 'filter']) ?></li>
-        <li><?= $this->Html->link(__('釣果一覧'), ['action' => 'index']) ?></li>
+        <li><?= $this->Html->link(__('検索'), ['controller' => 'FishingResults', 'action' => 'search']) ?></li>
+        <li><?= $this->Html->link(__('項目切替'), ['controller' => 'FishingResults', 'action' => 'columchange']) ?></li>
         <li><?= $this->Html->link(__('釣果登録'), ['action' => 'add']) ?></li>
+        <li><?= $this->Html->link(__('釣果修正'), ['action' => 'edit']) ?></li>
+        <li><?= $this->Html->link(__('釣果削除'), ['action' => 'delete']) ?></li>
         </ul>
       </div>
 </div>
@@ -38,31 +39,31 @@ echo $this->Html->css('ikenodesign');
     <h3><?= __('釣果一覧') ?></h3>
     
     <!-- 釣果　一覧表示　テーブル -->
-    <table id="table"> 
+    <table cellpadding="0" cellspacing="0"> 
         
         <!-- 釣果　一覧表示　項目 -->
         <thead>
             <tr>
-                <th scope="col" class="haba1"><?= $this->Paginator->sort('管理番号') ?></th>
-                <th scope="col" class="haba1"><?= $this->Paginator->sort('日付') ?></th>
-                <th scope="col" class="haba1"><?= $this->Paginator->sort('釣り開始時間') ?></th>
-                <th scope="col" class="haba1"><?= $this->Paginator->sort('釣り終了時間') ?></th>
-                <th scope="col" class="haba1"><?= $this->Paginator->sort('天気') ?></th>
-                <th scope="col" class="haba1"><?= $this->Paginator->sort('気温') ?></th>
-                <th scope="col" class="haba1"><?= $this->Paginator->sort('水温') ?></th>
-                <th scope="col" class="haba1"><?= $this->Paginator->sort('都道府県') ?></th>
-                <th scope="col" class="haba1"><?= $this->Paginator->sort('市町村') ?></th>
-                <th scope="col" class="haba1"><?= $this->Paginator->sort('スポット') ?></th>
-                <th scope="col" class="haba1"><?= $this->Paginator->sort('水深') ?></th>
-                <th scope="col" class="haba1"><?= $this->Paginator->sort('魚種') ?></th>
-                <th scope="col" class="haba1"><?= $this->Paginator->sort('釣った時間') ?></th>
-                <th scope="col" class="haba1"><?= $this->Paginator->sort('長さ') ?></th>
-                <th scope="col" class="haba1"><?= $this->Paginator->sort('重さ') ?></th>
-                <th scope="col" class="haba1"><?= $this->Paginator->sort('匹数') ?></th>
-                <th scope="col" class="haba1"><?= $this->Paginator->sort('釣種') ?></th>
-                <th scope="col" class="haba1"><?= $this->Paginator->sort('ルアー／えさ') ?></th>
-                <th scope="col" class="haba1"><?= $this->Paginator->sort('備考') ?></th>
-                <th scope="col" class="haba1"><?= $this->Paginator->sort('ユーザーID') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('管理番号') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('日付') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('釣り開始時間') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('釣り終了時間') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('天気') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('気温') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('水温') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('都道府県') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('市町村') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('スポット') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('水深') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('魚種') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('釣った時間') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('長さ') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('重さ') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('匹数') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('釣種') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('ルアー／えさ') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('備考') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('ユーザーID') ?></th>
             
                 <th scope="col" class="actions"><?= __('') ?></th>
             </tr>

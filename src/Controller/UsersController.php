@@ -20,11 +20,12 @@ class UsersController extends AppController
         // 【松浦 6/1】
         // ログアウトと新規登録画面にはユーザー認証なしでアクセス可能となる記述
         parent::initialize();
+        $this->loadComponent('Paginator');
         // //$this->Auth->allow(['logout', 'add']);
-        $this->Auth->allow();
+        //$this->Auth->allow();
         
         //レイアウト指定
-        $this->viewBuilder()->setLayout('head');
+        $this->viewBuilder()->setLayout('ikenodesign');
     }
 
     /**

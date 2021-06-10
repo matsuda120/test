@@ -3,23 +3,33 @@
  * @var \App\View\AppView $this
  * @var \App\Model\Entity\FishingResult[]|\Cake\Collection\CollectionInterface $fishingResults
  */
+echo $this->Html->css('index');
+echo $this->Html->css('ikenodesign');
 ?>
-
 <!-- メニュー -->
-<nav class="large-1 medium-1 columns" id="actions-sidebar">
-<ul class="side-nav">
-        <li class="heading"><?= __('メニュー') ?></li>
+<div class="h-menu">
+     <input id="h-menu_checkbox" class="h-menuCheckbox" type="checkbox">
+      <label class="h-menu_icon" for="h-menu_checkbox"><span class="hamburger-icon"></span></label>
+      <label id="h-menu_black" class="h-menuCheckbox" for="h-menu_checkbox"></label>
+      <div id="h-menu_content">
+        <ul>
         <li><?= $this->Html->link(__('検索'), ['action' => 'find']) ?></li>
-        <li><?= $this->Html->link(__('項目切替'), ['action' => 'columchange']) ?></li>
-        <li><?= $this->Html->link(__('釣果一覧'), ['action' => 'index']) ?> </li>
-        <li><?= $this->Html->link(__('釣果登録'), ['action' => 'add']) ?> </li>
-</nav>
+        <li><?= $this->Html->link(__('項目切替'), ['action' => 'filter']) ?></li>
+        <li><?= $this->Html->link(__('釣果一覧'), ['action' => 'index']) ?></li>
+        <li><?= $this->Html->link(__('釣果登録'), ['action' => 'add']) ?></li>
+        </ul>
+      </div>
+</div>
 
 <div class="fishingResults index large-11 medium-8 columns content">
     
     <!-- 画面タイトル -->
     <h3><?= __('釣果検索') ?></h3>
-    <!-- ?= $msg ?> -->
+    
+    <?php if(!empty($results)){ ?>
+        <p><font color="#ff0000"><?= $msg1 ?></font></p>
+    <?php  } ?>
+    
     <?= $this->Form->create() ?>
     <fieldset>
 
@@ -30,28 +40,24 @@
 
         <?= $this->Form->label('time_from', '釣り開始時間：　入力された時間以降のデータが出力', ['class' => 'custom-control-label']);  ?>
         <?= $this->Form->text('time_from', ['type' => 'time', 'class' => 'custom-control-text', 'empty' => true]); ?>
-
+        
+        <?= $this->Form->control('weather', ['label' => '天気']); ?>
         <?= $this->Form->control('prefecture', ['label' => '都道府県']); ?>
-        <?= $this->Form->control('city', ['label' => '市町村']); ?>
-        <?= $this->Form->control('spot', ['label' => 'スポット']); ?>
-        <?= $this->Form->control('fish_type', ['label' => '魚種']); ?>
-
+        <?= $this->Form->control('city', ['type' => 'datalistJs', 'label' => '市町村', 'options' => $cityLists, 'empty' => true]); ?>
+        <?= $this->Form->control('spot', ['type' => 'datalistJs', 'label' => 'スポット', 'options' => $spotLists]); ?>
+        <?= $this->Form->control('fish_type', ['type' => 'datalistJs','label' => '魚種', 'options' => $fishLists, 'empty' => true]); ?>
         <?= $this->Form->label('fish_caught_time', '釣った時間：　入力された時間以降のデータが出力', ['class' => 'custom-control-label']);  ?>
         <?= $this->Form->text('fish_caught_time', ['type' => 'time', 'class' => 'custom-control-text', 'empty' => true]); ?>
-
-        <?= $this->Form->control('fishing_type', ['label' => '釣種']); ?>
-        <?= $this->Form->control('lure_feed_name', ['label' => 'ルアー／えさ名称']); ?>
-        <?= $this->Form->control('lure_feed', ['label' => 'ルアー／えさ']); ?>
+        <?= $this->Form->control('fishing_type', ['label' => '釣種', 'empty' => true]); ?>
+        <?= $this->Form->control('lure_feed_name', ['type' => 'datalistJs', 'label' => 'ルアー／えさ名称', 'options' => $lureFeedNameLists, 'empty' => true]); ?>
+        <?= $this->Form->control('lure_feed', ['label' => 'ルアー／えさ', 'options' => [ "ルアー" => "ルアー", "えさ" => "えさ"], "empty" => true] );?>
         <?= $this->Form->control('userid', ['label' => 'ユーザーID']); ?>
-       
-        <!-- <= $this -> Form -> input  ( "unit", [ "type" => "select",
-                                            　      "options" => [ "cm" => "cm", "m" => "m"], 
-                                                    "empty" => true ] );?> -->
-        
+
         <?= $this->Form->button('Submit') ?>
         <?= $this->Form->end() ?>
     </fieldset>
-
+    
+    <?php  if(!empty($results)) { ?>
     <!-- 釣果　一覧表示　テーブル -->
     <table cellpadding="0" cellspacing="0"> 
         
@@ -90,9 +96,9 @@
         <tbody>
             <!-- メモ -->
             <!-- $userは配列だからforeachで展開 -->　<!-- h($・・・)　→　htmlspecialchars関数 -->
-            <?php if(!empty($results)){ ?>
+            
             <?php foreach ($results as $fishingResult): ?>
-                        
+
             <tr>
                 <td><?= $this->Number->format($fishingResult->id) ?></td>
                 <td><?= h($fishingResult->fishing_date->i18nFormat('yyyy年MM月dd日')) ?></td>
@@ -127,9 +133,8 @@
                 </td>
 
             </tr>
-            <?php endforeach; ?>
-            
-            <?php } ?>
+            <?php endforeach; ?>       
+    <?php } ?>
         </tbody>
     </table>
 

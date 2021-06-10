@@ -3,13 +3,15 @@
  * @var \App\View\AppView $this
  * @var \App\Model\Entity\FishingResult $fishingResult
  */
+echo $this->Html->css('index');
+echo $this->Html->css('ikenodesign');
 ?>
 
 <!-- メニュー -->
 <nav class="large-1 medium-1 columns" id="actions-sidebar">
     <ul class="side-nav">
         <li class="heading"><?= __('メニュー') ?></li>
-        <li><?= $this->Html->link(__('検索'), ['action' => 'search']) ?></li>
+        <li><?= $this->Html->link(__('検索'), ['action' => 'find']) ?></li>
         <li><?= $this->Html->link(__('項目切替'), ['action' => 'columchange']) ?></li>  
         <li><?= $this->Html->link(__('釣果一覧'), ['action' => 'index']) ?> </li>
         <li><?= $this->Html->link(__('釣果登録'), ['action' => 'add']) ?> </li>
@@ -47,11 +49,11 @@
         </tr>
         <tr>
             <th scope="row"><?= __('気温') ?></th>
-            <td><?= $this->Number->format($fishingResult->temperature) ?>℃</td>
+            <td><?= $this->Number->format($fishingResult->temperature).'℃' ?></td>
         </tr>
         <tr>
             <th scope="row"><?= __('水温') ?></th>
-            <td><?= $this->Number->format($fishingResult->water_temperature) ?>℃</td>
+            <td><?= $this->Number->format($fishingResult->water_temperature).'℃' ?></td>
         </tr>
         <tr>
             <th scope="row"><?= __('都道府県') ?></th>
@@ -67,11 +69,7 @@
         </tr>
         <tr>
             <th scope="row"><?= __('水深') ?></th>
-            <td><?= $this->Number->format($fishingResult->water_depth) ?></td>
-        </tr>
-        <tr>
-            <th scope="row"><?= __('水深の単位') ?></th>
-            <td><?= h($fishingResult->water_depth_unit) ?></td>
+            <td><?= $this->Number->format($fishingResult->water_depth).h($fishingResult->water_depth_unit) ?></td>
         </tr>
         <tr>
             <th scope="row"><?= __('魚種') ?></th>
@@ -83,19 +81,11 @@
         </tr>
         <tr>
             <th scope="row"><?= __('長さ') ?></th>
-            <td><?= $this->Number->format($fishingResult->length) ?></td>
-        </tr>
-        <tr>
-            <th scope="row"><?= __('長さの単位') ?></th>
-            <td><?= h($fishingResult->length_unit) ?></td>
+            <td><?= $this->Number->format($fishingResult->length).h($fishingResult->length_unit) ?></td>
         </tr>
         <tr>
             <th scope="row"><?= __('重さ') ?></th>
-            <td><?= $this->Number->format($fishingResult->weight) ?></td>
-        </tr>
-        <tr>
-            <th scope="row"><?= __('重さの単位') ?></th>
-            <td><?= h($fishingResult->weight_unit) ?></td>
+            <td><?= $this->Number->format($fishingResult->weight).h($fishingResult->weight_unit) ?></td>
         </tr>
         <tr>
             <th scope="row"><?= __('匹数') ?></th>
@@ -106,12 +96,8 @@
             <td><?= h($fishingResult->fishing_type->title) ?></td>
         </tr>
         <tr>
-            <th scope="row"><?= __('ルアー／えさ名称') ?></th>
-            <td><?= h($fishingResult->lure_feed_name) ?></td>
-        </tr>
-        <tr>
             <th scope="row"><?= __('ルアー／えさ') ?></th>
-            <td><?= h($fishingResult->lure_feed) ?></td>
+            <td><?= h($fishingResult->lure_feed_name).h($fishingResult->lure_feed) ?></td>
         </tr>
         <tr>
             <th scope="row"><?= __('備考') ?></th>

@@ -3,20 +3,25 @@
  * @var \App\View\AppView $this
  * @var \App\Model\Entity\FishingResult $fishingResult
  */
+echo $this->Html->css('index');
+echo $this->Html->css('ikenodesign');
 ?>
-
 <!-- メニュー -->
-<nav class="large-3 medium-4 columns" id="actions-sidebar">
-    <ul class="side-nav">
-        <li class="heading"><?= __('メニュー') ?></li>
-        <li><?= $this->Html->link(__('検索'), ['action' => 'search']) ?></li>
-        <li><?= $this->Html->link(__('項目切替'), ['action' => 'columchange']) ?></li>  
-        <li><?= $this->Html->link(__('釣果一覧'), ['action' => 'index']) ?> </li>
-        <li><?= $this->Html->link(__('釣果登録'), ['action' => 'add']) ?> </li>
+<div class="h-menu">
+     <input id="h-menu_checkbox" class="h-menuCheckbox" type="checkbox">
+      <label class="h-menu_icon" for="h-menu_checkbox"><span class="hamburger-icon"></span></label>
+      <label id="h-menu_black" class="h-menuCheckbox" for="h-menu_checkbox"></label>
+      <div id="h-menu_content">
+        <ul>
+        <li><?= $this->Html->link(__('検索'), ['action' => 'find']) ?></li>
+        <li><?= $this->Html->link(__('項目切替'), ['action' => 'filter']) ?></li>
+        <li><?= $this->Html->link(__('釣果一覧'), ['action' => 'index']) ?></li>
+        <li><?= $this->Html->link(__('釣果登録'), ['action' => 'add']) ?></li>
         <li><?= $this->Html->link(__('釣果修正'), ['action' => 'edit', $fishingResult->id]) ?> </li>
-        <li><?= $this->Form->postLink(__('釣果削除'), ['action' => 'delete', $fishingResult->id], ['confirm' => __('釣果情報(No.{0}) を削除してよろしいでしょうか？', $fishingResult->id)]) ?> </li>        
-    </ul>
-</nav>
+        <li><?= $this->Form->postLink(__('釣果削除'), ['action' => 'delete', $fishingResult->id], ['confirm' => __('釣果情報(No.{0}) を削除してよろしいでしょうか？', $fishingResult->id)]) ?> </li>
+        </ul>
+      </div>
+</div>        
 
 <div class="fishingResults form large-9 medium-8 columns content">
     
