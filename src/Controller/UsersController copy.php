@@ -2,6 +2,7 @@
 namespace App\Controller;
 
 use App\Controller\AppController;
+use Cake\Event\Event; 
 
 /**
  * Users Controller
@@ -16,32 +17,43 @@ class UsersController extends AppController
     /**
      * Initialization method
      */
-    public function initialize()
-    {
-        // 【松浦 6/1】
-        // ログアウトと新規登録画面にはユーザー認証なしでアクセス可能となる記述
-        parent::initialize();
-        $this->Auth->allow(['logout', 'add']);
+    // public function initialize()
+    // {
+    //     // 【松浦 6/1】
+    //     // ログアウトと新規登録画面にはユーザー認証なしでアクセス可能となる記述
+    //     parent::initialize();
+    //     $this->Auth->allow(['logout', 'add']);
         
-        //レイアウト指定
-        $this->viewBuilder()->setLayout('head');
-    }
+    //     //レイアウト指定
+    //     $this->viewBuilder()->setLayout('head');
+    // }
+
+    // /**
+    //  * 認証スルー設定
+    //  * @param Event $event
+    //  * @return \Cake\Http\Response|null|void
+    //  */
+    //  public function beforeFilter(Event $event)
+    //  {
+    //    parent::beforeFilter($event);
+    //    $this->Auth->allow(['add', 'index']);
+    //  }
 
     /**
      * isAuthorized method
      * ユーザーのIDが一致した時のみ修正と削除ができるようにする
      * ログインしている自分以外のユーザーが情報の修正・削除ができない
      */
-    public function isAuthorized($user)
-    {
-        $id = $this->request->getParam('pass.0');
+    // public function isAuthorized($user)
+    // {
+    //     $id = $this->request->getParam('pass.0');
  
-        if ($id == $user['id']) {
-            return true;
-        }
+    //     if ($id == $user['id']) {
+    //         return true;
+    //     }
  
-        return false;
-    }
+    //     return false;
+    // }
 
     /**
      * Index method
@@ -66,7 +78,7 @@ class UsersController extends AppController
     public function view($id = null)
     {
 
-        $title = '釣果一覧画面';
+        //$title = '釣果一覧画面';
         
         $user = $this->Users->get($id, [
             'contain' => ['FishingResults'],
@@ -143,24 +155,42 @@ class UsersController extends AppController
         return $this->redirect(['action' => 'index']);
     }
 
-     /**
-     * Login method
-     * 
-     * 【松浦 6/1】
-     * ログイン画面
-     * 
-     */
-    public function login()
-    {
-        if ($this->request->is('post')) {
-            $user = $this->Auth->identify();
-            if ($user) {
-                $this->Auth->setUser($user);
-                return $this->redirect($this->Auth->redirectUrl('/users'));
-            }
-            $this->Flash->error('ユーザー名またはパスワードが不正です。');
-        }
+    //  /**
+    //  * Login method
+    //  * 
+    //  * 【松浦 6/1】
+    //  * ログイン画面
+    //  * 
+    //  */
+    // public function login()
+    // {
+    //     if ($this->request->is('post')) {
+    //         $user = $this->Auth->identify();
+    //         if ($user) {
+    //             $this->Auth->setUser($user);
+    //             return $this->redirect($this->Auth->redirectUrl('/users'));
+    //         }
+    //         $this->Flash->error('ユーザー名またはパスワードが不正です。');
+    //     }
+    // }
+
+
+
+    /**
+ * ログイン
+ * @return \Cake\Http\Response|null
+ */
+public function login()
+{
+  if ($this->request->is('post')) {
+    $user = $this->Auth->identify();
+    if ($user) {
+      $this->Auth->setUser($user);
+      return $this->redirect($this->Auth->redirectUrl());
     }
+    $this->Flash->error(__('ユーザ名もしくはパスワードが間違っています'));
+  }
+}
 
     /**
      * logout method

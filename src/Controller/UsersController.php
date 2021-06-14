@@ -2,11 +2,13 @@
 namespace App\Controller;
 
 use App\Controller\AppController;
+use Cake\Event\Event; 
 
 /**
  * Users Controller
  *
  * @property \App\Model\Table\UsersTable $Users
+ *
  * @method \App\Model\Entity\User[]|\Cake\Datasource\ResultSetInterface paginate($object = null, array $settings = [])
  */
 
@@ -15,34 +17,43 @@ class UsersController extends AppController
     /**
      * Initialization method
      */
-    public function initialize()
-    {
-        // 【松浦 6/1】
-        // ログアウトと新規登録画面にはユーザー認証なしでアクセス可能となる記述
-        parent::initialize();
-        $this->loadComponent('Paginator');
-        // //$this->Auth->allow(['logout', 'add']);
-        //$this->Auth->allow();
+    // public function initialize()
+    // {
+    //     // 【松浦 6/1】
+    //     // ログアウトと新規登録画面にはユーザー認証なしでアクセス可能となる記述
+    //     parent::initialize();
+    //     $this->Auth->allow(['logout', 'add']);
         
-        //レイアウト指定
-        $this->viewBuilder()->setLayout('ikenodesign');
-    }
+    //     //レイアウト指定
+    //     $this->viewBuilder()->setLayout('head');
+    // }
+
+    // /**
+    //  * 認証スルー設定
+    //  * @param Event $event
+    //  * @return \Cake\Http\Response|null|void
+    //  */
+    //  public function beforeFilter(Event $event)
+    //  {
+    //    parent::beforeFilter($event);
+    //    $this->Auth->allow(['add', 'index']);
+    //  }
 
     /**
      * isAuthorized method
      * ユーザーのIDが一致した時のみ修正と削除ができるようにする
      * ログインしている自分以外のユーザーが情報の修正・削除ができない
      */
-    public function isAuthorized($user)
-    {
-        $id = $this->request->getParam('pass.0');
+    // public function isAuthorized($user)
+    // {
+    //     $id = $this->request->getParam('pass.0');
  
-        if ($id == $user['id']) {
-            return true;
-        }
+    //     if ($id == $user['id']) {
+    //         return true;
+    //     }
  
-        return false;
-    }
+    //     return false;
+    // }
 
     /**
      * Index method
@@ -67,7 +78,7 @@ class UsersController extends AppController
     public function view($id = null)
     {
 
-       
+        //$title = '釣果一覧画面';
         
         $user = $this->Users->get($id, [
             'contain' => ['FishingResults'],
@@ -91,7 +102,7 @@ class UsersController extends AppController
 
                 return $this->redirect(['action' => 'index']);
             }
-           //$this->Flash->error(__('The user could not be saved. Please, try again.'));
+            $this->Flash->error(__('The user could not be saved. Please, try again.'));
         }
         $this->set(compact('user'));
     }
@@ -144,85 +155,42 @@ class UsersController extends AppController
         return $this->redirect(['action' => 'index']);
     }
 
-     /**
-     * Login method
-     * 
-     * 【松浦 6/1】
-     * ログイン画面
-     * 
-     */
+    //  /**
+    //  * Login method
+    //  * 
+    //  * 【松浦 6/1】
+    //  * ログイン画面
+    //  * 
+    //  */
     // public function login()
     // {
-
-    //     $users = $this->Users->newEntity();
-	// 	if($this->request->is('post')) {
-    //         //dd($users);
-	// 		$users = $this->Users->patchEntity($users, $this->request->data);
-			
-    //         $users = $this->Auth->identify();
-           
-	// 		if($users) {
-	// 			$this->Auth->setUser($users);
-	// 			return $this->redirect($this->Auth->redirectUrl());
-	// 		} else {
-	// 			echo "ログインエラーだよ";
-	// 		}
-	// 	}
-        // if ($this->request->is('post')) {
-        //     // ユーザー認証
-        //     // usersテーブルのusernameとpasswordが一致したレコード取得
-        //     $user = $this->Auth->identify();
-        //     if ($user) {
-        //         // メソッドに渡されたデータを持つユーザーとしてログイン
-        //         $this->Auth->setUser($user);
-        //         // $this->Auth->redirectUrl(): ログイン後のリダイレクト先URLを返す(loginRedirect)
-        //         return $this->redirect($this->Auth->redirectUrl());
-        //     } else {
-        //         $this->Flash->error(__('emailまたはpasswordが間違っています。'));
-        //     }
-        // }
-    //}
-
-    // {
     //     if ($this->request->is('post')) {
-
-    //         $user = $this->Auth->identify();  //←①
-
+    //         $user = $this->Auth->identify();
     //         if ($user) {
-    //             $this->Auth->setUser($user);  //←②
-    //             return $this->redirect($this->Auth->redirectUrl());  //←③
-    //         } else {
-    //             echo 'あああ';
+    //             $this->Auth->setUser($user);
+    //             return $this->redirect($this->Auth->redirectUrl('/users'));
     //         }
-    //     } 
+    //         $this->Flash->error('ユーザー名またはパスワードが不正です。');
+    //     }
+    // }
 
 
 
-
-        // if ($this->request->is('post')) {
-        //     $user = $this->Auth->identify();
-            
-        //     if ($user) {
-        //         $this->Auth->setUser($user);
-                
-        //         return $this->redirect(['action' => 'index']);
-        //     }
-           
-        //     //$this->Flash->error('ユーザー名またはパスワードが不正です。');
-        // }
-    
-        public function login()
-        {
-            if ($this->request->is('post')) {
-                $user = $this->Auth->identify();
-                if ($user) {
-                    $this->Auth->setUser($user);
-                    return $this->redirect($this->Auth->redirectUrl());
-                }
-                dd($user);
-                echo "ログインエラーだよ";
-            }
-        }
+    /**
+ * ログイン
+ * @return \Cake\Http\Response|null
+ */
+public function login()
+{
+  if ($this->request->is('post')) {
+    $user = $this->Auth->identify();
+    if ($user) {
+      $this->Auth->setUser($user);
+      return $this->redirect($this->Auth->redirectUrl());
+    }
+    $this->Flash->error(__('ユーザ名もしくはパスワードが間違っています'));
+  }
+}
 
     /**
      * logout method
