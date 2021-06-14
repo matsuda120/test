@@ -18,20 +18,31 @@ echo $this->Html->css('ikenodesign');
       <div class="container">
 
       <!-- メニュー -->
-<div class="h-menu">
+<!-- <div class="h-menu">
      <input id="h-menu_checkbox" class="h-menuCheckbox" type="checkbox">
       <label class="h-menu_icon" for="h-menu_checkbox"><span class="hamburger-icon"></span></label>
       <label id="h-menu_black" class="h-menuCheckbox" for="h-menu_checkbox"></label>
       <div id="h-menu_content">
         <ul>
-        <li><?= $this->Html->link(__('検索'), ['action' => 'find']) ?></li>
-        <li><?= $this->Html->link(__('項目切替'), ['action' => 'filter']) ?></li>
-        <li><?= $this->Html->link(__('釣果一覧'), ['action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('釣果登録'), ['action' => 'add']) ?></li>
+        <li>?= $this->Html->link(__('検索'), ['action' => 'find']) ?></li>
+        <li>?= $this->Html->link(__('項目切替'), ['action' => 'filter']) ?></li>
+        <li>?= $this->Html->link(__('釣果一覧'), ['action' => 'index']) ?></li>
+        <li>?= $this->Html->link(__('釣果登録'), ['action' => 'add']) ?></li>
         </ul>
       </div>
-</div>
+</div> -->
 
+<div class="users form">
+  <?= $this->Flash->render() ?>
+  <?= $this->Form->create() ?>
+  <fieldset>
+    <legend><?= __('ユーザ名とパスワードを入力してください') ?></legend>
+    <?= $this->Form->control('name') ?>
+    <?= $this->Form->control('password') ?>
+  </fieldset>
+  <?= $this->Form->button(__('Login')); ?>
+  <?= $this->Form->end() ?>
+</div>
 
 
   <div class="screen">
