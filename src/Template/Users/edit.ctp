@@ -1,37 +1,53 @@
 <?php
+
 /**
  * @var \App\View\AppView $this
  * @var \App\Model\Entity\User $user
  */
 ?>
-<nav class="large-3 medium-4 columns" id="actions-sidebar">
-    <ul class="side-nav">
-        <li class="heading"><?= __('Actions') ?></li>
-        <li><?= $this->Form->postLink(
-                __('Delete'),
-                ['action' => 'delete', $user->id],
-                ['confirm' => __('Are you sure you want to delete # {0}?', $user->id)]
-            )
-        ?></li>
-        <li><?= $this->Html->link(__('List Users'), ['action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('List Fishing Results'), ['controller' => 'FishingResults', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New Fishing Result'), ['controller' => 'FishingResults', 'action' => 'add']) ?></li>
-    </ul>
-</nav>
-<div class="users form large-9 medium-8 columns content">
+
+<!-- 【松浦　6/14】 -->
+
+<div class="users form large-12 medium-8 columns content">
+
+    <!-- 画面タイトル -->
+    <h3><?= __('会員情報修正') ?></h3>
+
     <?= $this->Form->create($user) ?>
     <fieldset>
-        <legend><?= __('Edit User') ?></legend>
+        <legend><?= __('') ?></legend>
         <?php
-            echo $this->Form->control('userid');
-            echo $this->Form->control('name');
-            echo $this->Form->control('age');
-            echo $this->Form->control('fishing_history');
-            echo $this->Form->control('email');
-            echo $this->Form->control('password');
-            echo $this->Form->control('deleted');
+        echo $this->Form->control(
+            'userid',
+            ['label' => 'ユーザーＩＤ']
+        );
+        echo $this->Form->control(
+            'name',
+            ['label' => '名前']
+        );
+        echo $this->Form->control(
+            'age',
+            ['label' => '年齢']
+        );
+        echo $this->Form->control(
+            'fishing_history',
+            ['label' => '釣り歴']
+        );
+        echo $this->Form->control(
+            'email',
+            ['label' => 'メールアドレス']
+        );
+        echo $this->Form->control(
+            'password',
+            ['label' => 'パスワード']
+        );
+
+        //未実装　表示させないようにする
+        //echo $this->Form->
+        //control('deleted');
+
         ?>
     </fieldset>
-    <?= $this->Form->button(__('Submit')) ?>
+    <?= $this->Form->button(__('修正')) ?>
     <?= $this->Form->end() ?>
 </div>

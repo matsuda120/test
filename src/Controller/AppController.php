@@ -1,4 +1,5 @@
 <?php
+
 /**
  * CakePHP(tm) : Rapid Development Framework (https://cakephp.org)
  * Copyright (c) Cake Software Foundation, Inc. (https://cakefoundation.org)
@@ -12,11 +13,12 @@
  * @since     0.2.9
  * @license   https://opensource.org/licenses/mit-license.php MIT License
  */
+
 namespace App\Controller;
- 
+
 use Cake\Controller\Controller;
 use Cake\Event\Event;
- 
+
 /**
  * Application Controller
  *
@@ -27,7 +29,7 @@ use Cake\Event\Event;
  */
 class AppController extends Controller
 {
- 
+
     /**
      * Initialization hook method.
      *
@@ -40,39 +42,43 @@ class AppController extends Controller
     public function initialize()
     {
         parent::initialize();
- 
+
         $this->loadComponent('RequestHandler', [
             'enableBeforeRedirect' => false,
         ]);
         $this->loadComponent('Flash');
- 
-        // $this->loadComponent('Auth', [
-        //     'loginRedirect' => [
-        //         'controller' => 'Users',
-        //         'action' => 'index'
-        //     ],
-        //     'logoutRedirect' => [
-        //         'controller' => 'Users',
-        //         'action' => 'login'
-        //     ],
-        //     'authenticate' => [
-        //         'Form' => [
-        //           'userModel' => 'Users',
-        //           'fields' => [
-        //             'username' => 'email',
-        //             'password' => 'password'
-        //           ]
-        //         ]
-        //     ],
-        // ]);
- 
-        // $this->Auth->allow(['login','add']);
- 
+
+        $this->loadComponent('Auth', [
+            'loginAction' => [
+                'controller' => 'Users',
+                'action' => 'login'
+            ],
+            'loginRedirect' => [
+                'controller' => 'FishingResults',
+                'action' => 'index',
+            ],
+            'logoutRedirect' => [
+                'controller' => 'FishingResults',
+                'action' => 'index'
+            ],
+            'authenticate' => [
+                'Form' => [
+                    'fields' => ['username' => 'userid', 'password' => 'password']
+                ]
+            ],
+        ]);
+        //$this->loadComponent('Security');
+    }
+
+    public function beforeFilter(Event $event)
+    {
+        $this->Auth->allow(['login', 'add', 'logout']);
+    }
+}
+
  
         /*
          * Enable the following component for recommended CakePHP security settings.
          * see https://book.cakephp.org/3.0/en/controllers/components/security.html
          */
         //$this->loadComponent('Security');
-    }
-}

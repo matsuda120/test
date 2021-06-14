@@ -35,8 +35,8 @@ class UsersTable extends Table
         parent::initialize($config);
 
         $this->setTable('users');
-        $this->setDisplayField('');
-        //$this->setDisplayField('name');
+        //$this->setDisplayField('id');
+        $this->setDisplayField('name');
         $this->setPrimaryKey('id');
 
         $this->addBehavior('Timestamp');
@@ -55,8 +55,8 @@ class UsersTable extends Table
     public function validationDefault(Validator $validator)
     {
         $validator
-            ->integer('id');
-            //->allowEmptyString('id', null, 'create')
+            ->integer('id')
+            ->allowEmptyString('id', null, 'create');
             //->add('id', 'unique', ['rule' => 'validateUnique', 'provider' => 'table']);
 
         $validator
@@ -108,7 +108,7 @@ class UsersTable extends Table
     public function buildRules(RulesChecker $rules)
     {
         $rules->add($rules->isUnique(['email']));
-        $rules->add($rules->isUnique(['id']));
+        //$rules->add($rules->isUnique(['id']));
 
         return $rules;
     }

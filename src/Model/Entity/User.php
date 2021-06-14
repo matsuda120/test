@@ -2,7 +2,7 @@
 namespace App\Model\Entity;
 
 // パスワード　bycryptでハッシュ化
-//use cake\Auth\DefaultPasswordHasher;
+use Cake\Auth\DefaultPasswordHasher;
 use Cake\ORM\Entity;
 
 /**
@@ -33,18 +33,18 @@ class User extends Entity
      * @var array
      */
     protected $_accessible = [
-        '*' => true,
-        'id' => false
-        // 'userid' => true,
-        // 'name' => true,
-        // 'age' => true,
-        // 'fishing_history' => true,
-        // 'email' => true,
-        // 'password' => true,
-        // 'deleted' => true,
-        // 'created' => true,
-        // 'modified' => true,
-        // 'fishing_results' => true,
+        // '*' => true,
+        'id' => false,
+        'userid' => true,
+        'name' => true,
+        'age' => true,
+        'fishing_history' => true,
+        'email' => true,
+        'password' => true,
+        'deleted' => true,
+        'created' => true,
+        'modified' => true,
+        'fishing_results' => true
     ];
 
     /**
@@ -56,13 +56,12 @@ class User extends Entity
         'password',
     ];
 
-    // パスワード　bycryptでハッシュ化
-    // protected function _setPassword($value);
-    // {
-    //     if(strlen($value)){
-    //         $hasher = new DefaultPasswordHasher();
-
-    //         return $hasher->hash($value);
-    //     }
-    // }
+    //パスワード　bycryptでハッシュ化
+    protected function _setPassword($value)
+    {
+        if(strlen($value)){
+            $hasher = new DefaultPasswordHasher();
+            return $hasher->hash($value);
+        }
+    }
 }
