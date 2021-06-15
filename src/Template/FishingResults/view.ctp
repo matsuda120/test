@@ -10,7 +10,7 @@
 
 <div class="fishingResults view large-12 medium-8 columns content">
 
-    <!-- 画面タイトル -->
+    <!-- タイトル -->
     <h3><?= __('釣果詳細') ?></h3>
 
     <!-- 釣果　詳細　テーブル -->
@@ -91,11 +91,37 @@
             <th scope="row"><?= __('備考') ?></th>
             <td><?= h($fishingResult->note) ?></td>
         </tr>
+
+    </table>
+
+    <br>
+
+    <!-- タイトル -->
+    <h3><?= __('会員詳細') ?></h3>
+
+    <!-- 釣果　詳細　テーブル -->
+    <table class="vertical-table">
+
         <tr>
             <th scope="row"><?= __('ユーザーID') ?></th>
             <td><?= h($fishingResult->user->userid) ?></td>
         </tr>
-
+        <tr>
+            <th scope="row"><?= __('名前') ?></th>
+            <td><?= h($fishingResult->user->name) . 'さん' ?></td>
+        </tr>
+        <tr>
+            <th scope="row"><?= __('釣り歴') ?></th>
+            <td><?= h($fishingResult->user->fishing_history) ?></td>
+        </tr>
+        <tr>
+            <th scope="row"><?= __('年齢') ?></th>
+            <td><?= $this->Number->format($fishingResult->user->age) . '歳' ?></td>
+        </tr>
+        <tr>
+            <th scope="row"><?= __('メールアドレス') ?></th>
+            <td><?= h($fishingResult->user->email) ?></td>
+        </tr>
     </table>
 
 </div>

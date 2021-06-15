@@ -19,26 +19,26 @@
         <!-- 釣果　一覧表示　項目 -->
         <thead>
             <tr>
-                <th scope="col"><?= $this->Paginator->sort('管理番号') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('日付') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('釣り開始時間') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('釣り終了時間') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('天気') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('気温') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('水温') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('都道府県') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('市町村') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('スポット') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('水深') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('魚種') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('釣った時間') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('長さ') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('重さ') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('匹数') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('釣種') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('ルアー／えさ') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('備考') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('ユーザーID') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('FishingResults.id', ['label' => '管理番号']) ?></th>
+                <th scope="col"><?= $this->Paginator->sort('fishing_date', ['label' => '日付']) ?></th>
+                <th scope="col"><?= $this->Paginator->sort('time_from', ['label' => '釣り開始時間']) ?></th>
+                <th scope="col"><?= $this->Paginator->sort('time_to', ['label' => '釣り終了時間']) ?></th>
+                <th scope="col"><?= $this->Paginator->sort('weather_id', ['label' => '天気']) ?></th>
+                <th scope="col"><?= $this->Paginator->sort('temperature', ['label' => '気温']) ?></th>
+                <th scope="col"><?= $this->Paginator->sort('water_temperature', ['label' => '水温']) ?></th>
+                <th scope="col"><?= $this->Paginator->sort('prefecture_id', ['label' => '都道府県']) ?></th>
+                <th scope="col"><?= $this->Paginator->sort('city', ['label' => '市町村']) ?></th>
+                <th scope="col"><?= $this->Paginator->sort('spot', ['label' => 'スポット']) ?></th>
+                <th scope="col"><?= $this->Paginator->sort('water_depth', ['label' => '水深']) ?></th>
+                <th scope="col"><?= $this->Paginator->sort('fish_type', ['label' => '魚種']) ?></th>
+                <th scope="col"><?= $this->Paginator->sort('fish_caught_time', ['label' => '釣った時間']) ?></th>
+                <th scope="col"><?= $this->Paginator->sort('length', ['label' => '長さ']) ?></th>
+                <th scope="col"><?= $this->Paginator->sort('weight', ['label' => '重さ']) ?></th>
+                <th scope="col"><?= $this->Paginator->sort('quantity', ['label' => '匹数']) ?></th>
+                <th scope="col"><?= $this->Paginator->sort('fishing_type_id', ['label' => '釣種']) ?></th>
+                <th scope="col"><?= $this->Paginator->sort('lure_feed_name', ['label' => 'ルアー／えさ']) ?></th>
+                <th scope="col"><?= $this->Paginator->sort('note', ['label' => '備考']) ?></th>
+                <th scope="col"><?= $this->Paginator->sort('user_id', ['label' => 'ユーザーID']) ?></th>
                 <th scope="col" class="actions"><?= __('') ?></th>
             </tr>
         </thead>

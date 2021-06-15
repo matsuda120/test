@@ -45,7 +45,7 @@
         echo $this->Form->control('weight', ['label' => '重さ', 'empty' => true]);
         echo $this->Form->control('weight_unit', ['type' => 'select', 'label' => '重さの単位', 'options' => ["g" => 'g', "kg" => 'kg'], 'empty' => true]);
         echo $this->Form->control('quantity', ['label' => '匹数', 'empty' => true]);
-        echo $this->Form->control('fishing_type_id', ['label' => '釣種', 'options' => $fishingTypes, 'empty' => true]);
+        echo $this->Form->control('fishing_type_id', ['type' => 'datalistJs', 'label' => '釣種', 'options' => $fishingTypes, 'empty' => true]);
         echo $this->Form->control('lure_feed_name', ['type' => 'datalistJs', 'label' => 'ルアー／えさ名称', 'options' => $lureFeedNameLists, 'empty' => true]);
         echo $this->Form->control('lure_feed', ['type' => 'select', 'label' => 'ルアー／えさ', 'options' => ['（えさ）' => '（えさ）', "（ルアー）" => '（ルアー）'], 'empty' => true]);
         echo $this->Form->control('note', ['type' => 'textarea', 'label' => '備考', 'empty' => true]);

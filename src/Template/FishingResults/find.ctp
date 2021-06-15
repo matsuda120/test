@@ -7,9 +7,9 @@
 
 ?>
 
-<!-- 【松浦　6/14】 -->
+<!-- 【松浦　6/15】 -->
 
-<div class="fishingResults form large-11 medium-8 columns content">
+<div class="fishingResults form large-12 medium-8 columns content">
 
     <!-- 画面タイトル -->
     <h3><?= __('釣果検索') ?></h3>
@@ -31,17 +31,17 @@
         <?= $this->Form->label('time_from', '釣り開始時間：　入力された時間以降のデータが出力', ['class' => 'custom-control-label']);  ?>
         <?= $this->Form->text('time_from', ['type' => 'time', 'class' => 'custom-control-text', 'empty' => true]); ?>
 
-        <?= $this->Form->control('weather', ['label' => '天気']); ?>
-        <?= $this->Form->control('prefecture', ['label' => '都道府県']); ?>
+        <?= $this->Form->control('weather', ['type' => 'datalistJs', 'label' => '天気', 'options' => $weathers, 'empty' => true]); ?>
+        <?= $this->Form->control('prefecture', ['type' => 'datalistJs', 'label' => '都道府県', 'options' => $prefectures, 'empty' => true]); ?>
         <?= $this->Form->control('city', ['type' => 'datalistJs', 'label' => '市町村', 'options' => $cityLists, 'empty' => true]); ?>
         <?= $this->Form->control('spot', ['type' => 'datalistJs', 'label' => 'スポット', 'options' => $spotLists]); ?>
         <?= $this->Form->control('fish_type', ['type' => 'datalistJs', 'label' => '魚種', 'options' => $fishLists, 'empty' => true]); ?>
         <?= $this->Form->label('fish_caught_time', '釣った時間：　入力された時間以降のデータが出力', ['class' => 'custom-control-label']);  ?>
         <?= $this->Form->text('fish_caught_time', ['type' => 'time', 'class' => 'custom-control-text', 'empty' => true]); ?>
-        <?= $this->Form->control('fishing_type', ['label' => '釣種', 'empty' => true]); ?>
+        <?= $this->Form->control('fishing_type', ['label' => '釣種', 'options' => $fishingTypes, 'empty' => true]); ?>
         <?= $this->Form->control('lure_feed_name', ['type' => 'datalistJs', 'label' => 'ルアー／えさ名称', 'options' => $lureFeedNameLists, 'empty' => true]); ?>
         <?= $this->Form->control('lure_feed', ['label' => 'ルアー／えさ', 'options' => ["ルアー" => "ルアー", "えさ" => "えさ"], "empty" => true]); ?>
-        <?= $this->Form->control('userid', ['label' => 'ユーザーID']); ?>
+        <?= $this->Form->control('userid', ['label' => 'ユーザーID', 'type' => 'datalistJs', 'options' => $userLists, 'empty' => true]); ?>
 
         <?= $this->Form->button('Submit') ?>
         <?= $this->Form->end() ?>

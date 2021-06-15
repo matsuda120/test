@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Model\Table;
 
 use Cake\ORM\Query;
@@ -51,9 +52,11 @@ class FishingResultsTable extends Table
         ]);
 
         $this->addBehavior(
-            'Datalist.Datalist', 
-            ['Prefectures' => 'title', 'Weathers' => 'title', 'FishingTypes' => 'title', 
-            'FishingResults' => 'fish_type', 'FishingResults' => 'city', 'FishingResults' => 'spot', 'FishingResults' => 'lure_feed_name']
+            'Datalist.Datalist',
+            [
+                'Prefectures' => 'title', 'Weathers' => 'title', 'FishingTypes' => 'title', 'Users' => 'userid',
+                'FishingResults' => 'fish_type', 'FishingResults' => 'city', 'FishingResults' => 'spot', 'FishingResults' => 'lure_feed_name'
+            ]
         );
 
         $this->belongsTo('Weathers', [
@@ -85,7 +88,7 @@ class FishingResultsTable extends Table
         $validator
             ->integer('id')
             ->allowEmptyString('id', null, 'create');
-            
+
         $validator
             ->date('fishing_date')
             ->requirePresence('fishing_date', 'create')

@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Model\Entity;
 
 // パスワード　bycryptでハッシュ化
@@ -59,7 +60,7 @@ class User extends Entity
     //パスワード　bycryptでハッシュ化
     protected function _setPassword($value)
     {
-        if(strlen($value)){
+        if (strlen($value)) {
             $hasher = new DefaultPasswordHasher();
             return $hasher->hash($value);
         }

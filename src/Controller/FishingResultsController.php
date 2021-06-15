@@ -65,7 +65,7 @@ class FishingResultsController extends AppController
 
     /**
      * Index method
-     * 【松浦　6/9】
+     * 【松浦 6/15】
      *
      * @return \Cake\Http\Response|null
      */
@@ -73,10 +73,16 @@ class FishingResultsController extends AppController
     {
         $this->set('fishingResults', $this->FishingResults->find('all'));
 
+        if ($this->request->getQuery("sort")) {
+            $sort = [$this->request->getQuery("sort") => $this->request->getQuery("direction")];
+        } else {
+            $sort = ["FishingResults.id" => "asc"];
+        }
+
         $this->paginate = [
             'contain' => ['Weathers', 'Prefectures', 'FishingTypes', 'Users'],
         ];
-        $fishingResults = $this->paginate($this->FishingResults);
+        $fishingResults = $this->paginate($this->FishingResults->find()->order($sort));
 
         $this->set(compact('fishingResults'));
     }
@@ -169,11 +175,21 @@ class FishingResultsController extends AppController
         $weathers = $this->FishingResults->Weathers->find('list', ['limit' => 200]);
         $prefectures = $this->FishingResults->Prefectures->find('list', ['limit' => 200]);
         $fishingTypes = $this->FishingResults->FishingTypes->find('list', ['limit' => 200]);
-        $users = $this->FishingResults->Users->find('list', ['limit' => 200]);
+
+        // $users = $this->FishingResults->Users->find('list', ['limit' => 200]);
+
         $fishLists = $this->FishingResults->find('list', ['keyField' => 'fish_type', 'valueField' => 'fish_type']);
         $cityLists = $this->FishingResults->find('list', ['keyField' => 'city', 'valueField' => 'city']);
         $spotLists = $this->FishingResults->find('list', ['keyField' => 'spot', 'valueField' => 'spot']);
         $lureFeedNameLists = $this->FishingResults->find('list', ['keyField' => 'lure_feed_name', 'valueField' => 'lure_feed_name']);
+
+        // $weathers = $this->FishingResults->Weathers->find('list', ['keyField' => 'title', 'valueField' => 'title']);
+        // $prefectures = $this->FishingResults->Prefectures->find('list', ['keyField' => 'title', 'valueField' => 'title']);
+        // $fishingTypes = $this->FishingResults->FishingTypes->find('list', ['keyField' => 'title', 'valueField' => 'title']);
+
+        $users = $this->FishingResults->Users->find('list', ['keyField' => 'userid', 'valueField' => 'userid']);
+
+
 
         $this->set(compact(
             'fishingResult',
@@ -213,7 +229,7 @@ class FishingResultsController extends AppController
 
     /**
      * find method
-     * 【松浦　6/10 修正】
+     * 【松浦 6/15】
      */
     public function find()
     {
@@ -289,14 +305,30 @@ class FishingResultsController extends AppController
                 ->contain(['Weathers', 'Prefectures', 'FishingTypes', 'Users']);
         }
 
+        $weathers = $this->FishingResults->Weathers->find('list', ['keyField' => 'title', 'valueField' => 'title']);
+        $prefectures = $this->FishingResults->Prefectures->find('list', ['keyField' => 'title', 'valueField' => 'title']);
+        $fishingTypes = $this->FishingResults->FishingTypes->find('list', ['keyField' => 'title', 'valueField' => 'title']);
+
         $fishLists = $this->FishingResults->find('list', ['keyField' => 'fish_type', 'valueField' => 'fish_type']);
         $cityLists = $this->FishingResults->find('list', ['keyField' => 'city', 'valueField' => 'city']);
         $spotLists = $this->FishingResults->find('list', ['keyField' => 'spot', 'valueField' => 'spot']);
         $lureFeedNameLists = $this->FishingResults->find('list', ['keyField' => 'lure_feed_name', 'valueField' => 'lure_feed_name']);
 
+        $userLists = $this->FishingResults->Users->find('list', ['keyField' => 'userid', 'valueField' => 'userid']);
+
         $this->set("msg1", "↓↓　検索結果を表示しました　↓↓");
         $this->set("msg2", "×　検索結果なし　×"); //未実装
-        $this->set(compact('results', 'fishLists', 'cityLists', 'spotLists', 'lureFeedNameLists'));
+        $this->set(compact(
+            'results',
+            'weathers',
+            'prefectures',
+            'fishingTypes',
+            'fishLists',
+            'cityLists',
+            'spotLists',
+            'lureFeedNameLists',
+            'userLists'
+        ));
     } // find end
 
 } // END
