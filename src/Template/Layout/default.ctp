@@ -19,6 +19,8 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
 <!DOCTYPE html>
 <html>
 
+<!-- 【松浦　6/16】 -->
+
 <head>
     <?= $this->Html->charset() ?>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -37,16 +39,21 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
 
 <body>
     <nav class="top-bar expanded" data-topbar role="navigation">
-        <ul class="title-area large-3 medium-4 columns">
+        <ul class="title-area large-4 medium-4 columns">
             <h3>釣果管理システム</h3>
         </ul>
 
         <div class="top-bar-section">
             <ul class="right">
+                <?php $userid = $this->request->getSession()->read('Auth.User.userid'); ?>
+                <?php if ($userid == 'admin') : ?>
+                    <li><?= $this->Html->link(__('管理者専用'), ['controller' => 'Users', 'action' => 'admin']) ?></li>
+                <?php endif; ?>
 
                 <li><?= $this->Html->link(__('釣果一覧'), ['controller' => 'FishingResults', 'action' => 'index']) ?></li>
                 <li><?= $this->Html->link(__('検索'), ['controller' => 'FishingResults', 'action' => 'find']) ?></li>
                 <li><?= $this->Html->link(__('項目切替'), ['controller' => 'FishingResults', 'action' => 'filter']) ?></li>
+
                 <?php if ($this->request->getSession()->read('Auth.User.id')) : ?>
                     <li><?= $this->Html->link(__('釣果登録'), ['controller' => 'FishingResults', 'action' => 'add']) ?></li>
                     <li><?= $this->Html->link(__('ログアウト'), ['controller' => 'Users', 'action' => 'logout']) ?></li>

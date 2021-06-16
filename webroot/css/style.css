@@ -20,13 +20,12 @@ a {
 }
 
 header {
-    background-color: #D33C44;
-    color: #ffffff;
-    font-size: 30px;
-    height: 84px;
-    line-height: 64px;
-    padding: 16px 0px;
-    box-shadow: 0px 1px rgba(0, 0, 0, 0.24);
+    padding: 10px 2% 10px;
+    top: 0;
+    width: 100%;
+    background-color: #fff;
+    display: flex;
+    align-items: center;
 }
 
 header .header-title {
@@ -319,16 +318,16 @@ pre {
 }
 
 .top-bar.expanded .title-area {
-    background: #01545b;
+    background: #fff;
 }
 
 .top-bar.expanded, .top-bar,.top-bar-section ul li,.top-bar-section li:not(.has-form) a:not(.button) {
-    background: #116d76;
+    background: #fff;
 }
 
 .top-bar-section li:not(.has-form) a:not(.button):hover {
-    background-color: #308e97;
-    background: #308e97;
+    background-color: #fff;
+    background: #fff;
 }
 
 .side-nav li.heading {
@@ -338,6 +337,7 @@ pre {
     text-transform: uppercase;
     padding: 0.4375rem 0.875rem;
 }
+
 
 #actions-sidebar {
     background: #fafafa;

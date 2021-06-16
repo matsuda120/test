@@ -20,13 +20,11 @@ class FishingResultsController extends AppController
     public function initialize()
     {
         parent::initialize();
-
-        //レイアウト指定
         $this->viewBuilder()->setLayout('default');
     }
 
     /**
-     * 認証スルー設定
+     * BeforeFilter method
      * 【松浦 6/14】
      * 
      * @param Event $event
@@ -41,18 +39,13 @@ class FishingResultsController extends AppController
     /**
      * isAuthorized method
      * 【松浦 6/14】
-     * 
-     * ユーザーのIDが一致した時のみ修正と削除ができるようにする
-     * ログインしている自分以外のユーザーが情報の修正・削除ができない
      */
     public function isAuthorized($user)
     {
-        // 登録ユーザー全員が登録できる記述
         if ($this->request->getParam('action') === 'add') {
             return true;
         }
 
-        // 自分の記録を修正＆削除できる記述
         if (in_array($this->request->getParam('action'), ['edit', 'delete'])) {
             $postId = (int)$this->request->getParam('pass.0');
             if ($this->FishingResults->isOwnedBy($postId, $user['id'])) {
@@ -117,7 +110,6 @@ class FishingResultsController extends AppController
         if ($this->request->is('post')) {
             $fishingResult = $this->FishingResults->patchEntity($fishingResult, $this->request->getData());
             $fishingResult->user_id = $this->Auth->user('id');
-            //登録成功したら初期画面に戻る記述
             if ($this->FishingResults->save($fishingResult)) {
                 $this->Flash->success(__('釣果登録完了しました'));
                 return $this->redirect(['action' => 'index']);
@@ -127,9 +119,7 @@ class FishingResultsController extends AppController
         $weathers = $this->FishingResults->Weathers->find('list', ['limit' => 200]);
         $prefectures = $this->FishingResults->Prefectures->find('list', ['limit' => 200]);
         $fishingTypes = $this->FishingResults->FishingTypes->find('list', ['limit' => 200]);
-
         $users = $this->FishingResults->Users->find('list', ['limit' => 200]);
-
         $fishLists = $this->FishingResults->find('list', ['keyField' => 'fish_type', 'valueField' => 'fish_type']);
         $cityLists = $this->FishingResults->find('list', ['keyField' => 'city', 'valueField' => 'city']);
         $spotLists = $this->FishingResults->find('list', ['keyField' => 'spot', 'valueField' => 'spot']);
@@ -138,10 +128,7 @@ class FishingResultsController extends AppController
         // $weathers = $this->FishingResults->Weathers->find('list', ['keyField' => 'title', 'valueField' => 'title']);
         // $prefectures = $this->FishingResults->Prefectures->find('list', ['keyField' => 'title', 'valueField' => 'title']);
         // $fishingTypes = $this->FishingResults->FishingTypes->find('list', ['keyField' => 'title', 'valueField' => 'title']);
-
-        //$users = $this->FishingResults->Users->find('list', ['keyField' => 'userid', 'valueField' => 'userid']);
-
-
+        // $users = $this->FishingResults->Users->find('list', ['keyField' => 'userid', 'valueField' => 'userid']);
 
         $this->set(compact(
             'fishingResult',
@@ -154,7 +141,7 @@ class FishingResultsController extends AppController
             'spotLists',
             'lureFeedNameLists'
         ));
-    } //add end
+    } // end
 
     /**
      * Edit method
@@ -167,8 +154,6 @@ class FishingResultsController extends AppController
     public function edit($id = null)
     {
         $fishingResult = $this->FishingResults->get($id, [
-            //'contain' => [],
-            //'contain' => ['Users'],
             'contain' => [],
         ]);
         //if ($this->request->is(['patch', 'post', 'put'])) {
@@ -185,21 +170,11 @@ class FishingResultsController extends AppController
         $weathers = $this->FishingResults->Weathers->find('list', ['limit' => 200]);
         $prefectures = $this->FishingResults->Prefectures->find('list', ['limit' => 200]);
         $fishingTypes = $this->FishingResults->FishingTypes->find('list', ['limit' => 200]);
-
-        // $users = $this->FishingResults->Users->find('list', ['limit' => 200]);
-
         $fishLists = $this->FishingResults->find('list', ['keyField' => 'fish_type', 'valueField' => 'fish_type']);
         $cityLists = $this->FishingResults->find('list', ['keyField' => 'city', 'valueField' => 'city']);
         $spotLists = $this->FishingResults->find('list', ['keyField' => 'spot', 'valueField' => 'spot']);
         $lureFeedNameLists = $this->FishingResults->find('list', ['keyField' => 'lure_feed_name', 'valueField' => 'lure_feed_name']);
-
-        // $weathers = $this->FishingResults->Weathers->find('list', ['keyField' => 'title', 'valueField' => 'title']);
-        // $prefectures = $this->FishingResults->Prefectures->find('list', ['keyField' => 'title', 'valueField' => 'title']);
-        // $fishingTypes = $this->FishingResults->FishingTypes->find('list', ['keyField' => 'title', 'valueField' => 'title']);
-
         $users = $this->FishingResults->Users->find('list', ['keyField' => 'userid', 'valueField' => 'userid']);
-
-
 
         $this->set(compact(
             'fishingResult',
@@ -212,11 +187,11 @@ class FishingResultsController extends AppController
             'spotLists',
             'lureFeedNameLists'
         ));
-    }  //edit end
+    }  // end
 
     /**
      * Delete method
-     * 【松浦　6/7 修正】
+     * 【松浦　6/7】
      *
      * @param string|null $id Fishing Result id.
      * @return \Cake\Http\Response|null Redirects to index.
@@ -235,10 +210,10 @@ class FishingResultsController extends AppController
         }
 
         return $this->redirect(['action' => 'index']);
-    } //delete end
+    } // end
 
     /**
-     * find method
+     * Find method
      * 【松浦 6/15】
      */
     public function find()
@@ -318,12 +293,10 @@ class FishingResultsController extends AppController
         $weathers = $this->FishingResults->Weathers->find('list', ['keyField' => 'title', 'valueField' => 'title']);
         $prefectures = $this->FishingResults->Prefectures->find('list', ['keyField' => 'title', 'valueField' => 'title']);
         $fishingTypes = $this->FishingResults->FishingTypes->find('list', ['keyField' => 'title', 'valueField' => 'title']);
-
         $fishLists = $this->FishingResults->find('list', ['keyField' => 'fish_type', 'valueField' => 'fish_type']);
         $cityLists = $this->FishingResults->find('list', ['keyField' => 'city', 'valueField' => 'city']);
         $spotLists = $this->FishingResults->find('list', ['keyField' => 'spot', 'valueField' => 'spot']);
         $lureFeedNameLists = $this->FishingResults->find('list', ['keyField' => 'lure_feed_name', 'valueField' => 'lure_feed_name']);
-
         $userLists = $this->FishingResults->Users->find('list', ['keyField' => 'userid', 'valueField' => 'userid']);
 
         $this->set("msg1", "↓↓　検索結果を表示しました　↓↓");
@@ -339,12 +312,12 @@ class FishingResultsController extends AppController
             'lureFeedNameLists',
             'userLists'
         ));
-    } // find end
+    } // end
 
 
     /**
-     * filter method
-     * 【松浦 6/15】
+     * Filter method 未完成
+     * 【松浦 6/16】
      */
     public function filter()
     {
@@ -422,17 +395,12 @@ class FishingResultsController extends AppController
         $weathers = $this->FishingResults->Weathers->find('list', ['keyField' => 'title', 'valueField' => 'title']);
         $prefectures = $this->FishingResults->Prefectures->find('list', ['keyField' => 'title', 'valueField' => 'title']);
         $fishingTypes = $this->FishingResults->FishingTypes->find('list', ['keyField' => 'title', 'valueField' => 'title']);
-
         $fishLists = $this->FishingResults->find('list', ['keyField' => 'fish_type', 'valueField' => 'fish_type']);
         $cityLists = $this->FishingResults->find('list', ['keyField' => 'city', 'valueField' => 'city']);
         $spotLists = $this->FishingResults->find('list', ['keyField' => 'spot', 'valueField' => 'spot']);
         $lureFeedNameLists = $this->FishingResults->find('list', ['keyField' => 'lure_feed_name', 'valueField' => 'lure_feed_name']);
-
         $userLists = $this->FishingResults->Users->find('list', ['keyField' => 'userid', 'valueField' => 'userid']);
 
-
-        $this->set("msg1", "↓↓　検索結果を表示しました　↓↓");
-        $this->set("msg2", "×　検索結果なし　×"); //未実装
         $this->set(compact(
             'results',
             'weathers',
@@ -444,7 +412,7 @@ class FishingResultsController extends AppController
             'lureFeedNameLists',
             'userLists'
         ));
-    } // filter end
+    } // end
 
 } // END
 

@@ -43,7 +43,7 @@
             </tr>
         </thead>
 
-        <!-- 釣果　一覧　情報 -->
+        <!-- 釣果　一覧表示　情報 -->
         <tbody>
             <?php foreach ($fishingResults as $fishingResult) : ?>
                 <tr>

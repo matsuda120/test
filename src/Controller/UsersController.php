@@ -17,19 +17,16 @@ class UsersController extends AppController
 {
     /**
      * Initialization method
+     * 【松浦 6/14】
      */
     public function initialize()
     {
-        // 【松浦 6/14】
-
         parent::initialize();
-
-        //レイアウト指定
         $this->viewBuilder()->setLayout('default');
     }
 
     /**
-     * 認証スルー設定
+     * beforeFilter method
      * 【松浦 6/14】
      * 
      * @param Event $event
@@ -44,18 +41,17 @@ class UsersController extends AppController
     /**
      * isAuthorized method
      * 【松浦 6/14】
-     * 
-     * ユーザーのIDが一致した時のみ修正と削除ができるようにする
-     * ログインしている自分以外のユーザーが情報の修正・削除ができない
      */
     public function isAuthorized($user)
     {
+        if (isset($user['userid']) && $user['userid'] === 'admin') {
+            return true;
+        }
         $id = $this->request->getParam('pass.0');
 
         if ($id == $user['id']) {
             return true;
         }
-
         return false;
     }
 
@@ -68,7 +64,6 @@ class UsersController extends AppController
     public function index()
     {
         $users = $this->paginate($this->Users);
-
         $this->set(compact('users'));
     }
 
@@ -85,7 +80,6 @@ class UsersController extends AppController
         $user = $this->Users->get($id, [
             'contain' => ['FishingResults' => ['Weathers', 'Prefectures', 'FishingTypes']],
         ]);
-
         $this->set(compact('user'));
     }
 
@@ -150,7 +144,6 @@ class UsersController extends AppController
     public function delete($id = null)
     {
         $this->request->allowMethod(['post', 'delete']);
-
         $user = $this->Users->get($id);
 
         if ($this->Users->delete($user)) {
@@ -165,32 +158,53 @@ class UsersController extends AppController
     }
 
     /**
-     * login method
+     * Login method
      * 【松浦 6/14】
+     * 
      * @return \Cake\Http\Response|null
      */
     public function login()
     {
         if ($this->request->is('post')) {
-
             $user = $this->Auth->identify();
 
             if ($user) {
                 $this->Auth->setUser($user);
                 return $this->redirect($this->Auth->redirectUrl());
             }
-
             $this->Flash->error(__('ユーザＩＤもしくはパスワードが間違っています'));
         }
     }
 
     /**
-     * logout method
+     * Logout method
      * 【松浦 6/14】
      */
     public function logout()
     {
         $this->Flash->success('ログアウトしました');
         return $this->redirect($this->Auth->logout());
+    }
+
+    /**
+     * Admin method
+     * 【松浦 6/16】
+     *
+     * @return \Cake\Http\Response|null
+     */
+    public function admin()
+    {
+        $users = $this->paginate($this->Users);
+
+        $wearherTable = $this->getTableLocator()->get('Weathers');
+        $weathers = $wearherTable->find();
+
+        $prefectureTable = $this->getTableLocator()->get('Prefectures');
+        $prefectures = $prefectureTable->find();
+
+        $fishingTypeTable = $this->getTableLocator()->get('FishingTypes');
+        $fishingTypes = $fishingTypeTable->find();
+
+        $this->set(compact('users', 'weathers', 'prefectures', 'fishingTypes'));
     }
 }
