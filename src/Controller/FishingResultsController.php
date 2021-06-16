@@ -35,7 +35,7 @@ class FishingResultsController extends AppController
     public function beforeFilter(Event $event)
     {
         parent::beforeFilter($event);
-        $this->Auth->allow(['find', 'view', 'index']);
+        $this->Auth->allow(['find', 'filter', 'view', 'index']);
     }
 
     /**
@@ -47,20 +47,20 @@ class FishingResultsController extends AppController
      */
     public function isAuthorized($user)
     {
-        $id = $this->request->getParam('pass.0');
-
-        if ($id == $user['id']) {
+        // 登録ユーザー全員が登録できる記述
+        if ($this->request->getParam('action') === 'add') {
             return true;
         }
 
-        //　ログインしているユーザーは釣果を「登録」「修正」「削除」できる　？？？
-        $action = $this->request->getParam('action');
-        if (in_array($action, ['add', 'edit', 'delete'])) {
-            return true;
+        // 自分の記録を修正＆削除できる記述
+        if (in_array($this->request->getParam('action'), ['edit', 'delete'])) {
+            $postId = (int)$this->request->getParam('pass.0');
+            if ($this->FishingResults->isOwnedBy($postId, $user['id'])) {
+                return true;
+            }
         }
 
-        return false;
-        //return $fishingResult->user_id === $user['id'];
+        return parent::isAuthorized($user);
     }
 
     /**
@@ -116,7 +116,7 @@ class FishingResultsController extends AppController
 
         if ($this->request->is('post')) {
             $fishingResult = $this->FishingResults->patchEntity($fishingResult, $this->request->getData());
-
+            $fishingResult->user_id = $this->Auth->user('id');
             //登録成功したら初期画面に戻る記述
             if ($this->FishingResults->save($fishingResult)) {
                 $this->Flash->success(__('釣果登録完了しました'));
@@ -127,11 +127,21 @@ class FishingResultsController extends AppController
         $weathers = $this->FishingResults->Weathers->find('list', ['limit' => 200]);
         $prefectures = $this->FishingResults->Prefectures->find('list', ['limit' => 200]);
         $fishingTypes = $this->FishingResults->FishingTypes->find('list', ['limit' => 200]);
+
         $users = $this->FishingResults->Users->find('list', ['limit' => 200]);
+
         $fishLists = $this->FishingResults->find('list', ['keyField' => 'fish_type', 'valueField' => 'fish_type']);
         $cityLists = $this->FishingResults->find('list', ['keyField' => 'city', 'valueField' => 'city']);
         $spotLists = $this->FishingResults->find('list', ['keyField' => 'spot', 'valueField' => 'spot']);
         $lureFeedNameLists = $this->FishingResults->find('list', ['keyField' => 'lure_feed_name', 'valueField' => 'lure_feed_name']);
+
+        // $weathers = $this->FishingResults->Weathers->find('list', ['keyField' => 'title', 'valueField' => 'title']);
+        // $prefectures = $this->FishingResults->Prefectures->find('list', ['keyField' => 'title', 'valueField' => 'title']);
+        // $fishingTypes = $this->FishingResults->FishingTypes->find('list', ['keyField' => 'title', 'valueField' => 'title']);
+
+        //$users = $this->FishingResults->Users->find('list', ['keyField' => 'userid', 'valueField' => 'userid']);
+
+
 
         $this->set(compact(
             'fishingResult',
@@ -236,7 +246,7 @@ class FishingResultsController extends AppController
         $results = [];
 
         if ($this->request->is('post')) {
-            $requestData = $this->request->data();
+            $requestData = $this->request->getData();
 
             $conditions = [];
 
@@ -330,6 +340,111 @@ class FishingResultsController extends AppController
             'userLists'
         ));
     } // find end
+
+
+    /**
+     * filter method
+     * 【松浦 6/15】
+     */
+    public function filter()
+    {
+        $results = [];
+
+        if ($this->request->is('post')) {
+            $requestData = $this->request->getData();
+
+            $conditions = [];
+
+            // 日付
+            if (!empty($requestData['fishing_date'])) {
+                $conditions['fishing_date'] = $requestData['fishing_date'];
+            }
+
+            //釣り開始時間
+            if (!empty($requestData['time_from'])) {
+                $conditions['time_from >'] = $requestData['time_from'];
+            }
+
+            //天気
+            if (!empty($requestData['weather'])) {
+                $conditions['Weathers.title like'] = '%' . $requestData['weather'] . '%';
+            }
+
+            //都道府県
+            if (!empty($requestData['prefecture'])) {
+                $conditions['Prefectures.title like'] = '%' . $requestData['prefecture'] . '%';
+            }
+
+            //市町村
+            if (!empty($requestData['city'])) {
+                $conditions['city like'] = '%' . $requestData['city'] . '%';
+            }
+
+            //スポット
+            if (!empty($requestData['spot'])) {
+                $conditions['spot like'] = '%' . $requestData['spot'] . '%';
+            }
+
+            //魚種
+            if (!empty($requestData['fish_type'])) {
+                $conditions['fish_type like'] = '%' . $requestData['fish_type'] . '%';
+            }
+
+            //釣った時間
+            if (!empty($requestData['fish_caught_time'])) {
+                $conditions['fish_caught_time >'] = $requestData['fish_caught_time'];
+            }
+
+            //釣種
+            if (!empty($requestData['fishing_type'])) {
+                $conditions['FishingTypes.title like'] = '%' . $requestData['fishing_type'] . '%';
+            }
+
+            //ルアー／えさ名称
+            if (!empty($requestData['lure_feed_name'])) {
+                $conditions['lure_feed_name like'] = '%' . $requestData['lure_feed_name'] . '%';
+            }
+
+            //ルアー／えさ
+            if (!empty($requestData['lure_feed'])) {
+                $conditions['lure_feed like'] = '%' . $requestData['lure_feed'] . '%';
+            }
+
+            //ユーザーID
+            if (!empty($requestData['userid'])) {
+                $conditions['Users.userid like'] = '%' . $requestData['userid'] . '%';
+            }
+
+            $results = $this->FishingResults->find()
+                ->select([$conditions]);
+        }
+
+        $weathers = $this->FishingResults->Weathers->find('list', ['keyField' => 'title', 'valueField' => 'title']);
+        $prefectures = $this->FishingResults->Prefectures->find('list', ['keyField' => 'title', 'valueField' => 'title']);
+        $fishingTypes = $this->FishingResults->FishingTypes->find('list', ['keyField' => 'title', 'valueField' => 'title']);
+
+        $fishLists = $this->FishingResults->find('list', ['keyField' => 'fish_type', 'valueField' => 'fish_type']);
+        $cityLists = $this->FishingResults->find('list', ['keyField' => 'city', 'valueField' => 'city']);
+        $spotLists = $this->FishingResults->find('list', ['keyField' => 'spot', 'valueField' => 'spot']);
+        $lureFeedNameLists = $this->FishingResults->find('list', ['keyField' => 'lure_feed_name', 'valueField' => 'lure_feed_name']);
+
+        $userLists = $this->FishingResults->Users->find('list', ['keyField' => 'userid', 'valueField' => 'userid']);
+
+
+        $this->set("msg1", "↓↓　検索結果を表示しました　↓↓");
+        $this->set("msg2", "×　検索結果なし　×"); //未実装
+        $this->set(compact(
+            'results',
+            'weathers',
+            'prefectures',
+            'fishingTypes',
+            'fishLists',
+            'cityLists',
+            'spotLists',
+            'lureFeedNameLists',
+            'userLists'
+        ));
+    } // filter end
 
 } // END
 

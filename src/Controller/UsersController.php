@@ -38,7 +38,7 @@ class UsersController extends AppController
     public function beforeFilter(Event $event)
     {
         parent::beforeFilter($event);
-        $this->Auth->allow(['add', 'logout']);
+        $this->Auth->allow(['add', 'logout', 'view']);
     }
 
     /**
@@ -83,10 +83,10 @@ class UsersController extends AppController
     public function view($id = null)
     {
         $user = $this->Users->get($id, [
-            'contain' => ['FishingResults'],
+            'contain' => ['FishingResults' => ['Weathers', 'Prefectures', 'FishingTypes']],
         ]);
 
-        $this->set('user', $user);
+        $this->set(compact('user'));
     }
 
     /**

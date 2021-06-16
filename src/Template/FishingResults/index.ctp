@@ -71,7 +71,8 @@
                     <td><?= h($fishingResult->user->userid) ?></td>
 
                     <td class="">
-                        <?php if ($this->request->getSession()->read('Auth.User.id')) : ?>
+                        <?php $userid = $this->request->getSession()->read('Auth.User.id'); ?>
+                        <?php if ($this->request->getSession()->read('Auth.User.id') && $userid == $fishingResult->user->id) : ?>
                             <?= $this->Html->link(__('詳細'), ['action' => 'view', $fishingResult->id]) ?>
                             <?= $this->Html->link(__('修正'), ['action' => 'edit', $fishingResult->id]) ?>
                             <?= $this->Form->postLink(__('削除'), ['action' => 'delete', $fishingResult->id], ['confirm' => __('釣果情報(No.{0}) を削除してよろしいでしょうか？', $fishingResult->id)]) ?>

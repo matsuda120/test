@@ -77,6 +77,11 @@ class FishingResultsTable extends Table
         ]);
     }
 
+    public function isOwnedBy($postId, $userId)
+    {
+        return $this->exists(['id' => $postId, 'user_id' => $userId]);
+    }
+
     /**
      * Default validation rules.
      *

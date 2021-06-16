@@ -38,7 +38,10 @@ class AppController extends Controller
      * e.g. `$this->loadComponent('Security');`
      *
      * @return void
+     * 
+     * 【松浦　6/15】
      */
+
     public function initialize()
     {
         parent::initialize();
@@ -49,6 +52,7 @@ class AppController extends Controller
         $this->loadComponent('Flash');
 
         $this->loadComponent('Auth', [
+            'authorize' => ['Controller'],
             'loginAction' => [
                 'controller' => 'Users',
                 'action' => 'login'
@@ -67,9 +71,23 @@ class AppController extends Controller
                 ]
             ],
         ]);
-        //$this->loadComponent('Security');
     }
 
+    public function isAuthorized($user)
+    {
+        // 管理者はすべての操作にアクセスできます
+        if (isset($user['userid']) && $user['userid'] === 'admin') {
+            return true;
+        }
+
+        // デフォルトは拒否
+        return false;
+    }
+
+    /**
+     * 認証スルー設定
+     * 【松浦　6/14】
+     */
     public function beforeFilter(Event $event)
     {
         $this->Auth->allow(['login', 'add', 'logout']);
