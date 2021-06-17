@@ -9,15 +9,16 @@
 
 <!-- 【松浦　6/14】 -->
 
-<div class="fishingResults form large-12 medium-8 columns content">
+<div class="fishingResults form large-3 medium-8 columns content">
 
     <!-- 画面タイトル -->
-    <h3><?= __('釣果修正') ?></h3>
+    <h3><?= __('釣果情報') ?></h3>
 
     <!-- 釣果　修正　フォーム -->
     <?= $this->Form->create($fishingResult) ?>
     <fieldset>
-        <legend><?= '管理番号 ： ' . h($fishingResult->id) ?></legend>
+        <legend><?= __('修正フォーム') ?></legend>
+        <!-- <legend>?= '管理番号 ： ' . h($fishingResult->id) ?></legend> -->
         <?php
 
         echo $this->Form->control('fishing_date', [
@@ -51,8 +52,8 @@
         echo $this->Form->control('fishing_type_id', ['label' => '釣種', 'options' => $fishingTypes, 'empty' => true]);
         echo $this->Form->control('lure_feed_name', ['label' => 'ルアー／えさ名称', 'empty' => true]);
         echo $this->Form->control('lure_feed', ['label' => 'ルアー／えさ', 'options' => ["（えさ）" => '（えさ）', "（ルアー）" => '（ルアー）'], 'empty' => true]);
-        echo $this->Form->control('note', ['label' => '備考', 'empty' => true]);
-        echo $this->Form->control('user_id', ["type" => "hidden"]);
+        echo $this->Form->control('note', ['type' => 'textarea', 'label' => '備考', 'empty' => true]);
+        echo $this->Form->control('user_id', ['type' => 'hidden']);
         ?>
     </fieldset>
     <?= $this->Form->button(__('修正')) ?>

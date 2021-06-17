@@ -1,31 +1,23 @@
 <?php
+
 /**
  * @var \App\View\AppView $this
  * @var \App\Model\Entity\Weather $weather
  */
 ?>
-<nav class="large-3 medium-4 columns" id="actions-sidebar">
-    <ul class="side-nav">
-        <li class="heading"><?= __('Actions') ?></li>
-        <li><?= $this->Form->postLink(
-                __('Delete'),
-                ['action' => 'delete', $weather->id],
-                ['confirm' => __('Are you sure you want to delete # {0}?', $weather->id)]
-            )
-        ?></li>
-        <li><?= $this->Html->link(__('List Weathers'), ['action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('List Fishing Results'), ['controller' => 'FishingResults', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New Fishing Result'), ['controller' => 'FishingResults', 'action' => 'add']) ?></li>
-    </ul>
-</nav>
-<div class="weathers form large-9 medium-8 columns content">
+
+<div class="weathers form large-3 medium-8 columns content">
     <?= $this->Form->create($weather) ?>
     <fieldset>
-        <legend><?= __('Edit Weather') ?></legend>
+        <legend><?= __('修正フォーム') ?></legend>
         <?php
-            echo $this->Form->control('title');
+        echo $this->Form->control('title', ['label' => '']);
         ?>
     </fieldset>
-    <?= $this->Form->button(__('Submit')) ?>
+    <?= $this->Form->button(__('完了')) ?>
     <?= $this->Form->end() ?>
+</div>
+
+<div class="back large-12 medium-8 columns content">
+    <?= $this->Html->link(__('戻る'), ['controller' => 'Users', 'action' => 'admin']) ?>
 </div>

@@ -30,8 +30,8 @@
                     <td><?= $this->Number->format($weather->id) ?></td>
                     <td><?= h($weather->title) ?></td>
                     <td class="">
-                        <?= $this->Html->link(__('修正'), ['controller' => 'Prefectures', 'action' => 'edit',  $weather->id]) ?>
-                        <?= $this->Form->postLink(__('削除'), ['controller' => 'Prefectures', 'action' => 'delete', $weather->id], ['confirm' => __('この選択肢（No.{0}) を削除してよろしいでしょうか？', $weather->id)]) ?>
+                        <?= $this->Html->link(__('修正'), ['controller' => 'Weathers', 'action' => 'edit',  $weather->id]) ?>
+                        <?= $this->Form->postLink(__('削除'), ['controller' => 'Weathers', 'action' => 'delete', $weather->id], ['confirm' => __('この選択肢（No.{0}) を削除してよろしいでしょうか？', $weather->id)]) ?>
                     </td>
                 </tr>
             <?php endforeach; ?>
@@ -56,8 +56,8 @@
                     <td><?= $this->Number->format($fishingType->id) ?></td>
                     <td><?= h($fishingType->title) ?></td>
                     <td class="">
-                        <?= $this->Html->link(__('修正'), ['controller' => 'Prefectures', 'action' => 'edit',  $fishingType->id]) ?>
-                        <?= $this->Form->postLink(__('削除'), ['controller' => 'Prefectures', 'action' => 'delete', $fishingType->id], ['confirm' => __('この選択肢（No.{0}) を削除してよろしいでしょうか？', $fishingType->id)]) ?>
+                        <?= $this->Html->link(__('修正'), ['controller' => 'FishingTypes', 'action' => 'edit',  $fishingType->id]) ?>
+                        <?= $this->Form->postLink(__('削除'), ['controller' => 'FishingTypes', 'action' => 'delete', $fishingType->id], ['confirm' => __('この選択肢（No.{0}) を削除してよろしいでしょうか？', $fishingType->id)]) ?>
                     </td>
                 </tr>
             <?php endforeach; ?>

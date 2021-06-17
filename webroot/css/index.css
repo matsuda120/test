@@ -20,14 +20,15 @@
   
   /*3本線*/
   .hamburger-icon, .hamburger-icon::before, .hamburger-icon::after {
-      content: '';
-      display: block;
-      position: absolute;
-      z-index: 100;
-      width: 32px;
-      height: 3px;
-      background: #fff;
-      cursor: pointer;
+content: '';
+    display: block;
+    position: fixed;
+    z-index: 100;
+    width: 33px;    
+    top: -380%;
+    height: 3px;
+    background: #fff;
+    cursor: pointer;
   }
   .hamburger-icon:before {
       top: 10px;
@@ -120,7 +121,7 @@ input:checked ~ #h-menu_black {
 ul {
   list-style: none;
   margin: 0;
-  /*display:block;にすることで縦並びになる*/
+  /*display:block;にすることで縦並びになる*/ 
   display: block;
   
 }
@@ -160,101 +161,4 @@ table#table{
      font-size: 10px;
      padding: 5px 5px 5px;
  }
- 
-.haba1{
- 
-    width: 100px;
-}
- 
-.haba2{
-    width: 50px;
-}
- 
-.haba3{
-    width: 50px;
-}
- 
-.haba4{
-    width: 40px;
-}
- 
-.haba5{
-    width: 40px;
-}
- 
-.haba6{
-    width: 40px;
-}
- 
-.haba7{
-    width: 20px; ;
-}
- 
-.haba8{
-    width: 80px;
-}
- 
-.haba9{
- width: 80px;   
-}
- 
-.haba10{
-    width: 80px;
-}
- 
-.haba11{
-    width: 40px;
-}
- 
-.haba12{
-    width: 20px;
-}
- 
-.haba13{
-    width: 60px;
-}
- 
-.haba14{
-    width: 40px;
-}
- 
-.haba15{
-    width: 40px;
-}
- 
-.haba16{
-    width: 20px;
-}
- 
-.haba17{
-    width: 40px;
-}
- 
-.haba18{
-    width: 40px;
-}
- 
-.haba19{
-    width: 40px;
-}
- 
-.haba20{
-    width: 80px;
-}
- 
-.haba21{
-    width: 80px;
-}
- 
-.haba22{
-    width: 80px;   
-}
- 
-.haba23{
-    width: 80px;   
-}
-   
-.haba24{
-    width: 80px;   
-}
-  
+

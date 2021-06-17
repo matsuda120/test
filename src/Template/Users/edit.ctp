@@ -6,16 +6,16 @@
  */
 ?>
 
-<!-- 【松浦　6/14】 -->
+<!-- 【松浦　6/16】 -->
 
 <div class="users form large-12 medium-8 columns content">
 
     <!-- 画面タイトル -->
-    <h3><?= __('会員情報修正') ?></h3>
+    <h3><?= __('会員情報') ?></h3>
 
     <?= $this->Form->create($user) ?>
     <fieldset>
-        <legend><?= __('') ?></legend>
+        <legend><?= __('修正フォーム') ?></legend>
         <?php
         echo $this->Form->control(
             'userid',
@@ -50,4 +50,7 @@
     </fieldset>
     <?= $this->Form->button(__('修正')) ?>
     <?= $this->Form->end() ?>
+    <button type="button" onclick="history.back()">戻る</button>
 </div>
+
+<button type="button" onclick="history.back()">戻る</button>

@@ -34,10 +34,19 @@
             <th scope="row"><?= __('メールアドレス') ?></th>
             <td><?= h($user->email) ?></td>
         </tr>
+        <tr>
+            <th scope="row"><?= __('') ?></th>
+            <td><?= $this->Html->link(__('修正'), ['action' => 'edit', $user->id]) ?>
+                <?= $this->Form->postLink(__('削除'), ['action' => 'delete', $user->id], ['confirm' => __('会員情報（No.{0}) を削除してよろしいでしょうか？', $user->id)]) ?>
+            </td>
+        </tr>
 
     </table>
+</div>
 
-    <br>
+<br>
+
+<div class="users view large-12 medium-8 columns content">
 
     <!-- 画面タイトル -->
     <h3><?= __('釣果登録履歴') ?></h3>

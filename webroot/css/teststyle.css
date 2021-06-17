@@ -4,11 +4,11 @@ a.disabled {
 }
 
 a:hover {
-    color: #15848F;
+    color: #8D6E65;
 }
 
 a {
-    color: #1798A5;
+    color: steelblue;
 }
 
 .side-nav li a:not(.button) {
@@ -23,7 +23,7 @@ header {
     padding: 10px 2% 10px;
     top: 0;
     width: 100%;
-    background-color: #fff;
+    background: #fff;
     display: flex;
     align-items: center;
 }
@@ -33,7 +33,7 @@ header .header-title {
 }
 
 legend {
-    color:#15848F;
+    color:#854734;
 }
 
 .row {
@@ -42,7 +42,7 @@ legend {
 
 .actions.columns {
     margin-top:1rem;
-    border-left: 5px solid #15848F;
+    border-left: 5px solid #854734;
     padding-left: 15px;
     padding: 32px 20px;
 }
@@ -59,6 +59,7 @@ legend {
 
 .index table thead {
     height: 3.5rem;
+    color:#854734;
 }
 
 .header-help {
@@ -83,7 +84,7 @@ legend {
 }
 
 .header-help a {
-    color: #fff;
+    color: rgb(26, 21, 21);
 }
 
 ul.pagination li a {
@@ -283,7 +284,7 @@ pre {
 .checks hr {
     border: 0;
     height: 0;
-    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    border-top: 1px solid #854734;
     border-bottom: 1px solid rgba(255, 255, 255, 0.3);
 }
 
@@ -291,6 +292,7 @@ pre {
 .checks .problem {
     margin-left: 10px;
 }
+
 .checks .success:before,
 .checks .problem:before {
     line-height: 0px;
@@ -318,15 +320,38 @@ pre {
 }
 
 .top-bar.expanded .title-area {
+    color:#8D6E65;
     background: #fff;
 }
 
 .top-bar.expanded, .top-bar,.top-bar-section ul li,.top-bar-section li:not(.has-form) a:not(.button) {
+    color:#8D6E65;
     background: #fff;
 }
 
+
+.top-bar.expanded, .top-bar, .title-area  h1::first-letter{
+ color: black;
+ font-size: 225%;
+ font-weight: bold;
+ }
+
+.top-bar.expanded, .top-bar, .title-area  h1{
+    background: url(https://th.bing.com/th/id/OIP.QKbuotuVV5RrF7YlCXzk6gHaEK?w=319&h=180&c=7&o=5&dpr=1.5&pid=1.7);
+   background-clip: text;
+   -webkit-background-clip: text;
+   color: transparent;
+   margin-left: 20px;
+   margin-top: 20px;
+   font-size: 60px;
+   font-family: "メイリオ","Meiryo"; 
+   font-weight: bold;
+}
+
+
+
 .top-bar-section li:not(.has-form) a:not(.button):hover {
-    background-color: #fff;
+    color:#8D6E65;
     background: #fff;
 }
 
@@ -348,6 +373,7 @@ pre {
     border: 0;
     width: 100%;
     table-layout: fixed;
+    color:#8D6E65;
 }
 
 table {
@@ -356,26 +382,30 @@ table {
     border: none;
     table-layout: fixed;
     width: 100%;
+    color:#8D6E65;
 }
 
 table thead {
     background: none;
+    color:#8D6E65;
 }
 
 table tr {
     border-bottom: 1px solid #ebebec;
+    color:#8D6E65;
 }
 
 table thead tr {
-    border-bottom: 1px solid #1798A5;
+    border-bottom: 1px solid #854734;
+    color:#8D6E65;
 }
 
 table tr th {
     padding: 0.5625rem 0.625rem;
     font-size: 0.875rem;
-    color: #1798A5;
+    color:#8D6E65;
     text-align: left;
-    border-bottom: 2px solid #1798A5;
+    border-bottom: 2px solid #854734;
 }
 
 table tr:nth-of-type(even) {
@@ -389,7 +419,7 @@ fieldset {
 }
 
 fieldset legend {
-    border-bottom: 2px solid #1798A5;
+    border-bottom: 2px solid #854734;
     width: 100%;
     line-height: 2rem;
 }
@@ -461,7 +491,7 @@ div.message.hidden {
 .vertical-table th {
     padding: 0.5625rem 0.625rem;
     font-size: 0.875rem;
-    color: #1798A5;
+    color: #8D6E65;
     border: none;
     text-align: left;
 }
@@ -498,13 +528,13 @@ div.message.hidden {
 }
 
 .content h3 {
-    color: #be140b;
+    color: #8D6E65;
     padding-bottom: 0.5rem;
     margin-bottom: 20px;
 }
 
 .content h4 {
-    color: #be140b;
+    color: #8D6E65;
     padding-bottom: 0.5rem;
     margin-bottom: 20px;
     border-bottom: 2px solid #be140b;

@@ -28,20 +28,21 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
         <?= $cakeDescription ?>:
         <?= $this->fetch('title') ?>
     </title>
-    <?= $this->Html->meta('icon') ?>
+    
     <?= $this->Html->css('base.css') ?>
-    <?= $this->Html->css('style.css') ?>
-
+    <?= $this->Html->css('teststyle.css') ?>
+    
     <?= $this->fetch('meta') ?>
     <?= $this->fetch('css') ?>
     <?= $this->fetch('script') ?>
 </head>
 
+
 <body>
     <nav class="top-bar expanded" data-topbar role="navigation">
         <ul class="title-area large-4 medium-4 columns">
             <h1>釣果管理システム</h1>
-        </ul>
+        </ul>      
 
         <div class="top-bar-section">
             <ul class="right">

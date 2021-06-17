@@ -135,6 +135,15 @@ dfn {
 h1 {
     font-size: 2em;
     margin: 0.67em 0;
+    background: url(https://th.bing.com/th/id/OIP.QKbuotuVV5RrF7YlCXzk6gHaEK?w=319&h=180&c=7&o=5&dpr=1.5&pid=1.7);
+   background-clip: text;
+   -webkit-background-clip: text;
+   color: transparent;
+   margin-left: 20px;
+   margin-top: 20px;
+   font-size: 60px;
+   font-family: "メイリオ","Meiryo"; 
+   font-weight: bold;
 }
 
 /**

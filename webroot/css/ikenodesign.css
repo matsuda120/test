@@ -1,47 +1,95 @@
+/*全体を画面に出力させるstlyle.cssの500*/
+
+
+ 
 * {
     box-sizing: border-box;
  }
  
+ 
+ /*画面全体（バックの色やサイズ感）*/
  body {
    min-height: 100vh;
    flex-direction: column;
+   background-attachment: fixed;
    margin: 0;
    padding: 0;
-   background: linear-gradient(90deg, #d9e9eb, #d6eff8); 
-   font-size:16px;
-    color:#660000;
-    /* padding: 0; */
-    /*font-family: "Hiragino Kaku Gothic Pro", "ヒラギノ角ゴ Pro W3", メイリオ, Meiryo, "ＭＳ Ｐゴシック", "Helvetica Neue", Helvetica, Arial, sans-serif;*/
-    
+   width: 100%;
+   height: 100%;
+   background: #fff;  /* fallback for old browsers */
+   background: -webkit-linear-gradient(to right,#fff,#fff, #5ac8d6);  /* Chrome 10-25, Safari 5.1-6 */
+   background: linear-gradient(to bottom,#fff,#fff,#16bdbdbd); 
  }
+ 
+   /*background: #b5edf7;  /* fallback for old browsers */
+   /*background: -webkit-linear-gradient(to bottom,#b5edf7,#82d1f8, #0052D4);  /* Chrome 10-25, Safari 5.1-6 */
+   /*background: linear-gradient(to bottom,#b5edf7,#82d1f8, #0052D4); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+ 
+   /*background: linear-gradient(90deg, #d9e9eb, #d6eff8); */
+   /* background: #b5edf7;  /* fallback for old browsers */
+   /*background: -webkit-linear-gradient(to bottom,#fff,#82d1f8, #5ac8d6);  /* Chrome 10-25, Safari 5.1-6 */
+   /*background: linear-gradient(to bottom,#fff,#82e4f8,#16bdbdbd); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+   
+ 
+   /*font-size:16px;*/
+   /*color:#660000;*/
+   /* padding: 0; */
+   /*font-family: "Hiragino Kaku Gothic Pro", "ヒラギノ角ゴ Pro W3", メイリオ, Meiryo, "ＭＳ Ｐゴシック", "Helvetica Neue", Helvetica, Arial, sans-serif;*/
+    
+ 
  /*釣果管理システムっていうヘッダーの変更地*/
- .top-bar {
+ header {
     padding: 10px 2% 10px;
     top: 0;
     width: 100%;
-    background-color: #fff;
+    height: 15%;
+    background: #b5edf7;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right,#fff,#82d1f8, #5ac8d6);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to bottom,#fff,#82e4f8,#16bdbdbd); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */ 
     display: flex;
     align-items: center;
 }
+ 
 /*h1 {
     margin: 0; padding: 0;
     font: size 20px;
  }
  */
- .h1 {
-   background: url(https://th.bing.com/th/id/OIP.QKbuotuVV5RrF7YlCXzk6gHaEK?w=319&h=180&c=7&o=5&dpr=1.5&pid=1.7);
-   background-clip: text;
-   -webkit-background-clip: text;
-   color: transparent;
+ 
+ /*釣果管理システムの"釣"*/
+ p::first-letter{
+ color: black;
+ font-size: 225%;
+ font-weight: bold;
+ }
+ 
+
+
+ /*釣果管理システムの"果管理システム"*/
+ p{
+   color: black;
+    font-size: 145%;
+    font-weight: 600;
+    margin: 0.5%;
+    margin-left: 4.5%;
+    margin-top: 2%;
+    margin-bottom: unset;
+
+ }
+ 
+ /*h1.h1 {
+   /*background: url(https://th.bing.com/th/id/OIP.QKbuotuVV5RrF7YlCXzk6gHaEK?w=319&h=180&c=7&o=5&dpr=1.5&pid=1.7);
+   /*background-clip: text;
+   /*-webkit-background-clip: text;
+   /*color: transparent;
    margin-left: 20px;
    margin-top: 20px;
    font-size: 60px;
    font-family: "メイリオ","Meiryo"; 
    font-weight: bold;
- }
- 
- .h2{
-   background: url(https://th.bing.com/th/id/OIP.QKbuotuVV5RrF7YlCXzk6gHaEK?w=319&h=180&c=7&o=5&dpr=1.5&pid=1.7);
+ }*/
+ /*h2.h2{
+   /*background: url(https://th.bing.com/th/id/OIP.QKbuotuVV5RrF7YlCXzk6gHaEK?w=319&h=180&c=7&o=5&dpr=1.5&pid=1.7);
    background-clip: text;
    -webkit-background-clip: text;
    color: transparent;
@@ -52,10 +100,11 @@
    font-weight: bold;
    margin-bottom: 0%;
    margin-left: 0%;
- }
+ }*/
+ 
  
  @media (max-width: 600px) {
-.h1 {
+   h1 {
      font-size: 45px;
    }
  }
@@ -76,7 +125,7 @@ table {
    width: 300px;
 }
  
-.header {
+#header {
    font-size:9px;
    color:#666666;
    text-align:center;

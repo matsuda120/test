@@ -7,11 +7,48 @@
 
 ?>
 
-<!-- 【松浦　6/14】 -->
+<!-- 【松浦　6/17】 -->
+
+<script language="JavaScript">
+    function a() {
+        document.getElementById('tt').style.visibility = "visible";
+    }
+
+    function b() {
+        document.getElementById('tt').style.visibility = "collapse";
+    }
+</script>
+
+
+
+<!-- <table border=1>
+    <col span"3" id="t" style="visibility:collapse;">
+    <tr>
+        <th>題1</th>
+        <th>題2</th>
+    </tr>
+    <tr>
+        <td>データ1</td>
+        <td>データ2</td>
+    </tr>
+</table> -->
+
+
+<form>
+    <input type="button" value="表示" onclick="a()">
+    <input type="button" value="非表示" onclick="b()">
+</form>
+
+
 
 <div class="fishingResults index large-12 medium-8 columns content">
-    <table id="table" cellpadding="0" cellspacing="0">
+
+
+
+    <!-- <h3>?= __('釣果一覧') ?></h3> -->
+    <table cellpadding="0" cellspacing="0">
         <thead>
+            <col span"1" id="tt" style="visibility:collapse;">
             <tr>
                 <th scope="col"><?= $this->Paginator->sort('FishingResults.id', ['label' => '管理番号']) ?></th>
                 <th scope="col"><?= $this->Paginator->sort('fishing_date', ['label' => '日付']) ?></th>
@@ -31,7 +68,7 @@
                 <th scope="col"><?= $this->Paginator->sort('quantity', ['label' => '匹数']) ?></th>
                 <th scope="col"><?= $this->Paginator->sort('fishing_type_id', ['label' => '釣種']) ?></th>
                 <th scope="col"><?= $this->Paginator->sort('lure_feed_name', ['label' => 'ルアー／えさ']) ?></th>
-                <th scope="col"><?= $this->Paginator->sort('note', ['label' =>  '備考']) ?></th>
+                <th scope="col"><?= $this->Paginator->sort('note', ['label' => '備考']) ?></th>
                 <th scope="col"><?= $this->Paginator->sort('user_id', ['label' => 'ユーザーID']) ?></th>
                 <th scope="col" class="actions"><?= __('') ?></th>
             </tr>
@@ -61,12 +98,12 @@
                             'ellipsis' => '...', 'exact' => true, 'html' => true
                         )) ?></td>
                     <td><?= h($fishingResult->user->userid) ?></td>
-                    <td class="aaa">
+                    <td class="">
                         <?php $userid = $this->request->getSession()->read('Auth.User.id'); ?>
                         <?php if ($this->request->getSession()->read('Auth.User.id') && $userid == $fishingResult->user->id) : ?>
-                            <?= $this->Html->link(__('詳細'), ['class' => 'button1', 'action' => 'view', $fishingResult->id]) ?>
-                            <?= $this->Html->link(__('修正'), ['action' => 'edit', $fishingResult->id]) ?>
-                            <?= $this->Form->postLink(__('削除'), ['action' => 'delete', $fishingResult->id], ['confirm' => __('釣果情報(No.{0}) を削除してよろしいでしょうか？', $fishingResult->id)]) ?>
+                            <?= $this->Form->button(__('詳細'), ['action' => 'view', $fishingResult->id]) ?>
+                            <?= $this->Form->button(__('修正'), ['action' => 'edit', $fishingResult->id]) ?>
+                            <?= $this->Form->postButton(__('削除'), ['action' => 'delete', $fishingResult->id], ['confirm' => __('釣果情報(No.{0}) を削除してよろしいでしょうか？', $fishingResult->id)]) ?>
                         <?php else : ?>
                             <?= $this->Html->link(__('詳細'), ['action' => 'view', $fishingResult->id]) ?>
                         <?php endif; ?>
