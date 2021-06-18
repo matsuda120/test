@@ -28,63 +28,100 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
         <?= $cakeDescription ?>:
         <?= $this->fetch('title') ?>
     </title>
-    
-    <?= $this->Html->css('base.css') ?>
     <?= $this->Html->css('teststyle.css') ?>
-    
+
     <?= $this->fetch('meta') ?>
+
     <?= $this->fetch('css') ?>
     <?= $this->fetch('script') ?>
+    <script src="https://kit.fontawesome.com/70592d1a2d.js" crossorigin="anonymous"></script>
 </head>
 
-
-<body>
-    <nav class="top-bar expanded" data-topbar role="navigation">
-        <ul class="title-area large-4 medium-4 columns">
+<header class="header-3">
+    <div class="header-inner">
+        <div class="logo">
             <h1>釣果管理システム</h1>
-        </ul>      
+        </div>
+        <nav class="header-nav">
 
-        <div class="top-bar-section">
-            <ul class="right">
+            <div class="header-nav-item">
+
                 <?php $userid = $this->request->getSession()->read('Auth.User.userid'); ?>
                 <?php if ($userid == 'admin') : ?>
-                    <li><?= $this->Html->link(__('管理者専用'), ['controller' => 'Users', 'action' => 'admin']) ?></li>
+                    <div class="header-button header-login">
+                        <?= $this->Html->link(__('管理者専用'), ['controller' => 'Users', 'action' => 'admin']) ?>
+                    </div>
                 <?php endif; ?>
-
-                <li><?= $this->Html->link(__('釣果一覧'), ['controller' => 'FishingResults', 'action' => 'index']) ?></li>
-                <li><?= $this->Html->link(__('検索'), ['controller' => 'FishingResults', 'action' => 'find']) ?></li>
-                <li><?= $this->Html->link(__('項目切替'), ['controller' => 'FishingResults', 'action' => 'filter']) ?></li>
 
                 <?php if ($this->request->getSession()->read('Auth.User.id')) : ?>
-                    <li><?= $this->Html->link(__('釣果登録'), ['controller' => 'FishingResults', 'action' => 'add']) ?></li>
-                    <li><?= $this->Html->link(__('ログアウト'), ['controller' => 'Users', 'action' => 'logout']) ?></li>
+                    <div class="header-button header-login">
+                        <?= $this->Html->link(__('ログアウト'), ['controller' => 'Users', 'action' => 'logout']) ?>
+                    </div>
                 <?php else : ?>
-                    <li><?= $this->Html->link(__('会員登録'), ['controller' => 'Users', 'action' => 'add']) ?></li>
-                    <li><?= $this->Html->link(__('ログイン'), ['controller' => 'Users', 'action' => 'login']) ?></li>
+                    <div class="header-button header-login">
+                        <?= $this->Html->link(__('会員登録'), ['controller' => 'Users', 'action' => 'add']) ?>
+                    </div>
+                    <div class="header-button header-login">
+                        <?= $this->Html->link(__('ログイン'), ['controller' => 'Users', 'action' => 'login']) ?>
+                    </div>
                 <?php endif; ?>
+
 
                 <?php if ($this->request->getSession()->read('Auth.User.id')) : ?>
                     <?php $username = $this->request->getSession()->read('Auth.User.name'); ?>
                     <?php $userid = $this->request->getSession()->read('Auth.User.id'); ?>
-                    <li><?= $this->Html->link(__('こんにちは、' . $username . 'さん！'), ['controller' => 'Users', 'action' => 'view', $userid]); ?></li>
+                    <div class="header-button header-login">
+                        <?= $this->Html->link(__('こんにちは、' . $username . 'さん！'), ['controller' => 'Users', 'action' => 'view', $userid]); ?>
+                    </div>
                 <?php else : ?>
-                    <li><?= $this->Html->link(__('こんにちは、ゲストさん！'), ['controller' => 'FishingResults', 'action' => 'index']); ?></li>
+                    <div class="header-button header-login">
+                        <?= $this->Html->link(__('こんにちは、ゲストさん！'), ['controller' => 'FishingResults', 'action' => 'index']); ?>
+                    </div>
                 <?php endif; ?>
-            </ul>
-        </div>
+            </div>
+
+    </div>
     </nav>
-
-    <?= $this->Flash->render() ?>
-
-    <div class="container clearfix">
-        <?= $this->fetch('content') ?>　
     </div>
+</header>
 
-    <div class="footer">
-        <div class="back large-12 medium-8 columns content">
-            <button type="button" onclick="history.back()">戻る</button>
+<body>
+    <div class="cp_cont">
+        <div class="cp_offcm01">
+            <input type="checkbox" id="cp_toggle01">
+            <label for="cp_toggle01"><span></span></label>
+            <div class="cp_menu">
+                <ul>
+                    <?php $userid = $this->request->getSession()->read('Auth.User.userid'); ?>
+                    <?php if ($userid == 'admin') : ?>
+                        <li><?= $this->Html->link(__('管理者専用'), ['controller' => 'Users', 'action' => 'admin']) ?></li>
+                    <?php endif; ?>
+                    <?php if ($this->request->getSession()->read('Auth.User.id')) : ?>
+                        <li><?= $this->Html->link(__('ログアウト'), ['controller' => 'Users', 'action' => 'logout']) ?></li>
+                    <?php else : ?>
+                        <li><?= $this->Html->link(__('会員登録'), ['controller' => 'Users', 'action' => 'add']) ?></li>
+                        <li><?= $this->Html->link(__('ログイン'), ['controller' => 'Users', 'action' => 'login']) ?></li>
+                    <?php endif; ?>
+                </ul>
+            </div>
+        </div>
+        <div class="cp_contents">
+            <?= $this->Flash->render() ?>
+
+            <div class="container clearfix">
+                <?= $this->fetch('content') ?>　
+            </div>
+
+            <!-- <div class="footer">
+                <div class="back large-12 medium-8 columns content">
+                    <button type="button" onclick="history.back()">戻る</button>
+                </div>
+            </div> -->
+
         </div>
     </div>
+    </div>
+
 </body>
 
 </html>

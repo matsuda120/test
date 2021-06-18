@@ -19,7 +19,7 @@ a {
     color: #15848F;
 }
 
-header {
+/* header {
     padding: 10px 2% 10px;
     top: 0;
     width: 100%;
@@ -30,7 +30,7 @@ header {
 
 header .header-title {
     padding-left:80px
-}
+} */
 
 legend {
     color:#854734;
@@ -57,12 +57,8 @@ legend {
     table-layout: fixed;
 }
 
-.index table thead {
-    height: 3.5rem;
-    color:#854734;
-}
 
-.header-help {
+/* .header-help {
     float: right;
     margin-right:2rem;
     margin-top: -80px;
@@ -85,7 +81,7 @@ legend {
 
 .header-help a {
     color: rgb(26, 21, 21);
-}
+} */
 
 ul.pagination li a {
     color: rgba(0, 0 ,0 , 0.54);
@@ -93,7 +89,7 @@ ul.pagination li a {
 
 ul.pagination li.active a {
     background-color: #DCE47E;
-    color: #FFF;
+    color: #999;
     font-weight: bold;
     cursor: default;
 }
@@ -112,7 +108,7 @@ ul.pagination .disabled:hover a {
 
 .paginator p {
     text-align: right;
-    color: rgba(0, 0 ,0 , 0.54);
+    color: #999;
 }
 
 .asc:after {
@@ -319,63 +315,25 @@ pre {
     margin-right: 9px;
 }
 
-.top-bar.expanded .title-area {
-    color:#8D6E65;
-    background: #fff;
+.design10 {
+margin-top: 0rem;
+table-layout: fixed;
+ width: 100%;
+ text-align: center;
+ border-collapse: collapse;
+ border-spacing: 0;
+}
+.design10 th {
+ padding: 10px;
+ border-bottom: solid 4px #778ca3;
+ color: #778ca3
+}
+.design10 td {
+ padding: 10px;
+ border-bottom: solid 1px #778ca3;
 }
 
-.top-bar.expanded, .top-bar,.top-bar-section ul li,.top-bar-section li:not(.has-form) a:not(.button) {
-    color:#8D6E65;
-    background: #fff;
-}
-
-
-.top-bar.expanded, .top-bar, .title-area  h1::first-letter{
- color: black;
- font-size: 225%;
- font-weight: bold;
- }
-
-.top-bar.expanded, .top-bar, .title-area  h1{
-    background: url(https://th.bing.com/th/id/OIP.QKbuotuVV5RrF7YlCXzk6gHaEK?w=319&h=180&c=7&o=5&dpr=1.5&pid=1.7);
-   background-clip: text;
-   -webkit-background-clip: text;
-   color: transparent;
-   margin-left: 20px;
-   margin-top: 20px;
-   font-size: 60px;
-   font-family: "メイリオ","Meiryo"; 
-   font-weight: bold;
-}
-
-
-
-.top-bar-section li:not(.has-form) a:not(.button):hover {
-    color:#8D6E65;
-    background: #fff;
-}
-
-.side-nav li.heading {
-    color: #1798A5;
-    font-size: 0.875rem;
-    font-weight: bold;
-    text-transform: uppercase;
-    padding: 0.4375rem 0.875rem;
-}
-
-
-#actions-sidebar {
-    background: #fafafa;
-}
-
-.index table {
-    margin-top: 0rem;
-    border: 0;
-    width: 100%;
-    table-layout: fixed;
-    color:#8D6E65;
-}
-
+/* 
 table {
     background: #fff;
     margin-bottom: 1.25rem;
@@ -410,7 +368,7 @@ table tr th {
 
 table tr:nth-of-type(even) {
     background: none;
-}
+} */
 
 fieldset {
     border: none;
@@ -540,7 +498,7 @@ div.message.hidden {
     border-bottom: 2px solid #be140b;
 }
 
-.content .related h4 {
+.content .related h4  {
     color: #4d8f97;
     padding-bottom: 0.5rem;
     margin-top: 20px;
@@ -551,4 +509,175 @@ div.message.hidden {
 table td {
     vertical-align: top;
     word-break: break-all;
+}
+
+
+*, *:before, *:after {
+	padding: 0;
+	margin: 0;
+	box-sizing: border-box;
+}
+ol, ul {
+	list-style: none;
+}
+a {
+	text-decoration: none;
+	color: inherit;
+}
+.cp_cont {
+	height: 65vh;
+}
+.cp_offcm01 {
+	position: absolute;
+	top: 20px;
+	right: 20px;
+	display: inline-block;
+}
+/* menu */
+.cp_offcm01 .cp_menu {
+	position: fixed;
+	top: 0;
+	right: -100vw;
+	width: 250px;
+	height: 100%;
+	cursor: pointer;
+	-webkit-transition: 0.53s transform;
+	        transition: 0.53s transform;
+	-webkit-transition-timing-function: cubic-bezier(.38,.52,.23,.99);
+	        transition-timing-function: cubic-bezier(.38,.52,.23,.99);
+	background-color: #607D8B;
+	opacity: 0.8;
+}
+.cp_offcm01 .cp_menu ul {
+	margin: 0;
+	padding: 0;
+}
+.cp_offcm01 .cp_menu li {
+	list-style: none;
+}
+.cp_offcm01 .cp_menu li a {
+	display: block;
+	padding: 20px;
+	text-decoration: none;
+	color: #ffffff;
+	border-bottom: 1px solid #ffffff;
+}
+
+.cp_offcm01 #cp_toggle01 {
+	position: absolute;
+	display: none;
+	opacity: 0;
+}
+.cp_offcm01 #cp_toggle01:checked ~ .cp_menu {
+	-webkit-transform: translateX(-100vw);
+	        transform: translateX(-100vw);
+}
+/* menu toggle */
+.cp_offcm01 #cp_toggle01 ~ label {
+	display: block;
+	padding: 0.5em;
+	cursor: pointer;
+	-webkit-transition: 0.5s transform;
+	        transition: 0.5s transform;
+	-webkit-transition-timing-function: cubic-bezier(.61,-0.38,.37,1.27);
+	        transition-timing-function: cubic-bezier(.61,-0.38,.37,1.27);
+	text-align: center;
+	color: cadetblue;
+}
+.cp_offcm01 #cp_toggle01:checked ~ label {
+	-webkit-transform: translateX(-250px);
+	        transform: translateX(-250px);
+}
+.cp_offcm01 #cp_toggle01 ~ label::before {
+	font-family: 'FontAwesome';
+	content: '\f0c9';
+	font-size: 2em
+}
+.cp_offcm01 #cp_toggle01:checked ~ label::before {
+	content: '\f00d';
+}
+/* contents */
+.cp_contents {
+	color: #333333;
+	text-align: center;
+}
+
+
+.header-3 {
+  box-sizing: border-box;
+  width: 100%;
+  margin-top: 1cm;
+  margin-bottom: 1cm;
+}
+
+.header-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 1024px;
+  height: 60px;
+  padding: 0 0.8em;
+  margin: 0 auto;
+  font-size: 1.2em;
+}
+
+.header-nav {
+  display: flex;
+  align-items: center;
+}
+
+.header-nav-item {
+  display: flex;
+  align-items: center;
+  margin-left: 16px;
+}
+
+.logo  h1::first-letter{
+     background: url(https://th.bing.com/th/id/OIP.QKbuotuVV5RrF7YlCXzk6gHaEK?w=319&h=180&c=7&o=5&dpr=1.5&pid=1.7);
+   background-clip: text;
+   -webkit-background-clip: text;
+   color: transparent;
+ font-size: 225%;
+ font-weight: bold;
+ }
+
+.logo  h1{
+    background: url(https://th.bing.com/th/id/OIP.QKbuotuVV5RrF7YlCXzk6gHaEK?w=319&h=180&c=7&o=5&dpr=1.5&pid=1.7);
+   background-clip: text;
+   -webkit-background-clip: text;
+   color: transparent;
+   margin-left: 20px;
+   margin-top: 20px;
+   font-size: 30px;
+   font-family: "メイリオ","Meiryo"; 
+   font-weight: bold;
+}
+
+
+.header-button {
+  box-sizing: border-box;
+  display: inline-block;
+  padding: 0.5em 1.2em;
+  font-size: 12px;
+  text-decoration: none;
+  cursor: pointer;
+  user-select: none;
+}
+
+.header-login {
+  color: #999;
+}
+
+.header-post {
+  font-weight: bold;
+  color: #fff;
+  background: #00b5ad;
+  border: 1px #00b5ad solid;
+  border-radius: 3px;
+}
+
+@media screen and (max-width: 480px) {
+  .header-post {
+    display: none;
+  }
 }
