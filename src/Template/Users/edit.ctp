@@ -50,7 +50,5 @@
     </fieldset>
     <?= $this->Form->button(__('修正')) ?>
     <?= $this->Form->end() ?>
-    <button type="button" onclick="history.back()">戻る</button>
-</div>
 
-<button type="button" onclick="history.back()">戻る</button>
+</div>

@@ -45,14 +45,9 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
         <nav class="header-nav">
 
             <div class="header-nav-item">
-
-                <?php $userid = $this->request->getSession()->read('Auth.User.userid'); ?>
-                <?php if ($userid == 'admin') : ?>
-                    <div class="header-button header-login">
-                        <?= $this->Html->link(__('管理者専用'), ['controller' => 'Users', 'action' => 'admin']) ?>
-                    </div>
-                <?php endif; ?>
-
+                <div class="header-button header-login">
+                    <i class="fas fa-home"><?= $this->Html->link(__('Top'), ['controller' => 'FishingResults', 'action' => 'index']) ?></i>
+                </div>
                 <?php if ($this->request->getSession()->read('Auth.User.id')) : ?>
                     <div class="header-button header-login">
                         <?= $this->Html->link(__('ログアウト'), ['controller' => 'Users', 'action' => 'logout']) ?>
@@ -65,7 +60,6 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
                         <?= $this->Html->link(__('ログイン'), ['controller' => 'Users', 'action' => 'login']) ?>
                     </div>
                 <?php endif; ?>
-
 
                 <?php if ($this->request->getSession()->read('Auth.User.id')) : ?>
                     <?php $username = $this->request->getSession()->read('Auth.User.name'); ?>
@@ -92,15 +86,15 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
             <label for="cp_toggle01"><span></span></label>
             <div class="cp_menu">
                 <ul>
+                    <li><?= $this->Html->link(__('釣果一覧'), ['controller' => 'FishingResults', 'action' => 'index']) ?></li>
+                    <li><?= $this->Html->link(__('検索'), ['controller' => 'FishingResults', 'action' => 'find']) ?></li>
+                    <li><?= $this->Html->link(__('項目切替'), ['controller' => 'FishingResults', 'action' => 'filter']) ?></li>
+                    <?php if ($this->request->getSession()->read('Auth.User.id')) : ?>
+                        <li><?= $this->Html->link(__('釣果登録'), ['controller' => 'FishingResults', 'action' => 'add']) ?></li>
+                    <?php endif; ?>
                     <?php $userid = $this->request->getSession()->read('Auth.User.userid'); ?>
                     <?php if ($userid == 'admin') : ?>
                         <li><?= $this->Html->link(__('管理者専用'), ['controller' => 'Users', 'action' => 'admin']) ?></li>
-                    <?php endif; ?>
-                    <?php if ($this->request->getSession()->read('Auth.User.id')) : ?>
-                        <li><?= $this->Html->link(__('ログアウト'), ['controller' => 'Users', 'action' => 'logout']) ?></li>
-                    <?php else : ?>
-                        <li><?= $this->Html->link(__('会員登録'), ['controller' => 'Users', 'action' => 'add']) ?></li>
-                        <li><?= $this->Html->link(__('ログイン'), ['controller' => 'Users', 'action' => 'login']) ?></li>
                     <?php endif; ?>
                 </ul>
             </div>
