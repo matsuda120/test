@@ -8,7 +8,6 @@
 
 <!-- 【松浦　6/14】 -->
 
-
 <div class="msr_text_03">
     <?= $this->Flash->render() ?>
     <?= $this->Form->create() ?>
@@ -17,6 +16,6 @@
 </div>
 
 <div class="msr_sendbtn_03">
-    <?= $this->Form->button(__('ログイン')) ?>
+    <?= $this->Form->button(__('ログイン')); ?>
     <?= $this->Form->end() ?>
 </div>
